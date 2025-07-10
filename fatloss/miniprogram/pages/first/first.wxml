@@ -1,0 +1,65 @@
+
+<!-- 从顶部开始的横幅容器 -->
+<view class="full-top-banner">
+  <image src="/images/hengfu.jpg" class="full-banner-bg" /> 
+  <view class="full-banner-content">
+    <text class="full-banner-title">欢迎使用循环减脂助手</text>
+    <text class="full-banner-desc">把减脂融入日常，轻松成为习惯</text>
+  </view>
+</view>
+
+<!-- 圆弧分割线 -->
+<view class="arc-divider"></view>
+
+<!-- 今日推荐区域 -->
+<view class="today-recommend">
+  <view class="recommend-title">今日推荐</view>
+  <scroll-view class="recommend-scroll" scroll-x enable-flex show-scrollbar="{{false}}">
+    <!-- 特色卡片 -->
+    <view class="feature-card">
+      <image class="feature-bg" src="/images/早1.jpg"></image>
+      <view class="feature-tag">唤醒代谢</view>
+     
+    </view>
+    
+    <view class="feature-card">
+      <image class="feature-bg" src="/images/午1.jpg"></image>
+      <view class="feature-tag2">均衡营养</view>
+     
+    </view>
+
+    <!-- 修改后的每日打卡卡片，使用feature-card样式 -->
+    <view class="feature-card">
+      <image class="feature-bg" src="/images/晚1.jpg"></image>
+      <view class="feature-tag1">清淡低脂</view>
+      
+    </view>
+  </scroll-view>
+</view>
+
+<!-- 新增我的数据区域 -->
+<view class="data-section">
+  <view class="section-title">我的数据</view>
+  <view class="data-cards">
+    <!-- 打卡进度 -->
+    <view class="data-card">
+     
+      <view class="data-content">
+        <text class="data-label">打卡进度</text>
+        <text class="data-value"></text>
+      </view>
+    </view>
+    
+    <!-- 今日摄入 -->
+    <view class="data-card">
+     
+      <view class="data-content">
+        <text class="data-label">今日热量摄入</text>
+        <text class="data-value">1200/1500 kcal</text>
+      </view>
+    </view>
+    
+   
+  </view>
+</view>
+
