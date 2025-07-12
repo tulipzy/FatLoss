@@ -8,7 +8,10 @@
     "pages/mine/mine",
     "pages/login/login",
     "pages/register/register"
+   
+    
   ],
+  
   "window": {
     "navigationBarTextStyle": "black",
     "navigationBarTitleText": "膳行派",
@@ -45,8 +48,8 @@
       }
     ]
   },
+
   "style": "v2",
   "componentFramework": "glass-easel",
-  "lazyCodeLoading": "requiredComponents",
-  "sitemapLocation": "sitemap.json"
+  "lazyCodeLoading": "requiredComponents"
 }
