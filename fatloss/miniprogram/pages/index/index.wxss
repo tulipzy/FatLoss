@@ -1,4 +1,3 @@
-/**index.wxss**/
 page {
   height: 100vh;
   display: flex;
@@ -13,7 +12,7 @@ page {
   display: flex;
   flex-direction: column;
   align-items: center;
-  color: #aaa;
+  color: rgba(170, 170, 170, 0.548);
   width: 80%;
 }
 
@@ -64,10 +63,24 @@ page {
   position: absolute;
   width: 100%;
   height: 100%;
-  /* 让背景图在最底层 */
   z-index: -1; 
 }
 .scrollarea {
-  /* 需设置相对定位，让绝对定位的背景图以它为参考 */
   position: relative; 
+}
+
+.login-btn {
+  margin-top: 40px;
+  width: 80%;
+  background-color: #cccccc;
+  color: #666666;
+  border: none;
+  border-radius: 8px;
+  padding: 12px 0;
+  font-size: 16px;
+}
+
+.login-btn:not([disabled]) {
+  background-color: #07c160;
+  color: white;
 }

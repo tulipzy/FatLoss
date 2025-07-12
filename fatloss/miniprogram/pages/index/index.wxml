@@ -1,18 +1,18 @@
-<!--index.wxml-->
-
 <scroll-view class="scrollarea" scroll-y type="list">
- <!-- 背景图 -->
- <image class="bg-image" src="/images/fm.jpg"></image>
+  <!-- 背景图 -->
+  <image class="bg-image" src="/images/fm.jpg"></image>
   <view class="container">
     <view class="userinfo">
       <block wx:if="{{canIUseNicknameComp && !hasUserInfo}}">
-        <button class="avatar-wrapper" open-type="chooseAvatar" bind:chooseavatar="onChooseAvatar" bind:error="handleAvatarError">
+        <button class="avatar-wrapper" open-type="chooseAvatar" bind:chooseavatar="onChooseAvatar">
           <image class="avatar" src="{{userInfo.avatarUrl}}"></image>
         </button>
         <view class="nickname-wrapper">
           <text class="nickname-label">昵称</text>
-          <input type="nickname" class="nickname-input" placeholder="" bind:change="onInputChange" />
+          <input type="nickname" class="nickname-input" placeholder="请输入昵称" bind:change="onInputChange" />
         </view>
+      
+        <button class="login-btn" bindtap="onLogin" disabled="{{!canLogin}}">登录</button>
       </block>
       <block wx:elif="{{!hasUserInfo}}">
         <button wx:if="{{canIUseGetUserProfile}}" bindtap="getUserProfile"> 获取头像昵称 </button>
@@ -28,4 +28,3 @@
     </view>
   </view>
 </scroll-view>
-<button class="avatar-wrapper" open-type="chooseAvatar" bind:chooseavatar="onChooseAvatar" bind:error="handleAvatarError"></button>

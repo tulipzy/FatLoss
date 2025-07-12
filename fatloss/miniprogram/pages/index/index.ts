@@ -1,7 +1,17 @@
-// index.ts
-// 获取应用实例
 const app = getApp<IAppOption>()
 const defaultAvatarUrl = 'https://mmbiz.qpic.cn/mmbiz/icTdbqWNOwNRna42FI242Lcia07jQodd2FJGIYQfG0LAJGFxM4FbnQP6yfMxBgJ0F3YRqJCJ1aPAK2dQagdusBZg/0'
+
+interface IComponentData {
+  motto: string;
+  userInfo: {
+    avatarUrl: string;
+    nickName: string;
+  };
+  hasUserInfo: boolean;
+  canIUseGetUserProfile: boolean;
+  canIUseNicknameComp: boolean;
+  canLogin: boolean;
+}
 
 Component({
   data: {
@@ -13,59 +23,69 @@ Component({
     hasUserInfo: false,
     canIUseGetUserProfile: wx.canIUse('getUserProfile'),
     canIUseNicknameComp: wx.canIUse('input.type.nickname'),
-  },
+    canLogin: false,
+  } as IComponentData,
+
   methods: {
-    // 原有事件处理函数
     bindViewTap() {
-      // Remove or comment out this unregistered page navigation
-      // wx.navigateTo({
-      //   url: '../logs/logs',
-      // })
+      wx.navigateTo({
+        url: '../logs/logs',
+      })
     },
-    // 选择头像后更新状态，若已完善信息则跳转
+    
+    onLogin() {
+      if (!this.checkFormComplete()) {
+        wx.showToast({ title: '请完善所有信息', icon: 'none' });
+        return;
+      }
+      
+      this.navigateToPersonalInfo();
+    },
+    
+    checkFormComplete() {
+      const { nickName, avatarUrl } = this.data.userInfo;
+      return !!(nickName && avatarUrl && avatarUrl !== defaultAvatarUrl);
+    },
+    
+    checkLoginStatus() {
+      const canLogin = this.checkFormComplete();
+      this.setData({ canLogin });
+    },
+    
     onChooseAvatar(e: any) {
       const { avatarUrl } = e.detail
-      const { nickName } = this.data.userInfo
-      // 更新头像并判断是否已完善信息（头像+昵称）
-      const hasUserInfo = nickName && avatarUrl && avatarUrl !== defaultAvatarUrl
       this.setData({
-        "userInfo.avatarUrl": avatarUrl,
-        hasUserInfo
-      })
-      // 若已完善信息，自动跳转个人信息页
-      if (hasUserInfo) {
-        this.navigateToPersonalInfo()
-      }
+        "userInfo.avatarUrl": avatarUrl
+      });
+      this.checkLoginStatus();
     },
-    // 输入昵称后更新状态，若已完善信息则跳转
+    
     onInputChange(e: any) {
       const nickName = e.detail.value.trim();
       if (!nickName) {
         wx.showToast({ title: '请输入昵称', icon: 'none' });
         return;
       }
-      const { avatarUrl } = this.data.userInfo;
-      const hasUserInfo = nickName && avatarUrl && avatarUrl !== defaultAvatarUrl;
-      this.setData({ "userInfo.nickName": nickName, hasUserInfo });
-      if (hasUserInfo) this.navigateToPersonalInfo();
-    },   
-    // 原有 getUserProfile 授权逻辑（兼容旧版授权）
+      this.setData({ 
+        "userInfo.nickName": nickName
+      });
+      this.checkLoginStatus();
+    },
+    
     getUserProfile() {
       wx.getUserProfile({
         desc: '展示用户信息',
         success: (res) => {
-          console.log(res)
           this.setData({
             userInfo: res.userInfo,
             hasUserInfo: true
           })
-          // 授权成功后跳转个人信息页
-          wx.setStorageSync('userInfo', res.userInfo); 
+          wx.setStorageSync('userInfo', this.data.userInfo); 
           this.navigateToPersonalInfo()
         }
       })
     },
-    // 新增：跳转至个人信息页（封装复用）
+    
     navigateToPersonalInfo() {
       wx.setStorageSync('userInfo', this.data.userInfo);
       wx.navigateTo({
@@ -75,15 +95,6 @@ Component({
           wx.showToast({ title: '跳转失败，请重试', icon: 'none' });
         }
       });
-    },
-    handleAvatarError(e: any) {
-      if (e.detail.errMsg.includes('cancel')) {
-        // 忽略取消操作的错误
-        return;
-      }
-      // 处理其他真正的错误
-      console.error('头像选择失败:', e.detail.errMsg);
     }
   }
-  
 })
