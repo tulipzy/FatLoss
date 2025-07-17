@@ -1,0 +1,166 @@
+/* pages/mine/mine.wxss */
+.mine-container {
+  background-color: #f7f7f7;
+  min-height: 100vh;
+  padding-bottom: 120rpx;
+}
+
+/* 用户头部区域 */
+.user-header {
+  display: flex;
+  align-items: center;
+  padding: 40rpx 30rpx;
+  /* 修改为蓝色渐变背景 */
+  background: linear-gradient(135deg, #3478f6 0%, #5a95ff 100%);
+  margin-bottom: 20rpx;
+  border-radius: 0 0 30rpx 30rpx;
+  color: white;
+}
+
+/* 等级信息样式 */
+.level-info {
+  display: flex;
+  align-items: center;
+  background-color: rgba(255, 255, 255, 0.2);
+  border-radius: 20rpx;
+  padding: 4rpx 15rpx;
+  margin-top: 10rpx;
+}
+
+.level {
+  font-size: 26rpx;
+  font-weight: bold;
+  color: white;
+  margin-right: 10rpx;
+}
+
+.level-name {
+  font-size: 24rpx;
+  color: white;
+}
+
+/* 经验条样式 */
+experience-bar {
+  position: absolute;
+  top: 200rpx;
+  right: 30rpx;
+  width: 300rpx;
+}
+
+.exp-text {
+  font-size: 24rpx;
+  color: white;
+  text-align: right;
+  margin-bottom: 8rpx;
+}
+
+.progress-bar {
+  height: 12rpx;
+  background-color: rgba(255, 255, 255, 0.2);
+  border-radius: 6rpx;
+  overflow: hidden;
+}
+
+.progress {
+  height: 100%;
+  background-color: white;
+  border-radius: 6rpx;
+  transition: width 0.5s ease;
+}
+
+/* 其他现有样式保持不变 */
+.avatar {
+  width: 120rpx;
+  height: 120rpx;
+  border-radius: 50%;
+  margin-right: 30rpx;
+}
+
+.user-meta {
+  flex: 1;
+}
+
+.nickname {
+  font-size: 36rpx;
+  font-weight: bold;
+  margin-bottom: 10rpx;
+  display: block;
+}
+
+.user-stats {
+  display: flex;
+}
+
+.stat-item {
+  font-size: 24rpx;
+  color: #666;
+  margin-right: 20rpx;
+}
+
+/* 设置区块 */
+.settings-section {
+  background-color: #fff;
+  margin-bottom: 20rpx;
+  border-radius: 12rpx;
+  overflow: hidden;
+}
+
+.section-title {
+  font-size: 28rpx;
+  color: #999;
+  padding: 20rpx 30rpx;
+  border-bottom: 1rpx solid #f0f0f0;
+}
+
+/* 列表布局 */
+.settings-list {
+  padding: 0 30rpx;
+}
+
+.list-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 30rpx 0;
+  border-bottom: 1rpx solid #f0f0f0;
+}
+
+.list-item:last-child {
+  border-bottom: none;
+}
+
+.item-left {
+  display: flex;
+  align-items: center;
+}
+
+.item-right {
+  display: flex;
+  align-items: center;
+  color: #999;
+}
+
+.arrow {
+  font-size: 32rpx;
+  color: #ccc;
+  margin-left: 10rpx;
+}
+
+.logout-text {
+  color: #ff5a5f;
+}
+
+.chart-container {
+  width: 100%;
+  height: 300rpx;
+  padding: 20rpx;
+  box-sizing: border-box;
+  background-color: #fff;
+  border-radius: 16rpx;
+  margin: 20rpx 0;
+}
+
+.chart {
+  width: 100%;
+  height: 100%;
+}
