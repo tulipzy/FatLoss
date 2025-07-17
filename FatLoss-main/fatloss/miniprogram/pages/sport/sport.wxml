@@ -1,0 +1,428 @@
+<!--pages/sport/sport.wxml-->
+<view class="container">
+  <!-- 顶部用户信息 -->
+  <view class="header">
+    <view class="title" style="position: relative; left: -162rpx; top: 0rpx">今日目标：减脂训练</view>
+    <view class="user-level">
+      <text style="position: relative; left: 188rpx; top: -38rpx">Lv.{{userInfo.level}}</text>
+      <text class="level-name" style="position: relative; left: 179rpx; top: 3rpx">健身达人</text>
+      <view class="exp-bar">
+        <view class="exp-progress" style="{{'width: ' + (userInfo.experience / userInfo.maxExperience * 100) + '%;'}}"></view>
+      </view>
+      <text class="exp-text" style="position: relative; left: 167rpx; top: 1rpx">{{userInfo.experience}}/{{userInfo.maxExperience}}经验</text>
+    </view>
+  </view>
+  
+  <!-- 数据卡片区域 -->
+  <view class="data-cards">
+    <view class="data-card" style="width: 211rpx; height: 174rpx; display: block; box-sizing: border-box">
+      <text class="data-label">已消耗</text>
+      <text class="data-value">{{userInfo.caloriesBurned}} 千卡</text>
+    </view>
+    <view class="data-card" style="width: 174rpx; height: 174rpx; display: block; box-sizing: border-box">
+      <text class="data-label">训练时长</text>
+      <text class="data-value">{{userInfo.trainingTime}} 分钟</text>
+    </view>
+    <view class="data-card" style="width: 183rpx; height: 174rpx; display: block; box-sizing: border-box">
+      <text class="data-label">完成组数</text>
+      <text class="data-value">{{userInfo.completedSets}} 组</text>
+    </view>
+  </view>
+  
+  <!-- 卡路里消耗曲线 -->
+  <!-- 添加卡路里图表容器 -->
+  <!-- 添加卡路里图表容器 -->
+  
+  
+  <!-- 今日训练计划 -->
+  <view class="training-plan">
+    <view class="section-title">
+      <text>今日训练计划</text>
+      <text class="view-all" style="position: relative; left: 338rpx; top: 0rpx">查看全部</text>
+    </view>
+    
+    <block wx:for="{{trainingPlan}}" wx:key="id">
+      <view class="training-item {{item.status === 'completed' ? 'completed' : item.status === 'inProgress' ? 'in-progress' : ''}}">
+        <text class="training-name">{{item.name}}</text>
+        <text class="training-meta">{{item.duration}}分钟 · {{item.intensity}}</text>
+        <text class="training-status">{{item.status === 'completed' ? '已完成' : item.status === 'inProgress' ? '进行中' : '未开始'}}</text>
+      </view>
+    </block>
+  </view>
+  
+  <!-- 当前训练详情 -->
+  <view class="current-training" wx:if="{{trainingPlan[1].status === 'inProgress'}}">
+    <view class="section-title">
+      <text>正在进行：{{trainingPlan[1].name}}</text>
+    </view>
+    
+    <view class="exercise-details">
+      <text class="exercise-name">{{trainingPlan[1].exercise}}</text>
+      <text class="set-info">第{{trainingPlan[1].currentSet}}/{{trainingPlan[1].totalSets}}组</text>
+      
+      <view class="exercise-meta">
+        <view class="meta-item">
+          <text class="meta-label">每组次数</text>
+          <text class="meta-value">{{trainingPlan[1].repsPerSet}}次</text>
+        </view>
+        <view class="meta-item">
+          <text class="meta-label">休息时间</text>
+          <text class="meta-value">{{trainingPlan[1].restTime}}秒</text>
+        </view>
+      </view>
+      
+      <view class="countdown-circle">
+        <text class="countdown-text">{{countdown}}</text>
+        <text class="countdown-label">剩余时间</text>
+      </view>
+      
+      <view class="control-buttons">
+        <button class="pause-btn" bindtap="pauseTraining">⏸️ 暂停</button>
+        <button class="complete-btn" bindtap="completeSet">✓ 完成组</button>
+      </view>
+    </view>
+  </view>
+  
+  <!-- 成就和排行榜区域 -->
+  <view class="achievements-section">
+    <view class="section-title">
+      <text>训练成就</text>
+      <text class="achievement-progress">已完成 3/5</text>
+    </view>
+    
+    <view class="achievements-list">
+      <block wx:for="{{achievements}}" wx:key="id">
+        <view class="achievement-icon {{item.unlocked ? 'unlocked' : 'locked'}}">
+          <text style="position: relative; left: -174rpx; top: -2rpx">{{item.icon === 'cup' ? '🏆' : '🔥'}}</text>
+          <view class="achievement-check" wx:if="{{item.unlocked}}">✓</view>
+        </view>
+      </block>
+      <view class="achievement-icon locked">
+        <text>📅</text>
+        <view class="achievement-lock">🔒</view>
+      </view>
+      <view class="achievement-icon locked">
+        <text>⭐</text>
+        <view class="achievement-lock">🔒</view>
+      </view>
+    </view>
+  </view>
+  
+  <view class="friends-rank">
+    <view class="section-title">
+      <text>好友排行榜</text>
+      <text class="add-friend">+ 添加好友</text>
+    </view>
+    
+    <block wx:for="{{friendsRank}}" wx:key="id">
+      <view class="rank-item {{item.rank === 2 ? 'current-user' : ''}}">
+        <text class="rank-number">{{item.rank}}</text>
+        <image class="rank-avatar" src="{{item.avatar}}"></image>
+        <view class="rank-info">
+          <text class="rank-name">{{item.name}}</text>
+          <text class="rank-meta">本周训练: {{item.weeklyTime}}分钟</text>
+        </view>
+        <text class="rank-calories">{{item.calories}}千卡</text>
+      </view>
+    </block>
+    
+    <button class="view-all-rank">查看完整排行榜</button>
+  </view>
+</view>
+
+<view class="fitness-module">
+  <!-- 头部标题 -->
+  <view class="module-header">
+    <text class="module-title">今日目标：减脂训练</text>
+    <text class="module-subtitle">完成以下训练，燃烧更多卡路里</text>
+  </view>
+
+  <!-- 数据仪表区 -->
+  <view class="stats-container">
+    <view class="stat-card bg-orange">
+      <text class="value">{{caloriesBurned}}</text>
+      <text class="unit">千卡</text>
+      <text class="label">已消耗</text>
+    </view>
+    <!-- 训练时长/完成组数卡片 -->
+  </view>
+  
+    <view class="stat-card bg-blue">
+      <text class="value">{{trainingTime}}</text>
+      <text class="unit">分钟</text>
+      <text class="label">训练时长</text>
+    </view>
+    
+    <view class="stat-card bg-green">
+      <text class="value">{{completedSets}}</text>
+      <text class="unit">组</text>
+      <text class="label">完成组数</text>
+    </view>
+  </view>
+
+  <!-- 图表区域 -->
+  <view class="chart-container">
+    <text class="chart-title">卡路里消耗趋势</text>
+    <view class="chart-wrapper">
+      <canvas canvas-id="calories-chart" id="calories-chart"></canvas>
+    </view>
+  </view>
+<!-- 删除此行 -->
+
+<view class="container">
+  <!-- 用户信息和进度 -->
+  <view class="bg-white rounded-xl p-6 mb-6 card-shadow">
+    <view class="flex flex-col md:flex-row md:items-center justify-between gap-4">
+      <view>
+        <text class="text-lg font-semibold">今日目标：减脂训练</text>
+        <text class="text-gray-500 text-sm">完成以下训练，燃烧更多卡路里</text>
+      </view>
+      <view class="flex items-center">
+        <view class="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center text-primary font-bold mr-2">
+          Lv.{{userLevel}}
+        </view>
+        <view>
+          <view class="flex items-center text-sm">
+            <text class="font-medium">{{userTitle}}</text>
+            <text class="text-gray-500 ml-2">{{currentExp}}/{{totalExp}}经验</text>
+          </view>
+          <view class="w-48 bg-gray-200 rounded-full h-1.5 mt-1">
+            <view class="bg-primary h-1.5 rounded-full" style="width: {{expProgress}}%"></view>
+          </view>
+        </view>
+      </view>
+    </view>
+    
+    <view class="grid grid-cols-3 gap-4 mt-6">
+      <view class="bg-gray-50 rounded-lg p-4 text-center">
+        <text class="text-xs text-gray-500 mb-1">已消耗</text>
+        <text class="text-xl font-bold text-primary">{{caloriesBurned}}<text class="text-sm font-normal ml-1">千卡</text></text>
+      </view>
+      <view class="bg-gray-50 rounded-lg p-4 text-center">
+        <text class="text-xs text-gray-500 mb-1">训练时长</text>
+        <text class="text-xl font-bold text-primary">{{trainingTime}}<text class="text-sm font-normal ml-1">分钟</text></text>
+      </view>
+      <view class="bg-gray-50 rounded-lg p-4 text-center">
+        <text class="text-xs text-gray-500 mb-1">完成组数</text>
+        <text class="text-xl font-bold text-primary">{{completedSets}}<text class="text-sm font-normal ml-1">组</text></text>
+      </view>
+    </view>
+  </view>
+</view>
+
+<view class="container">
+  <!-- 数据图表 -->
+  <view class="mt-6">
+    <canvas canvas-id="workoutChart" id="workoutChart"></canvas>
+  </view>
+</view>
+
+<view class="container">
+  <!-- 添加唯一根容器 -->
+  <view class="page-root">
+    <!-- 原有的所有内容都嵌套在这个根容器内 -->
+    <view class="container">...</view>
+    <view class="fitness-module">...</view>
+    <view class="container">...</view>
+    <!-- 其他所有视图元素 -->
+  </view>
+</view>
+<!-- 商店 -->
+<view class="bg-white rounded-xl p-6 mb-6 card-shadow">
+  <view class="flex justify-between items-center mb-4">
+    <text class="text-xl font-bold">商店</text>
+    <view class="flex items-center">
+      <text class="text-warning mr-1">💎</text>
+      <text class="font-medium">240</text>
+    </view>
+  </view>
+  
+  <view class="grid grid-cols-2 gap-4">
+    <view class="card-hover bg-gray-50 rounded-xl overflow-hidden">
+      <view class="h-24 bg-primary/10 flex items-center justify-center">
+        <text class="text-3xl text-primary">📅</text>
+      </view>
+      <view class="p-3">
+        <text class="font-medium text-sm mb-1">1周专业训练计划</text>
+        <view class="flex justify-between items-center">
+          <text class="text-xs text-gray-500">7天完整计划</text>
+          <view class="flex items-center">
+            <text class="text-warning text-xs mr-1">💎</text>
+            <text class="text-sm font-medium">80</text>
+          </view>
+        </view>
+      </view>
+    </view>
+    
+    <view class="card-hover bg-gray-50 rounded-xl overflow-hidden">
+      <view class="h-24 bg-secondary/10 flex items-center justify-center">
+        <text class="text-3xl text-secondary">🍴</text>
+      </view>
+      <view class="p-3">
+        <text class="font-medium text-sm mb-1">减脂饮食指南</text>
+        <view class="flex justify-between items-center">
+          <text class="text-xs text-gray-500">专业营养建议</text>
+          <view class="flex items-center">
+            <text class="text-warning text-xs mr-1">💎</text>
+            <text class="text-sm font-medium">120</text>
+          </view>
+        </view>
+      </view>
+    </view>
+    
+    <view class="card-hover bg-gray-50 rounded-xl overflow-hidden">
+      <view class="h-24 bg-success/10 flex items-center justify-center">
+        <text class="text-3xl text-success">▶️</text>
+      </view>
+      <view class="p-3">
+        <text class="font-medium text-sm mb-1">高级训练视频</text>
+        <view class="flex justify-between items-center">
+          <text class="text-xs text-gray-500">10个专业教学</text>
+          <view class="flex items-center">
+            <text class="text-warning text-xs mr-1">💎</text>
+            <text class="text-sm font-medium">150</text>
+          </view>
+        </view>
+      </view>
+    </view>
+    
+    <view class="card-hover bg-gray-50 rounded-xl overflow-hidden">
+      <view class="h-24 bg-warning/10 flex items-center justify-center">
+        <text class="text-3xl text-warning">🔔</text>
+      </view>
+      <view class="p-3">
+        <text class="font-medium text-sm mb-1">1个月提醒服务</text>
+        <view class="flex justify-between items-center">
+          <text class="text-xs text-gray-500">训练时间提醒</text>
+          <view class="flex items-center">
+            <text class="text-warning text-xs mr-1">💎</text>
+            <text class="text-sm font-medium">50</text>
+          </view>
+        </view>
+      </view>
+    </view>
+  </view>
+</view>
+
+<view class="bg-white rounded-xl p-4 mb-6">
+  <view class="flex justify-between items-center mb-3">
+    <text class="font-bold text-lg">训练成就</text>
+    <text class="text-sm text-primary">已完成 3/5</text>
+  </view>
+  <view class="flex space-x-3">
+    <!-- 已解锁徽章 -->
+    <view class="relative">
+      <view class="w-16 h-16 rounded-full bg-primary/10 flex items-center justify-center">
+        🏆
+      </view>
+      <view class="absolute -top-1 -right-1 bg-success text-white text-xs rounded-full w-5 h-5 flex items-center justify-center">
+        ✔️
+      </view>
+    </view>
+    <view class="relative">
+      <view class="w-16 h-16 rounded-full bg-primary/10 flex items-center justify-center">
+        🔥
+      </view>
+      <view class="absolute -top-1 -right-1 bg-success text-white text-xs rounded-full w-5 h-5 flex items-center justify-center">
+        ✔️
+      </view>
+    </view>
+    <view class="relative">
+      <view class="w-16 h-16 rounded-full bg-primary/10 flex items-center justify-center">
+        ⭐
+      </view>
+      <view class="absolute -top-1 -right-1 bg-success text-white text-xs rounded-full w-5 h-5 flex items-center justify-center">
+        ✔️
+      </view>
+    </view>
+  </view>
+</view>
+
+<!-- 锁定的徽章 -->
+<view class="relative">
+  <view class="w-16 h-16 rounded-full bg-gray-100 flex items-center justify-center">
+    🔒
+  </view>
+  <view class="absolute bottom-0 left-0 right-0 bg-black/70 text-white text-xs text-center rounded-b">
+    连续7天训练
+  </view>
+</view>
+<view class="relative">
+  <view class="w-16 h-16 rounded-full bg-gray-100 flex items-center justify-center">
+    <!-- 455行 -->
+🔒
+<!-- 456行 -->
+</view>
+<!-- 457行 -->
+<view class="absolute bottom-0 left-0 right-0 bg-black/70 text-white text-xs text-center rounded-b">
+  <!-- 458行 -->
+  累计消耗10000千卡
+</view>  <!-- 添加结束标签 -->
+<!-- 459行 -->
+<!-- 假设这里缺少了开始标签 -->
+<!-- 460行 -->
+<view class="ranking-container">
+  <!-- 排行榜内容 -->
+</view>
+  <view class="title">好友排行榜</view>
+  <view class="list">
+    <!-- 排行榜内容 -->
+  </view>
+</view>  <!-- 对应上面的 <view class="ranking-container"> -->
+
+<!-- 好友排行榜 -->
+<view class="bg-white rounded-xl p-6 mb-6 card-shadow">
+  <view class="flex justify-between items-center mb-4">
+    <text class="text-xl font-bold">好友排行榜</text>
+    <button class="text-primary text-sm font-medium" bindtap="addFriend">
+      ➕ 添加好友
+    </button>
+  </view>
+  
+  <view class="space-y-3">
+    <!-- 排行榜项 -->
+    <view class="flex items-center p-3 bg-gray-50 rounded-lg">
+      <view class="w-8 h-8 rounded-full bg-primary/10 flex items-center justify-center text-primary font-bold">1</view>
+      <image src="https://picsum.photos/32/32?random=1" alt="用户头像" class="w-8 h-8 rounded-full mx-3"></image>
+      <view class="flex-grow">
+        <text class="font-medium">张三</text>
+        <text class="text-xs text-gray-500">本周训练: 120分钟</text>
+      </view>
+      <text class="text-primary font-bold">2400千卡</text>
+    </view>
+    
+    <view class="flex items-center p-3 bg-primary/5 rounded-lg border-l-4 border-primary">
+      <view class="w-8 h-8 rounded-full bg-primary text-white flex items-center justify-center font-bold">2</view>
+      <image src="https://picsum.photos/32/32?random=2" alt="用户头像" class="w-8 h-8 rounded-full mx-3"></image>
+      <view class="flex-grow">
+        <text class="font-medium">你</text>
+        <text class="text-xs text-gray-500">本周训练: 105分钟</text>
+      </view>
+      <text class="text-primary font-bold">2100千卡</text>
+    </view>
+    
+    <view class="flex items-center p-3 bg-gray-50 rounded-lg">
+      <view class="w-8 h-8 rounded-full bg-gray-200 flex items-center justify-center text-gray-700 font-bold">3</view>
+      <image src="https://picsum.photos/32/32?random=3" alt="用户头像" class="w-8 h-8 rounded-full mx-3"></image>
+      <view class="flex-grow">
+        <text class="font-medium">李四</text>
+        <text class="text-xs text-gray-500">本周训练: 90分钟</text>
+      </view>
+      <text class="text-primary font-bold">1800千卡</text>
+    </view>
+    
+    <view class="flex items-center p-3 bg-gray-50 rounded-lg">
+      <view class="w-8 h-8 rounded-full bg-gray-200 flex items-center justify-center text-gray-700 font-bold">4</view>
+      <image src="https://picsum.photos/32/32?random=4" alt="用户头像" class="w-8 h-8 rounded-full mx-3"></image>
+      <view class="flex-grow">
+        <text class="font-medium">王五</text>
+        <text class="text-xs text-gray-500">本周训练: 75分钟</text>
+      </view>
+      <text class="text-primary font-bold">1500千卡</text>
+    </view>
+  </view>
+  
+  <button class="mt-4 w-full py-2 text-primary rounded-lg border border-primary/30 font-medium btn-hover" bindtap="viewFullRanking">
+    查看完整排行榜
+  </button>
+</view>

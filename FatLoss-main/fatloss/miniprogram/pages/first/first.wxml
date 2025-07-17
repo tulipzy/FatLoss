@@ -1,0 +1,101 @@
+
+<!-- 从顶部开始的横幅容器 -->
+<view class="full-top-banner">
+  <image src="/images/hengfu.jpg" class="full-banner-bg" /> 
+  <view class="full-banner-content">
+    <text class="full-banner-title">欢迎使用循环减脂助手</text>
+    <text class="full-banner-desc">把减脂融入日常，轻松成为习惯</text>
+  </view>
+</view>
+
+<!-- 圆弧分割线 -->
+<view class="arc-divider"></view>
+
+<!-- 今日推荐区域 -->
+<view class="today-recommend">
+  <view class="recommend-title">今日推荐</view>
+  <scroll-view class="recommend-scroll" scroll-x enable-flex show-scrollbar="{{false}}">
+    <!-- 特色卡片 -->
+    <view class="feature-card">
+      <image class="feature-bg" src="/images/早1.jpg"></image>
+      <view class="feature-tag">唤醒代谢</view>
+     
+    </view>
+    
+    <view class="feature-card">
+      <image class="feature-bg" src="/images/午1.jpg"></image>
+      <view class="feature-tag2">均衡营养</view>
+     
+    </view>
+
+    <!-- 修改后的每日打卡卡片，使用feature-card样式 -->
+    <view class="feature-card">
+      <image class="feature-bg" src="/images/晚1.jpg"></image>
+      <view class="feature-tag1">清淡低脂</view>
+      
+    </view>
+  </scroll-view>
+</view>
+
+<!-- 打卡功能区域 -->
+<view class="check-in-section">
+  <view class="section-title" style="position: relative; left: 19rpx; top: -29rpx">每日打卡</view>
+  
+  <!-- 进度环容器 -->
+  <view class="progress-ring-container">
+    <canvas id="progressCanvas" canvas-id="progressCanvas" class="progress-canvas"></canvas>
+    <button 
+      class="check-btn {{isChecked ? 'checked' : ''}}"
+      bindtap="handleCheckIn"
+      disabled="{{isChecked}}"
+     style="position: absolute; left: 90rpx; top: 30rpx">
+      {{isChecked ? '已打卡' : '立即打卡'}}
+    </button>
+  </view>
+  
+  <!-- 目标设置 -->
+  <view class="target-setting">
+    <text class="target-text" bindtap="showTargetPicker" style="position: relative; left: 251rpx; top: -343rpx">
+      目标：{{targetDays}}天
+    </text>
+  </view>
+  
+  <!-- 累计打卡 -->
+  <view class="total-checkin" style="position: relative; left: 0rpx; top: -209rpx">
+    累计打卡 <text class="highlight">{{totalDays}}</text> 天
+  </view>
+</view>
+
+<!-- 目标设置弹窗 -->
+<view class="target-modal" wx:if="{{showTargetModal}}">
+  <view class="modal-mask" bindtap="hideTargetPicker"></view>
+  <view class="modal-content">
+    <text class="modal-title">设置目标天数</text>
+    
+    <!-- 预设选项 -->
+    <view class="preset-options">
+      <button class="preset-btn {{customTarget === 7 ? 'active' : ''}}" bindtap="setPresetTarget" data-days="7">一周</button>
+      <button class="preset-btn {{customTarget === 30 ? 'active' : ''}}" bindtap="setPresetTarget" data-days="30">一个月</button>
+    </view>
+    
+    <!-- 滑动调节 -->
+    <view class="slider-container">
+      <text class="slider-label">自定义：{{customTarget}}天</text>
+      <slider 
+        min="1" 
+        max="90" 
+        step="1" 
+        value="{{customTarget}}" 
+        bindchange="onSliderChange"
+        activeColor="#ff9900"
+      />
+      <view class="slider-range">
+        <text>1天</text>
+        <text>90天</text>
+      </view>
+    </view>
+    
+    <!-- 确认按钮 -->
+    <button class="confirm-btn" bindtap="confirmTarget">确认设置</button>
+  </view>
+</view>

@@ -1,0 +1,171 @@
+<!-- pages/mine/mine.wxml -->
+<view class="mine-container">
+  <!-- 顶部用户信息栏 -->
+  <view class="user-header">
+    <view class="user-info">
+      <image class="avatar" src="{{userInfo.avatarUrl || '/images/default-avatar.jpg'}}" mode="aspectFill"></image>
+      <view class="user-meta">
+        <text class="nickname">{{userInfo.nickName || '用户昵称'}}</text>
+        <view class="level-info">
+          <text class="level">Lv.{{userInfo.level || 7}}</text>
+          <text class="level-name">{{userInfo.levelName || '健身达人'}}</text>
+        </view>
+      </view>
+    </view>
+    <view class="experience-bar">
+      <text class="exp-text">{{userInfo.currentExp || 2450}}/{{userInfo.nextLevelExp || 3000}}经验</text>
+      <view class="progress-bar">
+        <view class="progress" style="width: {{(userInfo.currentExp || 2450)/(userInfo.nextLevelExp || 3000)*100}}%"></view>
+      </view>
+    </view>
+  </view>
+
+  <!-- 训练数据统计 -->
+  <view class="stats-container">
+    <view class="stat-item">
+      <text class="stat-value">{{userInfo.caloriesBurned || 240}}</text>
+      <text class="stat-label">已消耗(千卡)</text>
+    </view>
+    <view class="stat-item">
+      <text class="stat-value">{{userInfo.trainingTime || 25}}</text>
+      <text class="stat-label">训练时长(分钟)</text>
+    </view>
+    <view class="stat-item">
+      <text class="stat-value">{{userInfo.completedSets || 8}}</text>
+      <text class="stat-label">完成组数</text>
+    </view>
+  </view>
+
+  <!-- 添加曲线图 -->
+  <view class="chart-container">
+    <canvas canvas-id="calorieChart" class="chart"></canvas>
+  </view>
+
+  <!-- 训练成就 -->
+  <view class="achievements-section">
+    <view class="section-header">
+      <text class="section-title">训练成就</text>
+      <text class="section-more">已完成 {{userInfo.completedAchievements || 3}}/{{userInfo.totalAchievements || 5}}</text>
+    </view>
+    <view class="achievements-list">
+      <view class="achievement-item completed">
+        <image class="achievement-icon" src="/images/achievements/cup.png"></image>
+      </view>
+      <view class="achievement-item completed">
+        <image class="achievement-icon" src="/images/achievements/flame.png"></image>
+      </view>
+      <view class="achievement-item completed">
+        <image class="achievement-icon" src="/images/achievements/star.png"></image>
+      </view>
+      <view class="achievement-item locked">
+        <image class="achievement-icon" src="/images/achievements/7days.png"></image>
+        <text class="achievement-name">连续7天训练</text>
+      </view>
+      <view class="achievement-item locked">
+        <image class="achievement-icon" src="/images/achievements/10000cal.png"></image>
+        <text class="achievement-name">累计消耗10000千卡</text>
+      </view>
+    </view>
+  </view>
+
+  <!-- 好友排行榜 -->
+  <view class="ranking-section">
+    <view class="section-header">
+      <text class="section-title">好友排行榜</text>
+      <text class="add-friend">+ 添加好友</text>
+    </view>
+    <view class="ranking-list">
+      <view class="ranking-item">
+        <text class="rank">1</text>
+        <image class="rank-avatar" src="/images/friends/zhangsan.png"></image>
+        <view class="rank-info">
+          <text class="rank-name">张三</text>
+          <text class="rank-desc">本周训练: 120分钟</text>
+        </view>
+        <text class="rank-score">2400千卡</text>
+      </view>
+      <view class="ranking-item current-user">
+        <text class="rank">2</text>
+        <image class="rank-avatar" src="{{userInfo.avatarUrl || '/images/default-avatar.jpg'}}"></image>
+        <view class="rank-info">
+          <text class="rank-name">你</text>
+          <text class="rank-desc">本周训练: 105分钟</text>
+        </view>
+        <text class="rank-score">2100千卡</text>
+      </view>
+      <view class="ranking-item">
+        <text class="rank">3</text>
+        <image class="rank-avatar" src="/images/friends/lisi.png"></image>
+        <view class="rank-info">
+          <text class="rank-name">李四</text>
+          <text class="rank-desc">本周训练: 90分钟</text>
+        </view>
+        <text class="rank-score">1800千卡</text>
+      </view>
+    </view>
+    <button class="view-all-rank">查看完整排行榜</button>
+  </view>
+
+  <!-- 商店区域 -->
+  <view class="shop-section">
+    <view class="section-header">
+      <text class="section-title">商店</text>
+      <text class="diamonds">{{userInfo.diamonds || 240}} <image class="diamond-icon" src="/images/icons/diamond.png"></image></text>
+    </view>
+    <view class="shop-items">
+      <view class="shop-item">
+        <image class="shop-icon" src="/images/shop/training-plan.png"></image>
+        <text class="shop-name">1周专业训练计划</text>
+        <text class="shop-desc">7天完整计划</text>
+        <text class="shop-price">{{80}} <image class="diamond-icon" src="/images/icons/diamond.png"></image></text>
+      </view>
+      <view class="shop-item">
+        <image class="shop-icon" src="/images/shop/diet-guide.png"></image>
+        <text class="shop-name">减脂饮食指南</text>
+        <text class="shop-desc">专业营养建议</text>
+        <text class="shop-price">{{120}} <image class="diamond-icon" src="/images/icons/diamond.png"></image></text>
+      </view>
+      <view class="shop-item">
+        <image class="shop-icon" src="/images/shop/training-video.png"></image>
+        <text class="shop-name">高级训练视频</text>
+        <text class="shop-desc">10个专业教学</text>
+        <text class="shop-price">{{150}} <image class="diamond-icon" src="/images/icons/diamond.png"></image></text>
+      </view>
+      <view class="shop-item">
+        <image class="shop-icon" src="/images/shop/reminder.png"></image>
+        <text class="shop-name">1个月提醒服务</text>
+        <text class="shop-desc">训练时间提醒</text>
+        <text class="shop-price">{{50}} <image class="diamond-icon" src="/images/icons/diamond.png"></image></text>
+      </view>
+    </view>
+  </view>
+
+  <!-- 今日挑战 -->
+  <view class="challenge-section">
+    <view class="section-header">
+      <text class="section-title">今日挑战</text>
+      <text class="challenge-time">剩余时间: 08:45:30</text>
+    </view>
+    <view class="challenge-progress">
+      <view class="challenge-item">
+        <image class="challenge-icon" src="/images/challenges/calories.png"></image>
+        <text class="challenge-name">消耗300千卡</text>
+        <view class="challenge-bar">
+          <view class="challenge-progress" style="width: 75%"></view>
+        </view>
+        <text class="challenge-reward">+75经验</text>
+      </view>
+      <view class="challenge-item">
+        <image class="challenge-icon" src="/images/challenges/5days.png"></image>
+        <text class="challenge-name">连续训练5天</text>
+        <view class="challenge-bar">
+          <view class="challenge-progress" style="width: 60%"></view>
+        </view>
+        <text class="challenge-reward">+100经验</text>
+      </view>
+    </view>
+  </view>
+
+  <!-- 分享按钮 -->
+  <button class="share-btn">分享训练成果</button>
+</view>
