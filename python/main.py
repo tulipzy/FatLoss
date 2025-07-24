@@ -26,6 +26,8 @@ def main():
                                     lambda x: 0 < x < weight)
     weeks = get_valid_input("预期减肥周数: ", int, lambda x: x > 0)
 
+
+# 下面是强度参数
     activity_map = {
         'sedentary': 1.2, 'light': 1.375,
         'moderate': 1.55, 'very': 1.725,
