@@ -87,7 +87,7 @@ def main():
     }
     
     # 初始化数据库连接
-    db = ExerciseDatabase(**db_config)
+    db = ExerciseDatabase(** db_config)
     if not db.connect():
         print("无法连接到数据库，程序退出。")
         return
@@ -109,3 +109,4 @@ def main():
 
 if __name__ == "__main__":
     main()
+    
