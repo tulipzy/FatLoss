@@ -37,9 +37,9 @@ class ExerciseRecommender:
     def get_intensity_multiplier(self, intensity):
         """根据训练强度返回相应的乘数"""
         multipliers = {
-            "低": 0.7,
-            "中": 1.0,
-            "高": 1.3
+            "low": 0.7,
+            "medium": 1.0,
+            "high": 1.3
         }
         return multipliers.get(intensity, 1.0)
         
@@ -141,16 +141,16 @@ class ExerciseRecommender:
             for ex in exercises:
                 # 根据持续类型显示不同的单位
                 if ex["duration_type"] == 1:
-                    reps_or_duration = f"{ex['reps_or_duration']}次"
+                    reps_or_duration = f"{ex['reps_or_duration']} reps"
                 else:
-                    reps_or_duration = f"{ex['reps_or_duration']}分钟"
-                    
+                    reps_or_duration = f"{ex['reps_or_duration']} minutes"
+                
                 formatted_exercises.append({
-                    "运动ID": ex["exercise_id"],
-                    "运动名称": ex["exercise_name"],
-                    "运动种类": category,
-                    "组数": ex["sets"],
-                    "每组数量/时长": reps_or_duration
+                    "exercise_id": ex["exercise_id"],
+                    "exercise_name": ex["exercise_name"],
+                    "category": category,
+                    "sets": ex["sets"],
+                    "reps_or_duration": reps_or_duration
                 })
             formatted[category] = formatted_exercises
             

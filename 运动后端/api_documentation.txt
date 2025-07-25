@@ -1,0 +1,41 @@
+# API 文档
+
+## 数据格式说明
+
+### 请求数据格式 (POST /api/recommend)
+```json
+{
+  "gender": string,       // 性别，值为"male"或"female"
+  "age": integer,         // 年龄，范围18-80
+  "height": number,       // 身高，单位厘米，范围100-250
+  "weight": number,       // 当前体重，单位千克，范围30-200
+  "target_weight": number,// 目标体重，单位千克，范围30-200
+  "intensity": string     // 训练强度，值为"low"、"medium"或"high"
+}
+```
+
+### 响应数据格式
+```json
+{
+  "status": "success",
+  "data": {
+    "recommended_weeks": integer,          // 推荐周期(周)
+    "home_exercises": [                    // 居家运动推荐
+      {
+        "exercise_id": integer,
+        "exercise_name": string,
+        "sets": integer,                   // 组数
+        "reps_or_duration": string         // 每组次数或时长
+      }
+    ],
+    "outdoor_exercises": [...],            // 户外运动推荐，格式同上
+    "gym_exercises": [...]                 // 健身房运动推荐，格式同上
+  }
+}
+```
+
+## 状态码说明
+- 200: 请求成功，返回推荐结果
+- 400: 请求参数错误，包含具体错误信息
+- 500: 服务器内部错误，包含错误详情
+- 405: 请求方法不支持（仅支持POST）
