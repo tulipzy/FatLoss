@@ -1,0 +1,51 @@
+<view class="container">
+  <!-- 搜索框 -->
+  <view class="search-box">
+    <icon type="search" size="15"></icon>
+    <input placeholder="搜索食物热量" placeholder-class="placeholder-style" bindinput="onSearch"></input>
+  </view>
+
+  <!-- 相机/相册选择按钮 -->
+  <view class="camera-container" bindtap="chooseFoodImage">
+    <image class="camera-image" src="/images/camera.jpg" mode="aspectFit"></image>
+    <text class="camera-text">拍照/选图识别饮食</text>
+  </view>
+
+  <!-- 新增：饮食清单、饮食报告按钮 -->
+  <view class="btn-group">
+    <view class="custom-btn" bindtap="gotoDietList">饮食清单</view>
+    <view class="custom-btn" bindtap="gotoDietReport">饮食报告</view>
+  </view>
+
+  <!-- 进度卡片容器 -->
+  <view class="progress-card">
+    <view class="progress-module">
+      <!-- 饮食摄入 -->
+      <view class="progress-item">
+        <image class="icon" src="/images/diet.jpg"></image>
+        <view class="text-group">
+          <text class="title">饮食摄入</text>
+          <text class="value">{{dietIntake}} 千卡</text>
+        </view>
+      </view>
+
+      <!-- 双环进度条 -->
+      <view class="progress-circle-wrap">
+        <!-- 外环（底色环） -->
+        <view class="progress-circle outer-circle">
+          <!-- 进度环（夹缝区域） -->
+          <view class="progress-circle progress-ring" style="{{progressCircleStyle}}">
+            <!-- 内环（中心内容容器） -->
+            <view class="progress-circle inner-circle">
+              <view class="circle-text">
+                <text class="remain-title">还可摄入</text>
+                <text class="remain-value">{{remainCalorie}}</text>
+                <text class="recommend">推荐摄入{{recommendCalorie}}千卡</text>
+              </view>
+            </view>
+          </view>
+        </view>
+      </view>
+    </view>
+  </view>
+</view>

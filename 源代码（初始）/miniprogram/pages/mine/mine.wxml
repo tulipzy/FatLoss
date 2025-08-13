@@ -1,0 +1,62 @@
+<!-- pages/mine/mine.wxml -->
+<view class="mine-container">
+  <!-- 顶部用户信息栏 -->
+  <view class="user-header">
+    <image class="avatar" src="{{userInfo.avatarUrl || '/images/default-avatar.jpg'}}" mode="aspectFill"></image>
+    <view class="user-meta">
+      <text class="nickname">{{userInfo.nickName || '用户昵称'}}</text>
+      <view class="user-stats">
+        <text class="stat-item">积分: {{userInfo.points || 0}}</text>
+        <text class="stat-item">运动徽章: {{userInfo.badges || 0}}</text>
+      </view>
+    </view>
+  </view>
+
+  <!-- 记录查看区域 -->
+  <view class="settings-section">
+    <view class="section-title">我的记录</view>
+    <view class="settings-list">
+      <view class="list-item" bindtap="viewDietHistory">
+        <view class="item-left">
+          <text>历史饮食</text>
+        </view>
+        <text class="arrow">></text>
+      </view>
+      <view class="list-item" bindtap="viewExerciseHistory">
+        <view class="item-left">
+          <text>运动记录</text>
+        </view>
+        <text class="arrow">></text>
+      </view>
+    </view>
+  </view>
+
+  <!-- 目标设置区域 -->
+  <view class="settings-section">
+    <view class="section-title">健康目标</view>
+    <view class="settings-list">
+      <view class="list-item" bindtap="setCalorieGoal">
+        <view class="item-left">
+          <text>每日热量目标</text>
+        </view>
+        <view class="item-right">
+          <text>{{userInfo.calorieGoal || '1800'}} kcal</text>
+          <text class="arrow">></text>
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <!-- 系统设置区域 -->
+  <view class="settings-section">
+    <view class="section-title">系统设置</view>
+    <view class="settings-list">
+      <view class="list-item" bindtap="logout">
+        <view class="item-left">
+          <text class="logout-text">退出登录</text>
+        </view>
+        <text class="arrow">></text>
+      </view>
+    </view>
+  </view>
+</view>

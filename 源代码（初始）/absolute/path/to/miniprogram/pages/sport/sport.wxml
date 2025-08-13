@@ -1,0 +1,1176 @@
+// 添加在最外层
+<view class="page-container" animation="{{pageAnimation}}">
+<!-- 训练模式选择模块 -->
+<view class="training-mode-container">
+  <view class="mode-title">选择训练模式</view>
+  <view class="mode-options">
+    <view class="mode-item {{currentMode === 'home' ? 'active' : ''}}" bindtap="selectMode" data-mode="home">
+      <text class="mode-name">居家减脂</text>
+    </view>
+    <view class="mode-item {{currentMode === 'outdoor' ? 'active' : ''}}" bindtap="selectMode" data-mode="outdoor">
+      <text class="mode-name">户外训练</text>
+    </view>
+    <view class="mode-item {{currentMode === 'gym' ? 'active' : ''}}" bindtap="selectMode" data-mode="gym">
+      <text class="mode-name">健身房</text>
+    </view>
+  </view>
+</view>
+</view>
+<!-- 训练模式选择模块 -->
+<view class="training-mode-container">
+  <view class="mode-title">选择训练模式</view>
+  <view class="mode-options">
+    <view class="mode-item {{currentMode === 'home' ? 'active' : ''}}" bindtap="selectMode" data-mode="home">
+      <text class="mode-name">居家减脂</text>
+    </view>
+    <view class="mode-item {{currentMode === 'outdoor' ? 'active' : ''}}" bindtap="selectMode" data-mode="outdoor">
+      <text class="mode-name">户外训练</text>
+    </view>
+    <view class="mode-item {{currentMode === 'gym' ? 'active' : ''}}" bindtap="selectMode" data-mode="gym">
+      <text class="mode-name">健身房</text>
+    </view>
+  </view>
+</view>
+</view>
+<!-- 训练模式选择模块 -->
+<view class="training-mode-container">
+  <view class="mode-title">选择训练模式</view>
+  <view class="mode-options">
+    <view class="mode-item {{currentMode === 'home' ? 'active' : ''}}" bindtap="selectMode" data-mode="home">
+      <text class="mode-name">居家减脂</text>
+    </view>
+    <view class="mode-item {{currentMode === 'outdoor' ? 'active' : ''}}" bindtap="selectMode" data-mode="outdoor">
+      <text class="mode-name">户外训练</text>
+    </view>
+    <view class="mode-item {{currentMode === 'gym' ? 'active' : ''}}" bindtap="selectMode" data-mode="gym">
+      <text class="mode-name">健身房</text>
+    </view>
+  </view>
+</view>
+</view>
+<!-- 训练模式选择模块 -->
+<view class="training-mode-container">
+  <view class="mode-title">选择训练模式</view>
+  <view class="mode-options">
+    <view class="mode-item {{currentMode === 'home' ? 'active' : ''}}" bindtap="selectMode" data-mode="home">
+      <text class="mode-name">居家减脂</text>
+    </view>
+    <view class="mode-item {{currentMode === 'outdoor' ? 'active' : ''}}" bindtap="selectMode" data-mode="outdoor">
+      <text class="mode-name">户外训练</text>
+    </view>
+    <view class="mode-item {{currentMode === 'gym' ? 'active' : ''}}" bindtap="selectMode" data-mode="gym">
+      <text class="mode-name">健身房</text>
+    </view>
+  </view>
+</view>
+</view>
+<!-- 训练模式选择模块 -->
+<view class="training-mode-container">
+  <view class="mode-title">选择训练模式</view>
+  <view class="mode-options">
+    <view class="mode-item {{currentMode === 'home' ? 'active' : ''}}" bindtap="selectMode" data-mode="home">
+      <text class="mode-name">居家减脂</text>
+    </view>
+    <view class="mode-item {{currentMode === 'outdoor' ? 'active' : ''}}" bindtap="selectMode" data-mode="outdoor">
+      <text class="mode-name">户外训练</text>
+    </view>
+    <view class="mode-item {{currentMode === 'gym' ? 'active' : ''}}" bindtap="selectMode" data-mode="gym">
+      <text class="mode-name">健身房</text>
+    </view>
+  </view>
+</view>
+</view>
+<!-- 训练模式选择模块 -->
+<view class="training-mode-container">
+  <view class="mode-title">选择训练模式</view>
+  <view class="mode-options">
+    <view class="mode-item {{currentMode === 'home' ? 'active' : ''}}" bindtap="selectMode" data-mode="home">
+      <text class="mode-name">居家减脂</text>
+    </view>
+    <view class="mode-item {{currentMode === 'outdoor' ? 'active' : ''}}" bindtap="selectMode" data-mode="outdoor">
+      <text class="mode-name">户外训练</text>
+    </view>
+    <view class="mode-item {{currentMode === 'gym' ? 'active' : ''}}" bindtap="selectMode" data-mode="gym">
+      <text class="mode-name">健身房</text>
+    </view>
+  </view>
+</view>
+</view>
+<!-- 训练模式选择模块 -->
+<view class="training-mode-container">
+  <view class="mode-title">选择训练模式</view>
+  <view class="mode-options">
+    <view class="mode-item {{currentMode === 'home' ? 'active' : ''}}" bindtap="selectMode" data-mode="home">
+      <text class="mode-name">居家减脂</text>
+    </view>
+    <view class="mode-item {{currentMode === 'outdoor' ? 'active' : ''}}" bindtap="selectMode" data-mode="outdoor">
+      <text class="mode-name">户外训练</text>
+    </view>
+    <view class="mode-item {{currentMode === 'gym' ? 'active' : ''}}" bindtap="selectMode" data-mode="gym">
+      <text class="mode-name">健身房</text>
+    </view>
+  </view>
+</view>
+</view>
+<!-- 训练模式选择模块 -->
+<view class="training-mode-container">
+  <view class="mode-title">选择训练模式</view>
+  <view class="mode-options">
+    <view class="mode-item {{currentMode === 'home' ? 'active' : ''}}" bindtap="selectMode" data-mode="home">
+      <text class="mode-name">居家减脂</text>
+    </view>
+    <view class="mode-item {{currentMode === 'outdoor' ? 'active' : ''}}" bindtap="selectMode" data-mode="outdoor">
+      <text class="mode-name">户外训练</text>
+    </view>
+    <view class="mode-item {{currentMode === 'gym' ? 'active' : ''}}" bindtap="selectMode" data-mode="gym">
+      <text class="mode-name">健身房</text>
+    </view>
+  </view>
+</view>
+</view>
+<!-- 训练模式选择模块 -->
+<view class="training-mode-container">
+  <view class="mode-title">选择训练模式</view>
+  <view class="mode-options">
+    <view class="mode-item {{currentMode === 'home' ? 'active' : ''}}" bindtap="selectMode" data-mode="home">
+      <text class="mode-name">居家减脂</text>
+    </view>
+    <view class="mode-item {{currentMode === 'outdoor' ? 'active' : ''}}" bindtap="selectMode" data-mode="outdoor">
+      <text class="mode-name">户外训练</text>
+    </view>
+    <view class="mode-item {{currentMode === 'gym' ? 'active' : ''}}" bindtap="selectMode" data-mode="gym">
+      <text class="mode-name">健身房</text>
+    </view>
+  </view>
+</view>
+</view>
+<!-- 训练模式选择模块 -->
+<view class="training-mode-container">
+  <view class="mode-title">选择训练模式</view>
+  <view class="mode-options">
+    <view class="mode-item {{currentMode === 'home' ? 'active' : ''}}" bindtap="selectMode" data-mode="home">
+      <text class="mode-name">居家减脂</text>
+    </view>
+    <view class="mode-item {{currentMode === 'outdoor' ? 'active' : ''}}" bindtap="selectMode" data-mode="outdoor">
+      <text class="mode-name">户外训练</text>
+    </view>
+    <view class="mode-item {{currentMode === 'gym' ? 'active' : ''}}" bindtap="selectMode" data-mode="gym">
+      <text class="mode-name">健身房</text>
+    </view>
+  </view>
+</view>
+</view>
+<!-- 训练模式选择模块 -->
+<view class="training-mode-container">
+  <view class="mode-title">选择训练模式</view>
+  <view class="mode-options">
+    <view class="mode-item {{currentMode === 'home' ? 'active' : ''}}" bindtap="selectMode" data-mode="home">
+      <text class="mode-name">居家减脂</text>
+    </view>
+    <view class="mode-item {{currentMode === 'outdoor' ? 'active' : ''}}" bindtap="selectMode" data-mode="outdoor">
+      <text class="mode-name">户外训练</text>
+    </view>
+    <view class="mode-item {{currentMode === 'gym' ? 'active' : ''}}" bindtap="selectMode" data-mode="gym">
+      <text class="mode-name">健身房</text>
+    </view>
+  </view>
+</view>
+</view>
+<!-- 训练模式选择模块 -->
+<view class="training-mode-container">
+  <view class="mode-title">选择训练模式</view>
+  <view class="mode-options">
+    <view class="mode-item {{currentMode === 'home' ? 'active' : ''}}" bindtap="selectMode" data-mode="home">
+      <text class="mode-name">居家减脂</text>
+    </view>
+    <view class="mode-item {{currentMode === 'outdoor' ? 'active' : ''}}" bindtap="selectMode" data-mode="outdoor">
+      <text class="mode-name">户外训练</text>
+    </view>
+    <view class="mode-item {{currentMode === 'gym' ? 'active' : ''}}" bindtap="selectMode" data-mode="gym">
+      <text class="mode-name">健身房</text>
+    </view>
+  </view>
+</view>
+</view>
+<!-- 训练模式选择模块 -->
+<view class="training-mode-container">
+  <view class="mode-title">选择训练模式</view>
+  <view class="mode-options">
+    <view class="mode-item {{currentMode === 'home' ? 'active' : ''}}" bindtap="selectMode" data-mode="home">
+      <text class="mode-name">居家减脂</text>
+    </view>
+    <view class="mode-item {{currentMode === 'outdoor' ? 'active' : ''}}" bindtap="selectMode" data-mode="outdoor">
+      <text class="mode-name">户外训练</text>
+    </view>
+    <view class="mode-item {{currentMode === 'gym' ? 'active' : ''}}" bindtap="selectMode" data-mode="gym">
+      <text class="mode-name">健身房</text>
+    </view>
+  </view>
+</view>
+</view>
+<!-- 训练模式选择模块 -->
+<view class="training-mode-container">
+  <view class="mode-title">选择训练模式</view>
+  <view class="mode-options">
+    <view class="mode-item {{currentMode === 'home' ? 'active' : ''}}" bindtap="selectMode" data-mode="home">
+      <text class="mode-name">居家减脂</text>
+    </view>
+    <view class="mode-item {{currentMode === 'outdoor' ? 'active' : ''}}" bindtap="selectMode" data-mode="outdoor">
+      <text class="mode-name">户外训练</text>
+    </view>
+    <view class="mode-item {{currentMode === 'gym' ? 'active' : ''}}" bindtap="selectMode" data-mode="gym">
+      <text class="mode-name">健身房</text>
+    </view>
+  </view>
+</view>
+</view>
+<!-- 训练模式选择模块 -->
+<view class="training-mode-container">
+  <view class="mode-title">选择训练模式</view>
+  <view class="mode-options">
+    <view class="mode-item {{currentMode === 'home' ? 'active' : ''}}" bindtap="selectMode" data-mode="home">
+      <text class="mode-name">居家减脂</text>
+    </view>
+    <view class="mode-item {{currentMode === 'outdoor' ? 'active' : ''}}" bindtap="selectMode" data-mode="outdoor">
+      <text class="mode-name">户外训练</text>
+    </view>
+    <view class="mode-item {{currentMode === 'gym' ? 'active' : ''}}" bindtap="selectMode" data-mode="gym">
+      <text class="mode-name">健身房</text>
+    </view>
+  </view>
+</view>
+</view>
+<!-- 训练模式选择模块 -->
+<view class="training-mode-container">
+  <view class="mode-title">选择训练模式</view>
+  <view class="mode-options">
+    <view class="mode-item {{currentMode === 'home' ? 'active' : ''}}" bindtap="selectMode" data-mode="home">
+      <text class="mode-name">居家减脂</text>
+    </view>
+    <view class="mode-item {{currentMode === 'outdoor' ? 'active' : ''}}" bindtap="selectMode" data-mode="outdoor">
+      <text class="mode-name">户外训练</text>
+    </view>
+    <view class="mode-item {{currentMode === 'gym' ? 'active' : ''}}" bindtap="selectMode" data-mode="gym">
+      <text class="mode-name">健身房</text>
+    </view>
+  </view>
+</view>
+</view>
+<!-- 训练模式选择模块 -->
+<view class="training-mode-container">
+  <view class="mode-title">选择训练模式</view>
+  <view class="mode-options">
+    <view class="mode-item {{currentMode === 'home' ? 'active' : ''}}" bindtap="selectMode" data-mode="home">
+      <text class="mode-name">居家减脂</text>
+    </view>
+    <view class="mode-item {{currentMode === 'outdoor' ? 'active' : ''}}" bindtap="selectMode" data-mode="outdoor">
+      <text class="mode-name">户外训练</text>
+    </view>
+    <view class="mode-item {{currentMode === 'gym' ? 'active' : ''}}" bindtap="selectMode" data-mode="gym">
+      <text class="mode-name">健身房</text>
+    </view>
+  </view>
+</view>
+</view>
+<!-- 训练模式选择模块 -->
+<view class="training-mode-container">
+  <view class="mode-title">选择训练模式</view>
+  <view class="mode-options">
+    <view class="mode-item {{currentMode === 'home' ? 'active' : ''}}" bindtap="selectMode" data-mode="home">
+      <text class="mode-name">居家减脂</text>
+    </view>
+    <view class="mode-item {{currentMode === 'outdoor' ? 'active' : ''}}" bindtap="selectMode" data-mode="outdoor">
+      <text class="mode-name">户外训练</text>
+    </view>
+    <view class="mode-item {{currentMode === 'gym' ? 'active' : ''}}" bindtap="selectMode" data-mode="gym">
+      <text class="mode-name">健身房</text>
+    </view>
+  </view>
+</view>
+</view>
+<!-- 训练模式选择模块 -->
+<view class="training-mode-container">
+  <view class="mode-title">选择训练模式</view>
+  <view class="mode-options">
+    <view class="mode-item {{currentMode === 'home' ? 'active' : ''}}" bindtap="selectMode" data-mode="home">
+      <text class="mode-name">居家减脂</text>
+    </view>
+    <view class="mode-item {{currentMode === 'outdoor' ? 'active' : ''}}" bindtap="selectMode" data-mode="outdoor">
+      <text class="mode-name">户外训练</text>
+    </view>
+    <view class="mode-item {{currentMode === 'gym' ? 'active' : ''}}" bindtap="selectMode" data-mode="gym">
+      <text class="mode-name">健身房</text>
+    </view>
+  </view>
+</view>
+</view>
+<!-- 训练模式选择模块 -->
+<view class="training-mode-container">
+  <view class="mode-title">选择训练模式</view>
+  <view class="mode-options">
+    <view class="mode-item {{currentMode === 'home' ? 'active' : ''}}" bindtap="selectMode" data-mode="home">
+      <text class="mode-name">居家减脂</text>
+    </view>
+    <view class="mode-item {{currentMode === 'outdoor' ? 'active' : ''}}" bindtap="selectMode" data-mode="outdoor">
+      <text class="mode-name">户外训练</text>
+    </view>
+    <view class="mode-item {{currentMode === 'gym' ? 'active' : ''}}" bindtap="selectMode" data-mode="gym">
+      <text class="mode-name">健身房</text>
+    </view>
+  </view>
+</view>
+</view>
+<!-- 训练模式选择模块 -->
+<view class="training-mode-container">
+  <view class="mode-title">选择训练模式</view>
+  <view class="mode-options">
+    <view class="mode-item {{currentMode === 'home' ? 'active' : ''}}" bindtap="selectMode" data-mode="home">
+      <text class="mode-name">居家减脂</text>
+    </view>
+    <view class="mode-item {{currentMode === 'outdoor' ? 'active' : ''}}" bindtap="selectMode" data-mode="outdoor">
+      <text class="mode-name">户外训练</text>
+    </view>
+    <view class="mode-item {{currentMode === 'gym' ? 'active' : ''}}" bindtap="selectMode" data-mode="gym">
+      <text class="mode-name">健身房</text>
+    </view>
+  </view>
+</view>
+</view>
+<!-- 训练模式选择模块 -->
+<view class="training-mode-container">
+  <view class="mode-title">选择训练模式</view>
+  <view class="mode-options">
+    <view class="mode-item {{currentMode === 'home' ? 'active' : ''}}" bindtap="selectMode" data-mode="home">
+      <text class="mode-name">居家减脂</text>
+    </view>
+    <view class="mode-item {{currentMode === 'outdoor' ? 'active' : ''}}" bindtap="selectMode" data-mode="outdoor">
+      <text class="mode-name">户外训练</text>
+    </view>
+    <view class="mode-item {{currentMode === 'gym' ? 'active' : ''}}" bindtap="selectMode" data-mode="gym">
+      <text class="mode-name">健身房</text>
+    </view>
+  </view>
+</view>
+</view>
+<!-- 训练模式选择模块 -->
+<view class="training-mode-container">
+  <view class="mode-title">选择训练模式</view>
+  <view class="mode-options">
+    <view class="mode-item {{currentMode === 'home' ? 'active' : ''}}" bindtap="selectMode" data-mode="home">
+      <text class="mode-name">居家减脂</text>
+    </view>
+    <view class="mode-item {{currentMode === 'outdoor' ? 'active' : ''}}" bindtap="selectMode" data-mode="outdoor">
+      <text class="mode-name">户外训练</text>
+    </view>
+    <view class="mode-item {{currentMode === 'gym' ? 'active' : ''}}" bindtap="selectMode" data-mode="gym">
+      <text class="mode-name">健身房</text>
+    </view>
+  </view>
+</view>
+</view>
+<!-- 训练模式选择模块 -->
+<view class="training-mode-container">
+  <view class="mode-title">选择训练模式</view>
+  <view class="mode-options">
+    <view class="mode-item {{currentMode === 'home' ? 'active' : ''}}" bindtap="selectMode" data-mode="home">
+      <text class="mode-name">居家减脂</text>
+    </view>
+    <view class="mode-item {{currentMode === 'outdoor' ? 'active' : ''}}" bindtap="selectMode" data-mode="outdoor">
+      <text class="mode-name">户外训练</text>
+    </view>
+    <view class="mode-item {{currentMode === 'gym' ? 'active' : ''}}" bindtap="selectMode" data-mode="gym">
+      <text class="mode-name">健身房</text>
+    </view>
+  </view>
+</view>
+</view>
+<!-- 训练模式选择模块 -->
+<view class="training-mode-container">
+  <view class="mode-title">选择训练模式</view>
+  <view class="mode-options">
+    <view class="mode-item {{currentMode === 'home' ? 'active' : ''}}" bindtap="selectMode" data-mode="home">
+      <text class="mode-name">居家减脂</text>
+    </view>
+    <view class="mode-item {{currentMode === 'outdoor' ? 'active' : ''}}" bindtap="selectMode" data-mode="outdoor">
+      <text class="mode-name">户外训练</text>
+    </view>
+    <view class="mode-item {{currentMode === 'gym' ? 'active' : ''}}" bindtap="selectMode" data-mode="gym">
+      <text class="mode-name">健身房</text>
+    </view>
+  </view>
+</view>
+</view>
+<!-- 训练模式选择模块 -->
+<view class="training-mode-container">
+  <view class="mode-title">选择训练模式</view>
+  <view class="mode-options">
+    <view class="mode-item {{currentMode === 'home' ? 'active' : ''}}" bindtap="selectMode" data-mode="home">
+      <text class="mode-name">居家减脂</text>
+    </view>
+    <view class="mode-item {{currentMode === 'outdoor' ? 'active' : ''}}" bindtap="selectMode" data-mode="outdoor">
+      <text class="mode-name">户外训练</text>
+    </view>
+    <view class="mode-item {{currentMode === 'gym' ? 'active' : ''}}" bindtap="selectMode" data-mode="gym">
+      <text class="mode-name">健身房</text>
+    </view>
+  </view>
+</view>
+</view>
+<!-- 训练模式选择模块 -->
+<view class="training-mode-container">
+  <view class="mode-title">选择训练模式</view>
+  <view class="mode-options">
+    <view class="mode-item {{currentMode === 'home' ? 'active' : ''}}" bindtap="selectMode" data-mode="home">
+      <text class="mode-name">居家减脂</text>
+    </view>
+    <view class="mode-item {{currentMode === 'outdoor' ? 'active' : ''}}" bindtap="selectMode" data-mode="outdoor">
+      <text class="mode-name">户外训练</text>
+    </view>
+    <view class="mode-item {{currentMode === 'gym' ? 'active' : ''}}" bindtap="selectMode" data-mode="gym">
+      <text class="mode-name">健身房</text>
+    </view>
+  </view>
+</view>
+</view>
+<!-- 训练模式选择模块 -->
+<view class="training-mode-container">
+  <view class="mode-title">选择训练模式</view>
+  <view class="mode-options">
+    <view class="mode-item {{currentMode === 'home' ? 'active' : ''}}" bindtap="selectMode" data-mode="home">
+      <text class="mode-name">居家减脂</text>
+    </view>
+    <view class="mode-item {{currentMode === 'outdoor' ? 'active' : ''}}" bindtap="selectMode" data-mode="outdoor">
+      <text class="mode-name">户外训练</text>
+    </view>
+    <view class="mode-item {{currentMode === 'gym' ? 'active' : ''}}" bindtap="selectMode" data-mode="gym">
+      <text class="mode-name">健身房</text>
+    </view>
+  </view>
+</view>
+</view>
+<!-- 训练模式选择模块 -->
+<view class="training-mode-container">
+  <view class="mode-title">选择训练模式</view>
+  <view class="mode-options">
+    <view class="mode-item {{currentMode === 'home' ? 'active' : ''}}" bindtap="selectMode" data-mode="home">
+      <text class="mode-name">居家减脂</text>
+    </view>
+    <view class="mode-item {{currentMode === 'outdoor' ? 'active' : ''}}" bindtap="selectMode" data-mode="outdoor">
+      <text class="mode-name">户外训练</text>
+    </view>
+    <view class="mode-item {{currentMode === 'gym' ? 'active' : ''}}" bindtap="selectMode" data-mode="gym">
+      <text class="mode-name">健身房</text>
+    </view>
+  </view>
+</view>
+</view>
+<!-- 训练模式选择模块 -->
+<view class="training-mode-container">
+  <view class="mode-title">选择训练模式</view>
+  <view class="mode-options">
+    <view class="mode-item {{currentMode === 'home' ? 'active' : ''}}" bindtap="selectMode" data-mode="home">
+      <text class="mode-name">居家减脂</text>
+    </view>
+    <view class="mode-item {{currentMode === 'outdoor' ? 'active' : ''}}" bindtap="selectMode" data-mode="outdoor">
+      <text class="mode-name">户外训练</text>
+    </view>
+    <view class="mode-item {{currentMode === 'gym' ? 'active' : ''}}" bindtap="selectMode" data-mode="gym">
+      <text class="mode-name">健身房</text>
+    </view>
+  </view>
+</view>
+</view>
+<!-- 训练模式选择模块 -->
+<view class="training-mode-container">
+  <view class="mode-title">选择训练模式</view>
+  <view class="mode-options">
+    <view class="mode-item {{currentMode === 'home' ? 'active' : ''}}" bindtap="selectMode" data-mode="home">
+      <text class="mode-name">居家减脂</text>
+    </view>
+    <view class="mode-item {{currentMode === 'outdoor' ? 'active' : ''}}" bindtap="selectMode" data-mode="outdoor">
+      <text class="mode-name">户外训练</text>
+    </view>
+    <view class="mode-item {{currentMode === 'gym' ? 'active' : ''}}" bindtap="selectMode" data-mode="gym">
+      <text class="mode-name">健身房</text>
+    </view>
+  </view>
+</view>
+</view>
+<!-- 训练模式选择模块 -->
+<view class="training-mode-container">
+  <view class="mode-title">选择训练模式</view>
+  <view class="mode-options">
+    <view class="mode-item {{currentMode === 'home' ? 'active' : ''}}" bindtap="selectMode" data-mode="home">
+      <text class="mode-name">居家减脂</text>
+    </view>
+    <view class="mode-item {{currentMode === 'outdoor' ? 'active' : ''}}" bindtap="selectMode" data-mode="outdoor">
+      <text class="mode-name">户外训练</text>
+    </view>
+    <view class="mode-item {{currentMode === 'gym' ? 'active' : ''}}" bindtap="selectMode" data-mode="gym">
+      <text class="mode-name">健身房</text>
+    </view>
+  </view>
+</view>
+</view>
+<!-- 训练模式选择模块 -->
+<view class="training-mode-container">
+  <view class="mode-title">选择训练模式</view>
+  <view class="mode-options">
+    <view class="mode-item {{currentMode === 'home' ? 'active' : ''}}" bindtap="selectMode" data-mode="home">
+      <text class="mode-name">居家减脂</text>
+    </view>
+    <view class="mode-item {{currentMode === 'outdoor' ? 'active' : ''}}" bindtap="selectMode" data-mode="outdoor">
+      <text class="mode-name">户外训练</text>
+    </view>
+    <view class="mode-item {{currentMode === 'gym' ? 'active' : ''}}" bindtap="selectMode" data-mode="gym">
+      <text class="mode-name">健身房</text>
+    </view>
+  </view>
+</view>
+</view>
+<!-- 训练模式选择模块 -->
+<view class="training-mode-container">
+  <view class="mode-title">选择训练模式</view>
+  <view class="mode-options">
+    <view class="mode-item {{currentMode === 'home' ? 'active' : ''}}" bindtap="selectMode" data-mode="home">
+      <text class="mode-name">居家减脂</text>
+    </view>
+    <view class="mode-item {{currentMode === 'outdoor' ? 'active' : ''}}" bindtap="selectMode" data-mode="outdoor">
+      <text class="mode-name">户外训练</text>
+    </view>
+    <view class="mode-item {{currentMode === 'gym' ? 'active' : ''}}" bindtap="selectMode" data-mode="gym">
+      <text class="mode-name">健身房</text>
+    </view>
+  </view>
+</view>
+</view>
+<!-- 训练模式选择模块 -->
+<view class="training-mode-container">
+  <view class="mode-title">选择训练模式</view>
+  <view class="mode-options">
+    <view class="mode-item {{currentMode === 'home' ? 'active' : ''}}" bindtap="selectMode" data-mode="home">
+      <text class="mode-name">居家减脂</text>
+    </view>
+    <view class="mode-item {{currentMode === 'outdoor' ? 'active' : ''}}" bindtap="selectMode" data-mode="outdoor">
+      <text class="mode-name">户外训练</text>
+    </view>
+    <view class="mode-item {{currentMode === 'gym' ? 'active' : ''}}" bindtap="selectMode" data-mode="gym">
+      <text class="mode-name">健身房</text>
+    </view>
+  </view>
+</view>
+</view>
+<!-- 训练模式选择模块 -->
+<view class="training-mode-container">
+  <view class="mode-title">选择训练模式</view>
+  <view class="mode-options">
+    <view class="mode-item {{currentMode === 'home' ? 'active' : ''}}" bindtap="selectMode" data-mode="home">
+      <text class="mode-name">居家减脂</text>
+    </view>
+    <view class="mode-item {{currentMode === 'outdoor' ? 'active' : ''}}" bindtap="selectMode" data-mode="outdoor">
+      <text class="mode-name">户外训练</text>
+    </view>
+    <view class="mode-item {{currentMode === 'gym' ? 'active' : ''}}" bindtap="selectMode" data-mode="gym">
+      <text class="mode-name">健身房</text>
+    </view>
+  </view>
+</view>
+</view>
+<!-- 训练模式选择模块 -->
+<view class="training-mode-container">
+  <view class="mode-title">选择训练模式</view>
+  <view class="mode-options">
+    <view class="mode-item {{currentMode === 'home' ? 'active' : ''}}" bindtap="selectMode" data-mode="home">
+      <text class="mode-name">居家减脂</text>
+    </view>
+    <view class="mode-item {{currentMode === 'outdoor' ? 'active' : ''}}" bindtap="selectMode" data-mode="outdoor">
+      <text class="mode-name">户外训练</text>
+    </view>
+    <view class="mode-item {{currentMode === 'gym' ? 'active' : ''}}" bindtap="selectMode" data-mode="gym">
+      <text class="mode-name">健身房</text>
+    </view>
+  </view>
+</view>
+</view>
+<!-- 训练模式选择模块 -->
+<view class="training-mode-container">
+  <view class="mode-title">选择训练模式</view>
+  <view class="mode-options">
+    <view class="mode-item {{currentMode === 'home' ? 'active' : ''}}" bindtap="selectMode" data-mode="home">
+      <text class="mode-name">居家减脂</text>
+    </view>
+    <view class="mode-item {{currentMode === 'outdoor' ? 'active' : ''}}" bindtap="selectMode" data-mode="outdoor">
+      <text class="mode-name">户外训练</text>
+    </view>
+    <view class="mode-item {{currentMode === 'gym' ? 'active' : ''}}" bindtap="selectMode" data-mode="gym">
+      <text class="mode-name">健身房</text>
+    </view>
+  </view>
+</view>
+</view>
+<!-- 训练模式选择模块 -->
+<view class="training-mode-container">
+  <view class="mode-title">选择训练模式</view>
+  <view class="mode-options">
+    <view class="mode-item {{currentMode === 'home' ? 'active' : ''}}" bindtap="selectMode" data-mode="home">
+      <text class="mode-name">居家减脂</text>
+    </view>
+    <view class="mode-item {{currentMode === 'outdoor' ? 'active' : ''}}" bindtap="selectMode" data-mode="outdoor">
+      <text class="mode-name">户外训练</text>
+    </view>
+    <view class="mode-item {{currentMode === 'gym' ? 'active' : ''}}" bindtap="selectMode" data-mode="gym">
+      <text class="mode-name">健身房</text>
+    </view>
+  </view>
+</view>
+</view>
+<!-- 训练模式选择模块 -->
+<view class="training-mode-container">
+  <view class="mode-title">选择训练模式</view>
+  <view class="mode-options">
+    <view class="mode-item {{currentMode === 'home' ? 'active' : ''}}" bindtap="selectMode" data-mode="home">
+      <text class="mode-name">居家减脂</text>
+    </view>
+    <view class="mode-item {{currentMode === 'outdoor' ? 'active' : ''}}" bindtap="selectMode" data-mode="outdoor">
+      <text class="mode-name">户外训练</text>
+    </view>
+    <view class="mode-item {{currentMode === 'gym' ? 'active' : ''}}" bindtap="selectMode" data-mode="gym">
+      <text class="mode-name">健身房</text>
+    </view>
+  </view>
+</view>
+</view>
+<!-- 训练模式选择模块 -->
+<view class="training-mode-container">
+  <view class="mode-title">选择训练模式</view>
+  <view class="mode-options">
+    <view class="mode-item {{currentMode === 'home' ? 'active' : ''}}" bindtap="selectMode" data-mode="home">
+      <text class="mode-name">居家减脂</text>
+    </view>
+    <view class="mode-item {{currentMode === 'outdoor' ? 'active' : ''}}" bindtap="selectMode" data-mode="outdoor">
+      <text class="mode-name">户外训练</text>
+    </view>
+    <view class="mode-item {{currentMode === 'gym' ? 'active' : ''}}" bindtap="selectMode" data-mode="gym">
+      <text class="mode-name">健身房</text>
+    </view>
+  </view>
+</view>
+</view>
+<!-- 训练模式选择模块 -->
+<view class="training-mode-container">
+  <view class="mode-title">选择训练模式</view>
+  <view class="mode-options">
+    <view class="mode-item {{currentMode === 'home' ? 'active' : ''}}" bindtap="selectMode" data-mode="home">
+      <text class="mode-name">居家减脂</text>
+    </view>
+    <view class="mode-item {{currentMode === 'outdoor' ? 'active' : ''}}" bindtap="selectMode" data-mode="outdoor">
+      <text class="mode-name">户外训练</text>
+    </view>
+    <view class="mode-item {{currentMode === 'gym' ? 'active' : ''}}" bindtap="selectMode" data-mode="gym">
+      <text class="mode-name">健身房</text>
+    </view>
+  </view>
+</view>
+</view>
+<!-- 训练模式选择模块 -->
+<view class="training-mode-container">
+  <view class="mode-title">选择训练模式</view>
+  <view class="mode-options">
+    <view class="mode-item {{currentMode === 'home' ? 'active' : ''}}" bindtap="selectMode" data-mode="home">
+      <text class="mode-name">居家减脂</text>
+    </view>
+    <view class="mode-item {{currentMode === 'outdoor' ? 'active' : ''}}" bindtap="selectMode" data-mode="outdoor">
+      <text class="mode-name">户外训练</text>
+    </view>
+    <view class="mode-item {{currentMode === 'gym' ? 'active' : ''}}" bindtap="selectMode" data-mode="gym">
+      <text class="mode-name">健身房</text>
+    </view>
+  </view>
+</view>
+</view>
+<!-- 训练模式选择模块 -->
+<view class="training-mode-container">
+  <view class="mode-title">选择训练模式</view>
+  <view class="mode-options">
+    <view class="mode-item {{currentMode === 'home' ? 'active' : ''}}" bindtap="selectMode" data-mode="home">
+      <text class="mode-name">居家减脂</text>
+    </view>
+    <view class="mode-item {{currentMode === 'outdoor' ? 'active' : ''}}" bindtap="selectMode" data-mode="outdoor">
+      <text class="mode-name">户外训练</text>
+    </view>
+    <view class="mode-item {{currentMode === 'gym' ? 'active' : ''}}" bindtap="selectMode" data-mode="gym">
+      <text class="mode-name">健身房</text>
+    </view>
+  </view>
+</view>
+</view>
+<!-- 训练模式选择模块 -->
+<view class="training-mode-container">
+  <view class="mode-title">选择训练模式</view>
+  <view class="mode-options">
+    <view class="mode-item {{currentMode === 'home' ? 'active' : ''}}" bindtap="selectMode" data-mode="home">
+      <text class="mode-name">居家减脂</text>
+    </view>
+    <view class="mode-item {{currentMode === 'outdoor' ? 'active' : ''}}" bindtap="selectMode" data-mode="outdoor">
+      <text class="mode-name">户外训练</text>
+    </view>
+    <view class="mode-item {{currentMode === 'gym' ? 'active' : ''}}" bindtap="selectMode" data-mode="gym">
+      <text class="mode-name">健身房</text>
+    </view>
+  </view>
+</view>
+</view>
+<!-- 训练模式选择模块 -->
+<view class="training-mode-container">
+  <view class="mode-title">选择训练模式</view>
+  <view class="mode-options">
+    <view class="mode-item {{currentMode === 'home' ? 'active' : ''}}" bindtap="selectMode" data-mode="home">
+      <text class="mode-name">居家减脂</text>
+    </view>
+    <view class="mode-item {{currentMode === 'outdoor' ? 'active' : ''}}" bindtap="selectMode" data-mode="outdoor">
+      <text class="mode-name">户外训练</text>
+    </view>
+    <view class="mode-item {{currentMode === 'gym' ? 'active' : ''}}" bindtap="selectMode" data-mode="gym">
+      <text class="mode-name">健身房</text>
+    </view>
+  </view>
+</view>
+</view>
+<!-- 训练模式选择模块 -->
+<view class="training-mode-container">
+  <view class="mode-title">选择训练模式</view>
+  <view class="mode-options">
+    <view class="mode-item {{currentMode === 'home' ? 'active' : ''}}" bindtap="selectMode" data-mode="home">
+      <text class="mode-name">居家减脂</text>
+    </view>
+    <view class="mode-item {{currentMode === 'outdoor' ? 'active' : ''}}" bindtap="selectMode" data-mode="outdoor">
+      <text class="mode-name">户外训练</text>
+    </view>
+    <view class="mode-item {{currentMode === 'gym' ? 'active' : ''}}" bindtap="selectMode" data-mode="gym">
+      <text class="mode-name">健身房</text>
+    </view>
+  </view>
+</view>
+</view>
+<!-- 训练模式选择模块 -->
+<view class="training-mode-container">
+  <view class="mode-title">选择训练模式</view>
+  <view class="mode-options">
+    <view class="mode-item {{currentMode === 'home' ? 'active' : ''}}" bindtap="selectMode" data-mode="home">
+      <text class="mode-name">居家减脂</text>
+    </view>
+    <view class="mode-item {{currentMode === 'outdoor' ? 'active' : ''}}" bindtap="selectMode" data-mode="outdoor">
+      <text class="mode-name">户外训练</text>
+    </view>
+    <view class="mode-item {{currentMode === 'gym' ? 'active' : ''}}" bindtap="selectMode" data-mode="gym">
+      <text class="mode-name">健身房</text>
+    </view>
+  </view>
+</view>
+</view>
+<!-- 训练模式选择模块 -->
+<view class="training-mode-container">
+  <view class="mode-title">选择训练模式</view>
+  <view class="mode-options">
+    <view class="mode-item {{currentMode === 'home' ? 'active' : ''}}" bindtap="selectMode" data-mode="home">
+      <text class="mode-name">居家减脂</text>
+    </view>
+    <view class="mode-item {{currentMode === 'outdoor' ? 'active' : ''}}" bindtap="selectMode" data-mode="outdoor">
+      <text class="mode-name">户外训练</text>
+    </view>
+    <view class="mode-item {{currentMode === 'gym' ? 'active' : ''}}" bindtap="selectMode" data-mode="gym">
+      <text class="mode-name">健身房</text>
+    </view>
+  </view>
+</view>
+</view>
+<!-- 训练模式选择模块 -->
+<view class="training-mode-container">
+  <view class="mode-title">选择训练模式</view>
+  <view class="mode-options">
+    <view class="mode-item {{currentMode === 'home' ? 'active' : ''}}" bindtap="selectMode" data-mode="home">
+      <text class="mode-name">居家减脂</text>
+    </view>
+    <view class="mode-item {{currentMode === 'outdoor' ? 'active' : ''}}" bindtap="selectMode" data-mode="outdoor">
+      <text class="mode-name">户外训练</text>
+    </view>
+    <view class="mode-item {{currentMode === 'gym' ? 'active' : ''}}" bindtap="selectMode" data-mode="gym">
+      <text class="mode-name">健身房</text>
+    </view>
+  </view>
+</view>
+</view>
+<!-- 训练模式选择模块 -->
+<view class="training-mode-container">
+  <view class="mode-title">选择训练模式</view>
+  <view class="mode-options">
+    <view class="mode-item {{currentMode === 'home' ? 'active' : ''}}" bindtap="selectMode" data-mode="home">
+      <text class="mode-name">居家减脂</text>
+    </view>
+    <view class="mode-item {{currentMode === 'outdoor' ? 'active' : ''}}" bindtap="selectMode" data-mode="outdoor">
+      <text class="mode-name">户外训练</text>
+    </view>
+    <view class="mode-item {{currentMode === 'gym' ? 'active' : ''}}" bindtap="selectMode" data-mode="gym">
+      <text class="mode-name">健身房</text>
+    </view>
+  </view>
+</view>
+</view>
+<!-- 训练模式选择模块 -->
+<view class="training-mode-container">
+  <view class="mode-title">选择训练模式</view>
+  <view class="mode-options">
+    <view class="mode-item {{currentMode === 'home' ? 'active' : ''}}" bindtap="selectMode" data-mode="home">
+      <text class="mode-name">居家减脂</text>
+    </view>
+    <view class="mode-item {{currentMode === 'outdoor' ? 'active' : ''}}" bindtap="selectMode" data-mode="outdoor">
+      <text class="mode-name">户外训练</text>
+    </view>
+    <view class="mode-item {{currentMode === 'gym' ? 'active' : ''}}" bindtap="selectMode" data-mode="gym">
+      <text class="mode-name">健身房</text>
+    </view>
+  </view>
+</view>
+</view>
+<!-- 训练模式选择模块 -->
+<view class="training-mode-container">
+  <view class="mode-title">选择训练模式</view>
+  <view class="mode-options">
+    <view class="mode-item {{currentMode === 'home' ? 'active' : ''}}" bindtap="selectMode" data-mode="home">
+      <text class="mode-name">居家减脂</text>
+    </view>
+    <view class="mode-item {{currentMode === 'outdoor' ? 'active' : ''}}" bindtap="selectMode" data-mode="outdoor">
+      <text class="mode-name">户外训练</text>
+    </view>
+    <view class="mode-item {{currentMode === 'gym' ? 'active' : ''}}" bindtap="selectMode" data-mode="gym">
+      <text class="mode-name">健身房</text>
+    </view>
+  </view>
+</view>
+</view>
+<!-- 训练模式选择模块 -->
+<view class="training-mode-container">
+  <view class="mode-title">选择训练模式</view>
+  <view class="mode-options">
+    <view class="mode-item {{currentMode === 'home' ? 'active' : ''}}" bindtap="selectMode" data-mode="home">
+      <text class="mode-name">居家减脂</text>
+    </view>
+    <view class="mode-item {{currentMode === 'outdoor' ? 'active' : ''}}" bindtap="selectMode" data-mode="outdoor">
+      <text class="mode-name">户外训练</text>
+    </view>
+    <view class="mode-item {{currentMode === 'gym' ? 'active' : ''}}" bindtap="selectMode" data-mode="gym">
+      <text class="mode-name">健身房</text>
+    </view>
+  </view>
+</view>
+</view>
+<!-- 训练模式选择模块 -->
+<view class="training-mode-container">
+  <view class="mode-title">选择训练模式</view>
+  <view class="mode-options">
+    <view class="mode-item {{currentMode === 'home' ? 'active' : ''}}" bindtap="selectMode" data-mode="home">
+      <text class="mode-name">居家减脂</text>
+    </view>
+    <view class="mode-item {{currentMode === 'outdoor' ? 'active' : ''}}" bindtap="selectMode" data-mode="outdoor">
+      <text class="mode-name">户外训练</text>
+    </view>
+    <view class="mode-item {{currentMode === 'gym' ? 'active' : ''}}" bindtap="selectMode" data-mode="gym">
+      <text class="mode-name">健身房</text>
+    </view>
+  </view>
+</view>
+</view>
+<!-- 训练模式选择模块 -->
+<view class="training-mode-container">
+  <view class="mode-title">选择训练模式</view>
+  <view class="mode-options">
+    <view class="mode-item {{currentMode === 'home' ? 'active' : ''}}" bindtap="selectMode" data-mode="home">
+      <text class="mode-name">居家减脂</text>
+    </view>
+    <view class="mode-item {{currentMode === 'outdoor' ? 'active' : ''}}" bindtap="selectMode" data-mode="outdoor">
+      <text class="mode-name">户外训练</text>
+    </view>
+    <view class="mode-item {{currentMode === 'gym' ? 'active' : ''}}" bindtap="selectMode" data-mode="gym">
+      <text class="mode-name">健身房</text>
+    </view>
+  </view>
+</view>
+</view>
+<!-- 训练模式选择模块 -->
+<view class="training-mode-container">
+  <view class="mode-title">选择训练模式</view>
+  <view class="mode-options">
+    <view class="mode-item {{currentMode === 'home' ? 'active' : ''}}" bindtap="selectMode" data-mode="home">
+      <text class="mode-name">居家减脂</text>
+    </view>
+    <view class="mode-item {{currentMode === 'outdoor' ? 'active' : ''}}" bindtap="selectMode" data-mode="outdoor">
+      <text class="mode-name">户外训练</text>
+    </view>
+    <view class="mode-item {{currentMode === 'gym' ? 'active' : ''}}" bindtap="selectMode" data-mode="gym">
+      <text class="mode-name">健身房</text>
+    </view>
+  </view>
+</view>
+</view>
+<!-- 训练模式选择模块 -->
+<view class="training-mode-container">
+  <view class="mode-title">选择训练模式</view>
+  <view class="mode-options">
+    <view class="mode-item {{currentMode === 'home' ? 'active' : ''}}" bindtap="selectMode" data-mode="home">
+      <text class="mode-name">居家减脂</text>
+    </view>
+    <view class="mode-item {{currentMode === 'outdoor' ? 'active' : ''}}" bindtap="selectMode" data-mode="outdoor">
+      <text class="mode-name">户外训练</text>
+    </view>
+    <view class="mode-item {{currentMode === 'gym' ? 'active' : ''}}" bindtap="selectMode" data-mode="gym">
+      <text class="mode-name">健身房</text>
+    </view>
+  </view>
+</view>
+</view>
+<!-- 训练模式选择模块 -->
+<view class="training-mode-container">
+  <view class="mode-title">选择训练模式</view>
+  <view class="mode-options">
+    <view class="mode-item {{currentMode === 'home' ? 'active' : ''}}" bindtap="selectMode" data-mode="home">
+      <text class="mode-name">居家减脂</text>
+    </view>
+    <view class="mode-item {{currentMode === 'outdoor' ? 'active' : ''}}" bindtap="selectMode" data-mode="outdoor">
+      <text class="mode-name">户外训练</text>
+    </view>
+    <view class="mode-item {{currentMode === 'gym' ? 'active' : ''}}" bindtap="selectMode" data-mode="gym">
+      <text class="mode-name">健身房</text>
+    </view>
+  </view>
+</view>
+</view>
+<!-- 训练模式选择模块 -->
+<view class="training-mode-container">
+  <view class="mode-title">选择训练模式</view>
+  <view class="mode-options">
+    <view class="mode-item {{currentMode === 'home' ? 'active' : ''}}" bindtap="selectMode" data-mode="home">
+      <text class="mode-name">居家减脂</text>
+    </view>
+    <view class="mode-item {{currentMode === 'outdoor' ? 'active' : ''}}" bindtap="selectMode" data-mode="outdoor">
+      <text class="mode-name">户外训练</text>
+    </view>
+    <view class="mode-item {{currentMode === 'gym' ? 'active' : ''}}" bindtap="selectMode" data-mode="gym">
+      <text class="mode-name">健身房</text>
+    </view>
+  </view>
+</view>
+</view>
+<!-- 训练模式选择模块 -->
+<view class="training-mode-container">
+  <view class="mode-title">选择训练模式</view>
+  <view class="mode-options">
+    <view class="mode-item {{currentMode === 'home' ? 'active' : ''}}" bindtap="selectMode" data-mode="home">
+      <text class="mode-name">居家减脂</text>
+    </view>
+    <view class="mode-item {{currentMode === 'outdoor' ? 'active' : ''}}" bindtap="selectMode" data-mode="outdoor">
+      <text class="mode-name">户外训练</text>
+    </view>
+    <view class="mode-item {{currentMode === 'gym' ? 'active' : ''}}" bindtap="selectMode" data-mode="gym">
+      <text class="mode-name">健身房</text>
+    </view>
+  </view>
+</view>
+</view>
+<!-- 训练模式选择模块 -->
+<view class="training-mode-container">
+  <view class="mode-title">选择训练模式</view>
+  <view class="mode-options">
+    <view class="mode-item {{currentMode === 'home' ? 'active' : ''}}" bindtap="selectMode" data-mode="home">
+      <text class="mode-name">居家减脂</text>
+    </view>
+    <view class="mode-item {{currentMode === 'outdoor' ? 'active' : ''}}" bindtap="selectMode" data-mode="outdoor">
+      <text class="mode-name">户外训练</text>
+    </view>
+    <view class="mode-item {{currentMode === 'gym' ? 'active' : ''}}" bindtap="selectMode" data-mode="gym">
+      <text class="mode-name">健身房</text>
+    </view>
+  </view>
+</view>
+</view>
+<!-- 训练模式选择模块 -->
+<view class="training-mode-container">
+  <view class="mode-title">选择训练模式</view>
+  <view class="mode-options">
+    <view class="mode-item {{currentMode === 'home' ? 'active' : ''}}" bindtap="selectMode" data-mode="home">
+      <text class="mode-name">居家减脂</text>
+    </view>
+    <view class="mode-item {{currentMode === 'outdoor' ? 'active' : ''}}" bindtap="selectMode" data-mode="outdoor">
+      <text class="mode-name">户外训练</text>
+    </view>
+    <view class="mode-item {{currentMode === 'gym' ? 'active' : ''}}" bindtap="selectMode" data-mode="gym">
+      <text class="mode-name">健身房</text>
+    </view>
+  </view>
+</view>
+</view>
+<!-- 训练模式选择模块 -->
+<view class="training-mode-container">
+  <view class="mode-title">选择训练模式</view>
+  <view class="mode-options">
+    <view class="mode-item {{currentMode === 'home' ? 'active' : ''}}" bindtap="selectMode" data-mode="home">
+      <text class="mode-name">居家减脂</text>
+    </view>
+    <view class="mode-item {{currentMode === 'outdoor' ? 'active' : ''}}" bindtap="selectMode" data-mode="outdoor">
+      <text class="mode-name">户外训练</text>
+    </view>
+    <view class="mode-item {{currentMode === 'gym' ? 'active' : ''}}" bindtap="selectMode" data-mode="gym">
+      <text class="mode-name">健身房</text>
+    </view>
+  </view>
+</view>
+</view>
+<!-- 训练模式选择模块 -->
+<view class="training-mode-container">
+  <view class="mode-title">选择训练模式</view>
+  <view class="mode-options">
+    <view class="mode-item {{currentMode === 'home' ? 'active' : ''}}" bindtap="selectMode" data-mode="home">
+      <text class="mode-name">居家减脂</text>
+    </view>
+    <view class="mode-item {{currentMode === 'outdoor' ? 'active' : ''}}" bindtap="selectMode" data-mode="outdoor">
+      <text class="mode-name">户外训练</text>
+    </view>
+    <view class="mode-item {{currentMode === 'gym' ? 'active' : ''}}" bindtap="selectMode" data-mode="gym">
+      <text class="mode-name">健身房</text>
+    </view>
+  </view>
+</view>
+</view>
+<!-- 训练模式选择模块 -->
+<view class="training-mode-container">
+  <view class="mode-title">选择训练模式</view>
+  <view class="mode-options">
+    <view class="mode-item {{currentMode === 'home' ? 'active' : ''}}" bindtap="selectMode" data-mode="home">
+      <text class="mode-name">居家减脂</text>
+    </view>
+    <view class="mode-item {{currentMode === 'outdoor' ? 'active' : ''}}" bindtap="selectMode" data-mode="outdoor">
+      <text class="mode-name">户外训练</text>
+    </view>
+    <view class="mode-item {{currentMode === 'gym' ? 'active' : ''}}" bindtap="selectMode" data-mode="gym">
+      <text class="mode-name">健身房</text>
+    </view>
+  </view>
+</view>
+</view>
+<!-- 训练模式选择模块 -->
+<view class="training-mode-container">
+  <view class="mode-title">选择训练模式</view>
+  <view class="mode-options">
+    <view class="mode-item {{currentMode === 'home' ? 'active' : ''}}" bindtap="selectMode" data-mode="home">
+      <text class="mode-name">居家减脂</text>
+    </view>
+    <view class="mode-item {{currentMode === 'outdoor' ? 'active' : ''}}" bindtap="selectMode" data-mode="outdoor">
+      <text class="mode-name">户外训练</text>
+    </view>
+    <view class="mode-item {{currentMode === 'gym' ? 'active' : ''}}" bindtap="selectMode" data-mode="gym">
+      <text class="mode-name">健身房</text>
+    </view>
+  </view>
+</view>
+</view>
+<!-- 训练模式选择模块 -->
+<view class="training-mode-container">
+  <view class="mode-title">选择训练模式</view>
+  <view class="mode-options">
+    <view class="mode-item {{currentMode === 'home' ? 'active' : ''}}" bindtap="selectMode" data-mode="home">
+      <text class="mode-name">居家减脂</text>
+    </view>
+    <view class="mode-item {{currentMode === 'outdoor' ? 'active' : ''}}" bindtap="selectMode" data-mode="outdoor">
+      <text class="mode-name">户外训练</text>
+    </view>
+    <view class="mode-item {{currentMode === 'gym' ? 'active' : ''}}" bindtap="selectMode" data-mode="gym">
+      <text class="mode-name">健身房</text>
+    </view>
+  </view>
+</view>
+</view>
+<!-- 训练模式选择模块 -->
+<view class="training-mode-container">
+  <view class="mode-title">选择训练模式</view>
+  <view class="mode-options">
+    <view class="mode-item {{currentMode === 'home' ? 'active' : ''}}" bindtap="selectMode" data-mode="home">
+      <text class="mode-name">居家减脂</text>
+    </view>
+    <view class="mode-item {{currentMode === 'outdoor' ? 'active' : ''}}" bindtap="selectMode" data-mode="outdoor">
+      <text class="mode-name">户外训练</text>
+    </view>
+    <view class="mode-item {{currentMode === 'gym' ? 'active' : ''}}" bindtap="selectMode" data-mode="gym">
+      <text class="mode-name">健身房</text>
+    </view>
+  </view>
+</view>
+</view>
+<!-- 训练模式选择模块 -->
+<view class="training-mode-container">
+  <view class="mode-title">选择训练模式</view>
+  <view class="mode-options">
+    <view class="mode-item {{currentMode === 'home' ? 'active' : ''}}" bindtap="selectMode" data-mode="home">
+      <text class="mode-name">居家减脂</text>
+    </view>
+    <view class="mode-item {{currentMode === 'outdoor' ? 'active' : ''}}" bindtap="selectMode" data-mode="outdoor">
+      <text class="mode-name">户外训练</text>
+    </view>
+    <view class="mode-item {{currentMode === 'gym' ? 'active' : ''}}" bindtap="selectMode" data-mode="gym">
+      <text class="mode-name">健身房</text>
+    </view>
+  </view>
+</view>
+</view>
+<!-- 训练模式选择模块 -->
+<view class="training-mode-container">
+  <view class="mode-title">选择训练模式</view>
+  <view class="mode-options">
+    <view class="mode-item {{currentMode === 'home' ? 'active' : ''}}" bindtap="selectMode" data-mode="home">
+      <text class="mode-name">居家减脂</text>
+    </view>
+    <view class="mode-item {{currentMode === 'outdoor' ? 'active' : ''}}" bindtap="selectMode" data-mode="outdoor">
+      <text class="mode-name">户外训练</text>
+    </view>
+    <view class="mode-item {{currentMode === 'gym' ? 'active' : ''}}" bindtap="selectMode" data-mode="gym">
+      <text class="mode-name">健身房</text>
+    </view>
+  </view>
+</view>
+</view>
+<!-- 训练模式选择模块 -->
+<view class="training-mode-container">
+  <view class="mode-title">选择训练模式</view>
+  <view class="mode-options">
+    <view class="mode-item {{currentMode === 'home' ? 'active' : ''}}" bindtap="selectMode" data-mode="home">
+      <text class="mode-name">居家减脂</text>
+    </view>
+    <view class="mode-item {{currentMode === 'outdoor' ? 'active' : ''}}" bindtap="selectMode" data-mode="outdoor">
+      <text class="mode-name">户外训练</text>
+    </view>
+    <view class="mode-item {{currentMode === 'gym' ? 'active' : ''}}" bindtap="selectMode" data-mode="gym">
+      <text class="mode-name">健身房</text>
+    </view>
+  </view>
+</view>
+</view>
+<!-- 训练模式选择模块 -->
+<view class="training-mode-container">
+  <view class="mode-title">选择训练模式</view>
+  <view class="mode-options">
+    <view class="mode-item {{currentMode === 'home' ? 'active' : ''}}" bindtap="selectMode" data-mode="home">
+      <text class="mode-name">居家减脂</text>
+    </view>
+    <view class="mode-item {{currentMode === 'outdoor' ? 'active' : ''}}" bindtap="selectMode" data-mode="outdoor">
+      <text class="mode-name">户外训练</text>
+    </view>
+    <view class="mode-item {{currentMode === 'gym' ? 'active' : ''}}" bindtap="selectMode" data-mode="gym">
+      <text class="mode-name">健身房</text>
+    </view>
+  </view>
+</view>
+</view>
+<!-- 训练模式选择模块 -->
+<view class="training-mode-container">
+  <view class="mode-title">选择训练模式</view>
+  <view class="mode-options">
+    <view class="mode-item {{currentMode === 'home' ? 'active' : ''}}" bindtap="selectMode" data-mode="home">
+      <text class="mode-name">居家减脂</

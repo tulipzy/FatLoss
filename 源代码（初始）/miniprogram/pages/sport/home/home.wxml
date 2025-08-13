@@ -1,0 +1,31 @@
+<view class="home-mode-container" style="background-color: #C8E6C9;">
+  <!-- 复用sport页面的核心信息区域 -->
+  <view class="target-card">
+    <!-- ... 核心信息区域内容 ... -->
+  </view>
+
+  <!-- 居家模式专属内容 -->
+  <view class="feature-grid">
+    <view class="feature-card" hover-class="feature-card-hover">
+      <text class="feature-title">碎片化时间训练</text>
+      <text class="feature-desc">利用碎片时间进行短训练</text>
+    </view>
+    <!-- ... 其他特色卡片 ... -->
+  </view>
+
+  <view class="tip-card">
+    <text class="tip-title">居家训练小贴士</text>
+    <text class="tip-content">利用碎片化时间进行短时间高强度训练...</text>
+  </view>
+
+  <view class="assistant-panel">
+    <text class="assistant-title">智能助手建议</text>
+    <text class="assistant-content">今日侧重核心训练与HIIT结合</text>
+    <button class="get-tips-btn">获取详细建议</button>
+  </view>
+
+  <!-- 数据仪表盘 -->
+  <view class="dashboard">
+    <!-- 环形进度条等数据展示 -->
+  </view>
+</view>

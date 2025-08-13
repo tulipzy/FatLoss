@@ -1,0 +1,118 @@
+
+<!-- 从顶部开始的横幅容器 -->
+<view class="full-top-banner">
+  
+  <view class="full-banner-content">
+    <text class="full-banner-title">欢迎使用循环减脂助手</text>
+    <text class="full-banner-desc">把减脂融入日常，轻松成为习惯</text>
+  </view>
+</view>
+
+<!-- 圆弧分割线 -->
+<view class="arc-divider"></view>
+
+<!-- 今日推荐区域 -->
+<view class="today-recommend">
+  <view class="recommend-title">今日推荐</view>
+  <scroll-view class="recommend-scroll" scroll-x enable-flex show-scrollbar="{{false}}">
+    <!-- 特色卡片 -->
+    <view class="feature-card">
+      <image class="feature-bg" src="/images/早1.jpg"></image>
+      <view class="feature-tag">唤醒代谢</view>
+     
+    </view>
+    
+    <view class="feature-card">
+      <image class="feature-bg" src="/images/午1.jpg"></image>
+      <view class="feature-tag2">均衡营养</view>
+     
+    </view>
+
+    <!-- 修改后的每日打卡卡片，使用feature-card样式 -->
+    <view class="feature-card">
+      <image class="feature-bg" src="/images/晚1.jpg"></image>
+      <view class="feature-tag1">清淡低脂</view>
+      
+    </view>
+  </scroll-view>
+</view>
+
+<!-- 替换为以下饮食摄入卡片代码 -->
+<!-- 饮食摄入区域 -->
+<view class="diet-section">
+  <!-- 添加顶部卡通图标 -->
+  <view class="diet-icon-container">
+    <image class="diet-icon" src="/images/小猫.png" style="width: 118rpx; display: block; box-sizing: border-box; position: relative; left: 0rpx; top: 11rpx"></image>
+  </view>
+  
+  <!-- 主数据区 - 改为三列布局 -->
+  <view class="diet-main-data">
+    <view class="diet-item">
+      <image class="item-icon" src="/images/饮食摄入.png" style="width: 68rpx; display: block; box-sizing: border-box"></image>
+      <text class="item-label">饮食摄入</text>
+      <text class="item-value">{{dietCalories}}</text>
+      <text class="item-unit">千卡</text>
+    </view>
+    
+    <!-- 替换为圆形进度环 -->
+    <view class="remaining-container">
+      <svg class="progress-ring" width="240" height="240">
+        <!-- 背景环 -->
+        <circle class="progress-ring-bg" cx="120" cy="120" r="100" fill="none" stroke="#BBDEFB" stroke-width="16"/>
+        <!-- 进度环 -->
+        <circle class="progress-ring-circle" cx="120" cy="120" r="100" fill="none" stroke="#34C759" stroke-width="12" 
+                stroke-dasharray="628" stroke-dashoffset="{{calculateRemainingProgress(remainingCalories, 1364)}}" 
+                transform="rotate(-90 120 120)"/>
+      </svg>
+      <text class="remaining-label" style="position: absolute; left: 62rpx; top: 42rpx">还可摄入</text>
+      <text class="remaining-value" style="position: relative; left: -1rpx; top: -11rpx">{{remainingCalories}}</text>
+      <text class="recommended-intake">推荐摄入1364千卡</text>
+    </view>
+    
+    <view class="diet-item">
+      <image class="item-icon" src="/images/运动消耗.png" style="width: 70rpx; display: block; box-sizing: border-box"></image>
+      <text class="item-label">运动消耗</text>
+      <text class="item-value">{{exerciseCalories}}</text>
+      <text class="item-unit">千卡</text>
+    </view>
+  </view>
+  
+  <!-- 分隔线 -->
+  <view class="divider"></view>
+  
+  <!-- 营养进度区 -->
+  <view class="nutrition-progress" style="width: 674rpx; height: 127rpx; display: block; box-sizing: border-box">
+    <!-- 碳水 -->
+    <view class="nutrition-item" style="height: 68rpx; display: block; box-sizing: border-box">
+      <view class="nutrition-header" style="width: 224rpx; height: 37rpx; display: flex; box-sizing: border-box">
+        <text class="nutrition-name">碳水</text>
+        <text class="nutrition-value" style="position: relative; left: -109rpx; top: 40rpx">{{carbs}}/{{totalCarbs}}克</text>
+      </view>
+      <view class="progress-bar carbs-bar" style="position: relative; left: 0rpx; top: 49rpx; width: 158rpx; height: 12rpx; display: block; box-sizing: border-box">
+        <view class="progress-fill" style="width: 120rpx; position: relative; left: 0rpx; top: 52rpx; height: 35rpx; display: block; box-sizing: border-box"></view>
+      </view>
+    </view>
+    
+    <!-- 蛋白质 -->
+    <view class="nutrition-item">
+      <view class="nutrition-header">
+        <text class="nutrition-name" style="position: relative; left: 216rpx; top: -87rpx">蛋白质</text>
+        <text class="nutrition-value" style="position: relative; left: -358rpx; top: -52rpx">{{protein}}/{{totalProtein}}克</text>
+      </view>
+      <view class="progress-bar protein-bar" style="width: 191rpx; height: 12rpx; display: block; box-sizing: border-box; left: 204rpx; top: -58rpx; position: relative">
+        <view class="progress-fill" style="width: 289rpx; height: 2rpx; display: block; box-sizing: border-box; position: relative; left: 37rpx; top: -39rpx"></view>
+      </view>
+    </view>
+    
+    <!-- 脂肪 -->
+    <view class="nutrition-item" style="width: 249rpx; height: 74rpx; display: block; box-sizing: border-box">
+      <view class="nutrition-header">
+        <text class="nutrition-name" style="position: relative; left: 464rpx; top: -192rpx">脂肪</text>
+        <text class="nutrition-value" style="position: relative; left: 295rpx; top: -157rpx">{{fat}}/{{totalFat}}克</text>
+      </view>
+      <view class="progress-bar fat-bar" style="position: relative; left: 433rpx; top: -154rpx; width: 170rpx; height: 10rpx; display: block; box-sizing: border-box">
+        <view class="progress-fill" style="width: 0rpx; height: 39rpx; display: block; box-sizing: border-box"></view>
+      </view>
+    </view>
+  </view>
+</view>

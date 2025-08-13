@@ -1,0 +1,144 @@
+/* 训练模式选择模块 */
+.training-mode-container {
+  background: #FFFFFF;
+  border-radius: 24rpx;
+  box-shadow: 0 8rpx 24rpx rgba(0,0,0,0.1);
+  padding: 32rpx;
+  margin: 30rpx;
+}
+
+.mode-title {
+  font-size: 36rpx;
+  font-weight: bold;
+  color: #333333;
+  margin-bottom: 20rpx;
+  display: block;
+}
+
+.mode-options {
+  display: flex;
+  justify-content: space-between;
+}
+
+.mode-item {
+  flex: 1;
+  text-align: center;
+  padding: 20rpx 0;
+  margin: 0 10rpx;
+  border-radius: 16rpx;
+  background-color: #F5F5F5;
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.mode-item.active {
+  background-color: #1E90FF;
+  transform: translateY(-5rpx);
+  box-shadow: 0 8rpx 16rpx rgba(30, 144, 255, 0.3);
+}
+
+.mode-name {
+  font-size: 32rpx;
+  color: #666666;
+  transition: color 0.3s ease;
+}
+
+.mode-item.active .mode-name {
+  color: #FFFFFF;
+  font-weight: bold;
+}
+
+/* 添加选中状态指示条 */
+.mode-item.active::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 6rpx;
+  background-color: #FFFFFF;
+  border-radius: 3rpx;
+}
+
+/* 页面动画容器 */
+.page-container {
+  animation: fadeIn 0.5s ease-in-out;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+/* 下拉菜单样式 */
+.dropdown-button {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20rpx;
+  background-color: #ffffff;
+  border: 1rpx solid #ddd;
+  border-radius: 10rpx;
+}
+
+.dropdown-text {
+  font-size: 30rpx;
+  color: #333;
+}
+
+.triangle-icon {
+  width: 0;
+  height: 0;
+  border-left: 10rpx solid transparent;
+  border-right: 10rpx solid transparent;
+  border-top: 16rpx solid #666;
+  transition: transform 0.3s ease;
+}
+
+.triangle-icon.rotated {
+  transform: rotate(180deg);
+}
+
+.dropdown-panel {
+  background-color: #ffffff;
+  border: 1rpx solid #ddd;
+  border-top: none;
+  border-radius: 0 0 10rpx 10rpx;
+  overflow: hidden;
+  height: 0;
+  opacity: 0;
+}
+
+.dropdown-panel.expanded {
+  height: auto;
+  opacity: 1;
+}
+
+.dropdown-option {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20rpx;
+  border-bottom: 1rpx solid #f0f0f0;
+}
+
+.dropdown-option:last-child {
+  border-bottom: none;
+}
+
+.dropdown-option.selected {
+  background-color: #f5f9ff;
+  color: #1e90ff;
+}
+
+.option-text {
+  font-size: 28rpx;
+}
+
+.selected-icon {
+  color: #1e90ff;
+}

@@ -1,0 +1,623 @@
+/* 全局样式 */
+page {
+  /* 蓝粉渐变背景，从上到下过渡 */
+  background: linear-gradient(to bottom, #c2f1ff, #fcdbe6); 
+  padding-bottom: 100rpx;
+}
+
+/* 顶部横幅 */
+.full-top-banner {
+  width: 100%;
+  height: 250rpx;
+  position: relative;
+  overflow: hidden;
+}
+
+.full-banner-bg {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  object-fit: cover;
+}
+
+.full-banner-content {
+  position: relative;
+  z-index: 2;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  color: #fff;
+  text-shadow: 0 2rpx 4rpx rgba(0,0,0,0.3);
+}
+
+.full-banner-title {
+  font-size: 38rpx;
+  font-weight: bold;
+  margin-bottom: 10rpx;
+}
+
+.full-banner-desc {
+  font-size: 26rpx;
+  opacity: 0.9;
+}
+
+/* 圆弧分割线 */
+.arc-divider {
+  width: 110%;
+  height: 60rpx;
+  background: #fff;
+  border-radius: 50% 50% 0 0 / 100% 100% 0 0;
+  margin-top: -40rpx;
+  margin-left: -5%;
+  position: relative;
+  z-index: 2;
+}
+
+/* 今日推荐区域 */
+.today-recommend {
+  padding: 5rpx 20rpx;
+  background: #fff;
+  position: relative;
+  z-index: 3;
+  margin-top: -20rpx;
+}
+
+.recommend-title {
+  font-size: 34rpx;
+  font-weight: bold;
+  color: #333;
+  margin-bottom: 25rpx;
+  padding-left: 10rpx;
+}
+
+.recommend-scroll {
+  display: flex;
+  width: 100%;
+  padding-bottom: 10rpx;
+}
+
+/* 特色卡片样式 */
+.feature-card {
+  width: 700rpx;
+  height: 250rpx;
+  margin-right: 20rpx;
+  border-radius: 24rpx;
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 4rpx 12rpx rgba(0,0,0,0.08);
+  flex-shrink: 0;
+}
+
+.feature-bg {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  object-fit: cover;
+}
+
+.feature-tag {
+  position: absolute;
+  top: 10rpx;
+  right: 560rpx;
+  background: rgba(230, 190, 103, 0.932);
+  padding: 6rpx 16rpx;
+  border-radius: 20rpx;
+  font-size: 24rpx;
+  color: rgb(255, 255, 255);
+  font-weight: bold;
+  box-shadow: 0 2rpx 6rpx rgba(0,0,0,0.1);
+}
+
+.feature-tag1 {
+  position: absolute;
+  top: 20rpx;
+  right: 560rpx;
+  background: rgba(113, 212, 138, 0.85);
+  padding: 6rpx 16rpx;
+  border-radius: 20rpx;
+  font-size: 24rpx;
+  color: rgb(255, 255, 255);
+  font-weight: bold;
+  box-shadow: 0 2rpx 6rpx rgba(0,0,0,0.1);
+}
+
+.feature-tag2 {
+  position: absolute;
+  top: 20rpx;
+  right: 560rpx;
+  background: rgba(241, 138, 78, 0.85);
+  padding: 6rpx 16rpx;
+  border-radius: 20rpx;
+  font-size: 24rpx;
+  color: rgb(255, 255, 255);
+  font-weight: bold;
+  box-shadow: 0 2rpx 6rpx rgba(0,0,0,0.1);
+}
+
+.feature-bottom {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: rgba(255,255,255,0.8);
+  padding: 24rpx;
+  border-radius: 0 0 27rpx 27rpx;
+}
+
+.feature-name {
+  font-size: 27rpx;
+  color: #333;
+  font-weight: bold;
+  text-align: center;
+  display: block;
+}
+
+/* 普通卡片样式 */
+.recommend-card {
+  width: 260rpx;
+  height: 280rpx;
+  margin-right: 20rpx;
+  background: #fff;
+  border-radius: 24rpx;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4rpx 12rpx rgba(0,0,0,0.08);
+  flex-shrink: 0;
+  padding: 20rpx;
+}
+
+.card-icon {
+  width: 100rpx;
+  height: 100rpx;
+  margin-bottom: 20rpx;
+  border-radius: 50%;
+}
+
+.card-title {
+  font-size: 28rpx;
+  color: #333;
+  font-weight: bold;
+  margin-bottom: 8rpx;
+  text-align: center;
+}
+
+.card-desc {
+  font-size: 24rpx;
+  color: #999;
+}
+
+/* 底部导航 */
+.tab-bar {
+  display: flex;
+  height: 100rpx;
+  background: #fff;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  box-shadow: 0 -2rpx 10rpx rgba(0,0,0,0.05);
+  z-index: 100;
+}
+
+.tab-item {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.tab-icon {
+  width: 44rpx;
+  height: 44rpx;
+  margin-bottom: 6rpx;
+}
+
+.tab-text {
+  font-size: 22rpx;
+  color: #666;
+}
+
+.tab-item.active .tab-text {
+  color: #ff6b81;
+  font-weight: bold;
+}
+
+/* 新增我的数据区域样式 */
+.data-section {
+  background: #fff;
+  margin: 20rpx;
+  border-radius: 24rpx;
+  padding: 30rpx;
+  box-shadow: 0 4rpx 12rpx rgba(0,0,0,0.05);
+}
+
+.section-title {
+  font-size: 34rpx;
+  font-weight: bold;
+  color: #333;
+  margin-bottom: 30rpx;
+}
+
+.data-cards {
+  display: flex;
+  justify-content: space-between;
+}
+
+.data-card {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  padding: 20rpx 0;
+}
+
+.data-icon {
+  width: 80rpx;
+  height: 80rpx;
+  margin-right: 20rpx;
+}
+
+.data-icon image {
+  width: 100%;
+  height: 100%;
+}
+
+.data-content {
+  display: flex;
+  flex-direction: column;
+}
+
+.data-label {
+  font-size: 26rpx;
+  color: #999;
+  margin-bottom: 8rpx;
+}
+
+.data-value {
+  font-size: 32rpx;
+  font-weight: bold;
+  color: #333;
+}
+
+/* 添加饮食摄入区域样式 */
+.diet-section {
+  padding: 30rpx 20rpx;
+  background: #FFFFFF;
+  margin: 20rpx;
+  border-radius: 24rpx;
+  box-shadow: 0 4rpx 12rpx rgba(0,0,0,0.05);
+  position: relative;
+}
+
+/* 顶部图标容器 */
+.diet-icon-container {
+  position: absolute;
+  top: -40rpx;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100rpx;
+  height: 100rpx;
+  background: #FFFFFF;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4rpx 12rpx rgba(0,0,0,0.1);
+}
+
+.diet-icon {
+  width: 80rpx;
+  height: 80rpx;
+}
+
+/* 主数据区 */
+.diet-main-data {
+  display: flex;
+  justify-content: space-between;
+  padding: 40rpx 20rpx 20rpx;
+}
+
+.diet-item {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.item-icon {
+  width: 60rpx;
+  height: 60rpx;
+  margin-bottom: 10rpx;
+}
+
+.item-label {
+  font-size: 28rpx;
+  color: #888888;
+  margin-bottom: 10rpx;
+}
+
+.item-value {
+  font-size: 48rpx;
+  font-weight: bold;
+  color: #000000;
+}
+
+.item-unit {
+  font-size: 24rpx;
+  color: #888888;
+  margin-top: 5rpx;
+}
+
+/* 中间还可摄入区域 */
+/* 进度环容器样式 */
+.remaining-container {
+  width: 240rpx;
+  height: 240rpx;
+  border-radius: 50%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+
+/* 进度环样式 */
+.progress-ring {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+/* 确保文字显示在进度环上方 */
+.remaining-label,
+.remaining-value,
+.recommended-intake {
+  position: relative;
+  z-index: 1;
+}
+
+.remaining-label {
+  font-size: 30rpx;
+  color: #888888;
+  position: absolute;
+  top: 60rpx;
+}
+
+.remaining-value {
+  font-size: 60rpx;
+  font-weight: bold;
+  color: #00C48F;
+}
+
+.recommended-intake {
+  font-size: 24rpx;
+  color: #888888;
+  position: absolute;
+  bottom: 60rpx;
+}
+
+/* 营养进度区 */
+.nutrition-progress {
+  padding: 10rpx 20rpx;
+}
+
+.nutrition-item {
+  margin-bottom: 25rpx;
+}
+
+.nutrition-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10rpx;
+}
+
+.nutrition-name {
+  font-size: 30rpx;
+  color: #333333;
+}
+
+.nutrition-value {
+  font-size: 26rpx;
+  color: #888888;
+}
+
+.progress-bar {
+  height: 12rpx; /* 6px */
+  background-color: #EEEEEE;
+  border-radius: 6rpx;
+  overflow: hidden;
+}
+
+/* 碳水进度条 - 绿色 */
+.carbs-bar .progress-fill {
+  background-color: #00C48F;
+}
+
+/* 蛋白质进度条 - 蓝色 */
+.protein-bar .progress-fill {
+  background-color: #1890FF;
+}
+
+/* 脂肪进度条 - 橙色 */
+.fat-bar .progress-fill {
+  background-color: #FF7A45;
+}
+
+.progress-fill {
+  height: 100%;
+  border-radius: 6rpx;
+  transition: width 0.3s ease;
+}
+
+.remaining-label {
+  font-size: 30rpx;
+  color: #888888;
+  position: absolute;
+  top: 60rpx;
+}
+
+.remaining-value {
+  font-size: 60rpx;
+  font-weight: bold;
+  color: #00C48F;
+}
+
+.recommended-intake {
+  font-size: 24rpx;
+  color: #888888;
+  position: absolute;
+  bottom: 60rpx;
+}
+
+/* 营养进度区 */
+.nutrition-progress {
+  padding: 10rpx 20rpx;
+}
+
+.nutrition-row {
+  margin-bottom: 20rpx;
+}
+
+.nutrition-item {
+  margin-bottom: 10rpx;
+}
+
+.nutrition-name {
+  font-size: 28rpx;
+  color: #333333;
+  margin-bottom: 8rpx;
+  display: block;
+}
+
+.nutrition-value {
+  font-size: 24rpx;
+  color: #888888;
+  margin-bottom: 10rpx;
+  display: block;
+}
+
+.progress-bar {
+  height: 10rpx;
+  background-color: #EEEEEE;
+  border-radius: 5rpx;
+  overflow: hidden;
+}
+
+.progress-fill {
+  height: 100%;
+  border-radius: 5rpx;
+  transition: width 0.3s ease;
+}
+
+/* 深色模式适配 */
+page[dark-mode=true] .diet-section {
+  background: #333333;
+}
+
+page[dark-mode=true] .diet-icon-container {
+  background: #333333;
+}
+
+page[dark-mode=true] .remaining-container {
+  background: #444444;
+}
+
+page[dark-mode=true] .item-value,
+page[dark-mode=true] .remaining-value,
+page[dark-mode=true] .nutrition-name {
+  color: #FFFFFF;
+}
+
+page[dark-mode=true] .item-label,
+page[dark-mode=true] .item-unit,
+page[dark-mode=true] .remaining-label,
+page[dark-mode=true] .recommended-intake,
+page[dark-mode=true] .nutrition-value {
+  color: #CCCCCC;
+}
+
+.divider {
+  height: 1rpx;
+  background-color: #EEEEEE;
+  margin: 15rpx 0;
+}
+
+.exercise-burned {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15rpx 0;
+}
+
+.section-subtitle {
+  font-size: 30rpx;
+  color: #333333;
+}
+
+.burned-value {
+  font-size: 50rpx; /* 20sp */
+  color: #333333;
+}
+
+.nutrition-progress {
+  padding: 10rpx 0;
+}
+
+.nutrition-item {
+  margin-bottom: 25rpx;
+}
+
+.nutrition-item:last-child {
+  margin-bottom: 0;
+}
+
+.nutrition-name {
+  font-size: 30rpx;
+  color: #333333;
+  margin-bottom: 10rpx;
+  display: block;
+}
+
+.nutrition-value {
+  font-size: 26rpx;
+  color: #888888;
+  margin-bottom: 10rpx;
+  display: block;
+}
+
+.progress-bar {
+  height: 10rpx; /* 4dp */
+  background-color: #EEEEEE;
+  border-radius: 5rpx; /* 2dp */
+  overflow: hidden;
+}
+
+.progress-fill {
+  height: 100%;
+  border-radius: 5rpx;
+  transition: width 0.3s ease;
+}
+
+/* 深色模式适配 */
+page[dark-mode=true] .diet-section {
+  background: #333333;
+}
+
+page[dark-mode=true] .big-number,
+page[dark-mode=true] .section-subtitle,
+page[dark-mode=true] .burned-value,
+page[dark-mode=true] .nutrition-name {
+  color: #FFFFFF;
+}
+
+page[dark-mode=true] .small-label,
+page[dark-mode=true] .nutrition-value {
+  color: #CCCCCC;
+}
