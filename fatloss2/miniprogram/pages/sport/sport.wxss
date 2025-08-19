@@ -1,0 +1,921 @@
+/* 训练模式选择模块 */
+.training-mode-container {
+  background: #FFFFFF;
+  border-radius: 24rpx;
+  box-shadow: 0 8rpx 24rpx rgba(0,0,0,0.1);
+  padding: 32rpx;
+  margin: 30rpx;
+}
+
+.mode-title {
+  font-size: 36rpx;
+  font-weight: bold;
+  color: #333333;
+  margin-bottom: 20rpx;
+  display: block;
+}
+
+.mode-options {
+  display: flex;
+  justify-content: space-between;
+}
+
+/* 训练模式选择模块样式增强 */
+.mode-item {
+  flex: 1;
+  text-align: center;
+  padding: 20rpx 0;
+  margin: 0 10rpx;
+  border-radius: 16rpx;
+  background-color: #F5F5F5;
+  transition: all 0.3s ease;
+}
+
+.mode-item.active {
+  background-color: var(--primary-color, #1E90FF);
+  transform: translateY(-5rpx);
+  box-shadow: 0 5rpx 15rpx rgba(0,0,0,0.1);
+}
+
+.mode-item.active::after {
+  content: '';
+  display: block;
+  height: 6rpx;
+  width: 80%;
+  margin: 8rpx auto 0;
+  background-color: #FFFFFF;
+  border-radius: 3rpx;
+}
+
+/* 内容区过渡动画 */
+.content-container {
+  transition: background-color 0.4s linear;
+  padding: 30rpx;
+  min-height: 100vh;
+}
+
+/* 模式专属内容样式 */
+.mode-specific-content {
+  width: 100%;
+  margin-top: 30rpx;
+}
+
+/* 居家模式特色卡片网格 */
+.feature-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 20rpx;
+  margin-bottom: 30rpx;
+}
+
+.feature-card {
+  background: #FFFFFF;
+  border-radius: 16rpx;
+  padding: 24rpx;
+  box-shadow: 0 4rpx 10rpx rgba(0,0,0,0.05);
+  transition: all 0.3s ease;
+}
+
+.feature-card-hover {
+  transform: translateY(-4rpx);
+  box-shadow: 0 8rpx 20rpx rgba(0,0,0,0.1);
+}
+
+.feature-title {
+  font-size: 30rpx;
+  font-weight: bold;
+  color: #333333;
+  display: block;
+  margin-bottom: 10rpx;
+}
+
+.feature-desc {
+  font-size: 26rpx;
+  color: #666666;
+}
+
+/* 小贴士卡片 */
+.tip-card {
+  background: #FFF8E1;
+  border-radius: 16rpx;
+  padding: 24rpx;
+}
+
+.tip-title {
+  font-size: 30rpx;
+  font-weight: bold;
+  color: #FFA000;
+  display: block;
+  margin-bottom: 10rpx;
+}
+
+.tip-content {
+  font-size: 26rpx;
+  color: #666666;
+}
+
+/* 户外模式样式 */
+.weather-panel {
+  background: #FFFFFF;
+  border-radius: 16rpx;
+  padding: 24rpx;
+  margin-bottom: 30rpx;
+}
+
+.weather-title {
+  font-size: 30rpx;
+  font-weight: bold;
+  color: #333333;
+  display: block;
+  margin-bottom: 10rpx;
+}
+
+.weather-temp {
+  font-size: 48rpx;
+  font-weight: bold;
+  color: #2196F3;
+  display: block;
+}
+
+.weather-desc {
+  font-size: 26rpx;
+  color: #666666;
+}
+
+/* 其他模式专属样式... */
+.mode-name {
+  font-size: 32rpx;
+  color: #666666;
+}
+
+.mode-item.active .mode-name {
+  color: #FFFFFF;
+  font-weight: bold;
+}
+
+/* sport.wxss */
+.target-card {
+  background: #FFFFFF;
+  border-radius: 24rpx;
+  box-shadow: 0 8rpx 24rpx rgba(0,0,0,0.1);
+  padding: 32rpx;
+  margin: 30rpx;
+}
+
+.card-header {
+  margin-bottom: 30rpx;
+}
+
+.card-title {
+  font-size: 36rpx;
+  font-weight: bold;
+  color: #333333;
+  display: block;
+  margin-bottom: 10rpx;
+}
+
+.card-subtitle {
+  font-size: 28rpx;
+  color: #999999;
+  display: block;
+}
+
+.data-container {
+  display: flex;
+  justify-content: space-between;
+  padding: 20rpx 0;
+  border-bottom: 1rpx solid #EEEEEE;
+  border-top: 1rpx solid #EEEEEE;
+  margin-bottom: 25rpx;
+}
+
+.data-item {
+  flex: 1;
+  text-align: center;
+}
+
+.data-divider {
+  width: 1rpx;
+  background: #EEEEEE;
+}
+
+.data-label {
+  font-size: 28rpx;
+  color: #666666;
+  display: block;
+}
+
+.data-value {
+  font-size: 44rpx;
+  font-weight: bold;
+  color: #333333;
+  display: block;
+  line-height: 1.4;
+}
+
+.data-unit {
+  font-size: 28rpx;
+  color: #666666;
+}
+
+.progress-container {
+  margin-bottom: 30rpx;
+}
+
+.progress-info {
+  display: flex;
+  align-items: center;
+  margin-bottom: 15rpx;
+}
+
+.level {
+  font-size: 28rpx;
+  font-weight: bold;
+  color: #333333;
+  margin-right: 15rpx;
+}
+
+.role {
+  font-size: 28rpx;
+  color: #333333;
+  margin-right: 15rpx;
+}
+
+.exp {
+  font-size: 28rpx;
+  color: #999999;
+  flex: 1;
+  text-align: right;
+}
+
+.progress-bar {
+  height: 12rpx;
+  background-color: #F5F5F5;
+  border-radius: 6rpx;
+  overflow: hidden;
+}
+
+.progress {
+  height: 100%;
+  background-color: #4CD964;
+  border-radius: 6rpx;
+  transition: width 0.3s ease;
+}
+
+.sets-container {
+  display: flex;
+  justify-content: space-between;
+  font-size: 28rpx;
+  color: #333333;
+  padding-top: 20rpx;
+  border-top: 1rpx solid #EEEEEE;
+}
+
+.sets-count {
+  font-weight: bold;
+}
+
+
+/* 计划卡片 - 复用第一模块样式并添加间距 */
+.plan-card {
+  background: #FFFFFF;
+  border-radius: 24rpx;
+  box-shadow: 0 8rpx 24rpx rgba(0,0,0,0.1);
+  padding: 32rpx;
+  margin: 0 30rpx 30rpx;
+  margin-top: 20rpx; /* 与上方模块的间距 */
+}
+
+/* 训练项目列表 */
+.plan-list {
+  margin-top: 20rpx;
+}
+
+.plan-item {
+  padding: 30rpx 0;
+  border-bottom: 1rpx solid #EEEEEE;
+}
+
+/* 最后一个项目无下边框 */
+.plan-item:last-child {
+  border-bottom: none;
+}
+
+/* 项目头部布局 */
+.plan-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 15rpx;
+}
+
+.plan-name {
+  font-size: 32rpx;
+  font-weight: bold;
+  color: #333333;
+}
+
+.plan-status {
+  font-size: 26rpx;
+  padding: 6rpx 16rpx;
+  border-radius: 20rpx;
+}
+
+.status-done {
+  background-color: #E6F7ED;
+  color: #3CB371;
+}
+
+.status-doing {
+  background-color: #FFF7E6;
+  color: #FFA500;
+}
+
+.status-todo {
+  background-color: #F5F5F5;
+  color: #999999;
+}
+
+.plan-detail {
+  font-size: 28rpx;
+  color: #666666;
+  display: block;
+  margin-bottom: 8rpx;
+}
+
+.plan-data {
+  font-size: 26rpx;
+  color: #999999;
+  display: block;
+}
+
+/* 查看全部 */
+.view-all {
+  text-align: center;
+  padding-top: 20rpx;
+  color: #1E90FF; /* 微信蓝 */
+  font-size: 28rpx;
+}
+
+
+/* 当前训练卡片 - 复用基础样式并添加间距 */
+.current-card {
+  background: #FFFFFF;
+  border-radius: 24rpx;
+  box-shadow: 0 8rpx 24rpx rgba(0,0,0,0.1);
+  padding: 32rpx;
+  margin: 0 30rpx 30rpx;
+  margin-top: 20rpx; /* 与上方模块的间距 */
+  position: relative;
+  overflow: hidden; /* 确保状态条不溢出 */
+}
+
+/* 橙色状态条 */
+.status-bar {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 8rpx;
+  background: #FFA500;
+}
+
+/* 训练名称 */
+.training-name {
+  font-size: 40rpx;
+  font-weight: bold;
+  color: #333333;
+  text-align: center;
+  margin: 30rpx 0;
+}
+
+/* 训练数据布局 */
+/* 当前训练数据布局优化 */
+.training-data {
+  margin: 20rpx 0;
+  display: flex;
+  flex-direction: column;
+  gap: 20rpx;
+}
+
+.data-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.data-item {
+  flex: 1;
+  text-align: center;
+  position: relative;
+}
+
+/* 移除所有内联定位后，添加必要的间距样式 */
+.training-name {
+  font-size: 40rpx;
+  font-weight: bold;
+  color: #333333;
+  text-align: center;
+  margin: 30rpx 0;
+}
+
+.countdown {
+  text-align: center;
+  margin: 30rpx 0;
+}
+
+.action-buttons {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 30rpx;
+  padding: 0 20rpx;
+}
+
+.primary-btn, .secondary-btn {
+  flex: 1;
+  border-radius: 50rpx;
+  font-size: 32rpx;
+  padding: 20rpx 0;
+  margin: 0 15rpx;
+}
+
+.primary-btn {
+  background: linear-gradient(to right, #1E90FF, #4169E1);
+  color: #FFFFFF;
+  border: none;
+}
+
+.secondary-btn {
+  background: transparent;
+  border: 1rpx solid #CCCCCC;
+  color: #666666;
+}
+
+
+/* 成就卡片 - 复用基础样式并添加间距 */
+.achievement-card {
+  background: #FFFFFF;
+  border-radius: 24rpx;
+  box-shadow: 0 8rpx 24rpx rgba(0,0,0,0.1);
+  padding: 32rpx;
+  margin: 0 30rpx 30rpx;
+  margin-top: 20rpx; /* 与上方模块的间距 */
+  position: relative;
+  overflow: hidden;
+}
+
+/* 金色装饰条 */
+.decoration-bar {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 8rpx;
+  background: linear-gradient(to right, #FFD700, #FFA500);
+}
+
+/* 成就列表 */
+.achievement-list {
+  margin-top: 25rpx;
+}
+
+.achievement-item {
+  padding: 30rpx 0;
+  border-bottom: 1rpx solid #EEEEEE;
+  display: flex;
+  flex-direction: column;
+}
+
+/* 最后一项无下边框 */
+.achievement-item:last-child {
+  border-bottom: none;
+}
+
+.achievement-label {
+  font-size: 30rpx;
+  color: #333333;
+  margin-bottom: 10rpx;
+}
+
+.achievement-value {
+  font-size: 36rpx;
+  font-weight: bold;
+  color: #FF8C00; /* 强调色 */
+}
+
+/* 进度条容器 */
+.progress-container {
+  width: 100%;
+  margin: 15rpx 0;
+}
+
+.progress-bar {
+  height: 16rpx;
+  background: #F0F0F0;
+  border-radius: 8rpx;
+  overflow: hidden;
+}
+
+.progress-fill {
+  height: 100%;
+  background: linear-gradient(to right, #FFD700, #FFA500);
+  border-radius: 8rpx;
+}
+
+.progress-text {
+  font-size: 28rpx;
+  color: #3CB371; /* 绿色 */
+  text-align: center;
+  margin-top: 10rpx;
+}
+
+/* 计划卡片标题布局 */
+.flex-between {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+/* 修改计划按钮 */
+.edit-plan-btn {
+  font-size: 28rpx;
+  color: #808080; /* 灰色 */
+}
+
+/* 编辑面板 */
+.edit-panel {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 85%;
+  min-width: 600rpx;
+  min-height: 60vh;
+  background: #FFFFFF;
+  border-radius: 16rpx;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+  z-index: 100;
+  max-height: 85vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* 面板头部 */
+.panel-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 24rpx 32rpx;
+  border-bottom: 1rpx solid #EEEEEE;
+}
+
+.panel-title {
+  font-size: 32rpx;
+  font-weight: bold;
+  color: #333333;
+}
+
+.close-btn {
+  font-size: 36rpx;
+  color: #999999;
+}
+
+/* 面板标题 */
+.panel-title {
+  font-size: 32rpx;
+  font-weight: bold;
+  color: #333333;
+}
+
+/* 关闭按钮 */
+.close-btn {
+  font-size: 36rpx;
+  color: #999999;
+}
+
+/* 面板内容 */
+.panel-content {
+  max-height: 600rpx;
+  overflow-y: auto;
+  padding: 32rpx;
+}
+
+/* 编辑项目列表 */
+.edit-plan-list {
+  width: 100%;
+}
+
+/* 编辑项目项 */
+.edit-plan-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 24rpx 0;
+  border-bottom: 1rpx solid #EEEEEE;
+}
+
+/* 编辑项目信息 */
+.edit-plan-info {
+  flex: 1;
+}
+
+/* 编辑项目名称 */
+.edit-plan-name {
+  font-size: 30rpx;
+  font-weight: bold;
+  color: #333333;
+}
+
+/* 编辑项目详情 */
+.edit-plan-detail {
+  font-size: 26rpx;
+  color: #666666;
+}
+
+/* 删除按钮 */
+.delete-btn {
+  font-size: 32rpx;
+  color: #FF4D4F;
+  margin-left: 20rpx;
+}
+
+/* 空提示 */
+.empty-tip {
+  text-align: center;
+  padding: 40rpx 0;
+  color: #999999;
+  font-size: 28rpx;
+}
+
+/* 添加按钮 */
+.add-btn {
+  text-align: center;
+  padding: 24rpx 0;
+  color: #1E90FF;
+  font-size: 28rpx;
+  border-top: 1rpx solid #EEEEEE;
+}
+
+/* 面板底部 */
+.panel-footer {
+  display: flex;
+  justify-content: space-between;
+  padding: 24rpx 32rpx;
+  border-top: 1rpx solid #EEEEEE;
+}
+
+/* 取消按钮 */
+.cancel-btn {
+  flex: 1;
+  margin-right: 20rpx;
+  background: #F5F5F5;
+  color: #666666;
+  border-radius: 50rpx;
+  font-size: 28rpx;
+}
+
+/* 保存按钮 */
+.save-btn {
+  flex: 1;
+  margin-left: 20rpx;
+  background: #1E90FF;
+  color: #FFFFFF;
+  border-radius: 50rpx;
+  font-size: 28rpx;
+}
+
+/* 添加表单 */
+.add-form {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) !important;
+  width: 80%;
+  background: #FFFFFF;
+  border-radius: 24rpx;
+  box-shadow: 0 8rpx 24rpx rgba(0,0,0,0.2);
+  z-index: 101;
+  opacity: 0;
+}
+
+/* 表单头部 */
+.form-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 24rpx 32rpx;
+  border-bottom: 1rpx solid #EEEEEE;
+}
+
+/* 表单标题 */
+.form-title {
+  font-size: 32rpx;
+  font-weight: bold;
+  color: #333333;
+}
+
+/* 表单内容 */
+.form-content {
+  padding: 32rpx;
+}
+
+/* 表单项 */
+.form-item {
+  margin-bottom: 30rpx;
+}
+
+/* 表单标签 */
+.form-label {
+  display: block;
+  font-size: 28rpx;
+  color: #333333;
+  margin-bottom: 10rpx;
+}
+
+/* 表单输入框 */
+.form-input {
+  width: 100%;
+  height: 80rpx;
+  border: 1rpx solid #EEEEEE;
+  border-radius: 12rpx;
+  padding: 0 20rpx;
+  box-sizing: border-box;
+  font-size: 28rpx;
+}
+
+/* 选择器 */
+.picker {
+  width: 100%;
+  height: 80rpx;
+  line-height: 80rpx;
+  border: 1rpx solid #EEEEEE;
+  border-radius: 12rpx;
+  padding: 0 20rpx;
+  box-sizing: border-box;
+  font-size: 28rpx;
+  color: #666666;
+}
+
+/* 表单底部 */
+.form-footer {
+  padding: 24rpx 32rpx;
+  border-top: 1rpx solid #EEEEEE;
+}
+
+/* 确认添加按钮 */
+.confirm-add-btn {
+  width: 100%;
+  background: #1E90FF;
+  color: #FFFFFF;
+  border-radius: 50rpx;
+  font-size: 28rpx;
+}
+
+/* 遮罩层 */
+.mask {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0,0,0,0.5);
+  z-index: 99;
+}
+.training-mode-container {
+  padding: 20rpx;
+  background-color: #f8f8f8;
+  border-radius: 10rpx;
+  margin: 20rpx auto;
+  width: 80%;
+  position: relative;
+  overflow: hidden;
+}
+
+.dropdown-button {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20rpx;
+  background-color: #ffffff;
+  border: 1rpx solid #ddd;
+  border-radius: 8rpx;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.dropdown-text {
+  font-size: 28rpx;
+  color: #333;
+}
+
+.triangle-icon {
+  width: 0;
+  height: 0;
+  border-left: 12rpx solid transparent;
+  border-right: 12rpx solid transparent;
+  border-top: 12rpx solid #999;
+  margin-left: 10rpx;
+  transition: transform 0.2s ease;
+}
+
+.triangle-icon.rotated {
+  transform: rotate(180deg);
+}
+
+.dropdown-panel {
+  width: 100%;
+  background-color: #ffffff;
+  border: 1rpx solid #ddd;
+  border-top: none;
+  border-radius: 0 0 8rpx 8rpx;
+  overflow: hidden;
+  max-height: 0;
+  opacity: 0;
+  transition: max-height 0.2s ease, opacity 0.15s ease;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  z-index: 10;
+  box-shadow: 0 4rpx 10rpx rgba(0, 0, 0, 0.1);
+}
+
+.dropdown-panel.expanded {
+  max-height: 500rpx;
+  opacity: 1;
+}
+
+.dropdown-option {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 24rpx 32rpx;
+  border-bottom: 1rpx solid #eee;
+  height: 96rpx; /* ≥48dp (1dp = 2rpx) */
+  box-sizing: border-box;
+}
+
+.dropdown-option:last-child {
+  border-bottom: none;
+}
+
+.dropdown-option.selected {
+  background-color: #f5f5f5;
+}
+
+.option-text {
+  font-size: 28rpx;
+  color: #333;
+}
+
+.dropdown-option.selected .option-text {
+  font-weight: bold;
+  color: #4CAF50;
+}
+
+.selected-icon {
+  font-size: 32rpx;
+  color: #4CAF50;
+}
+
+/* 适配深色模式 */
+@media (prefers-color-scheme: dark) {
+  .training-mode-container {
+    background-color: #333;
+  }
+  .dropdown-button {
+    background-color: #444;
+    border-color: #555;
+  }
+  .dropdown-text {
+    color: #fff;
+  }
+  .triangle-icon {
+    border-top-color: #aaa;
+  }
+  .dropdown-panel {
+    background-color: #444;
+    border-color: #555;
+  }
+  .dropdown-option {
+    border-bottom-color: #555;
+  }
+  .dropdown-option.selected {
+    background-color: #555;
+  }
+  .option-text {
+    color: #fff;
+  }
+}
+.mode-title {
+  font-size: 28rpx;
+  font-weight: bold;
+  margin-bottom: 15rpx;
+}
+
+.picker {
+  padding: 15rpx;
+  background-color: #ffffff;
+  border: 1rpx solid #ddd;
+  border-radius: 8rpx;
+  font-size: 28rpx;
+}
