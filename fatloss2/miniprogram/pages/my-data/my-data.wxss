@@ -1,0 +1,850 @@
+.container {
+  padding: 0rpx 0rpx 30rpx 0rpx; /* 上、右、下、左间距，上和左右设为0rpx，下面保持30rpx */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: #f5f5f5;
+  min-height: 100vh;
+}
+
+.title {
+  font-size: 36rpx;
+  font-weight: bold;
+  margin-bottom: 40rpx;
+  color: #333333;
+}
+
+.loading-tip {
+  font-size: 28rpx;
+  color: #999;
+  margin-top: 100rpx;
+}
+
+/* 整体卡片样式 */
+.data-card {
+  width: 320px; /* 基础宽度 */
+  height: 260px; /* 基础高度 */
+  background-color: #FFFFFF;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  box-sizing: border-box;
+}
+
+/* 状态栏样式 */
+.status-bar {
+  height: 40px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.status-icon {
+  font-size: 16px;
+  color: #52C41A;
+}
+
+.status-title {
+  font-size: 14px;
+  color: #666666;
+}
+
+.status-tag {
+  font-size: 14px;
+  color: #52C41A;
+  font-weight: bold;
+}
+
+.status-time {
+  font-size: 18px;
+  color: #1890FF;
+  font-weight: bold;
+  margin-left: auto;
+}
+
+/* 数据三列样式 */
+.data-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 8px;
+  height: 80px;
+}
+
+.data-col {
+  background-color: #FAFAFA;
+  border-radius: 8px;
+  padding: 8px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+.data-title {
+  font-size: 12px;
+  color: #999999;
+  margin-bottom: 4px;
+}
+
+.data-value {
+  font-size: 18px;
+  font-weight: bold;
+  margin-bottom: 2px;
+}
+
+.weight .data-value {
+  color: #333333;
+}
+
+.calorie .data-value {
+  color: #FA8C16;
+}
+
+.checkin .data-value {
+  color: #722ED1;
+}
+
+.unit {
+  font-size: 12px;
+  color: #666666;
+  margin-left: 2px;
+}
+
+.data-sub {
+  font-size: 12px;
+}
+
+.weight .data-sub {
+  color: #52C41A;
+}
+
+.calorie .data-sub, .checkin .data-sub {
+  color: #666666;
+}
+
+/* 进度三列样式 */
+.progress-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 8px;
+  height: 60px;
+  margin-top: 4px;
+}
+
+.progress-col {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+.progress-label {
+  font-size: 12px;
+  color: #666666;
+  margin-bottom: 4px;
+}
+
+.progress-value {
+  font-size: 20px;
+  font-weight: bold;
+  margin-bottom: 4px;
+}
+
+.weight .progress-value {
+  color: #52C41A;
+}
+
+.calorie .progress-value {
+  color: #FA8C16;
+}
+
+.checkin .progress-value {
+  color: #722ED1;
+}
+
+.mini-progress {
+  height: 4px;
+  width: 80%;
+  border-radius: 2px;
+}
+
+.weight-progress {
+  background: linear-gradient(to right, #73D13D, #52C41A);
+}
+
+.calorie-progress {
+  background: linear-gradient(to right, #FFC53D, #FA8C16);
+}
+
+.checkin-progress {
+  background: linear-gradient(to right, #B37FEB, #722ED1);
+}
+
+/* 摘要栏样式 */
+.summary-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  background-color: #F8F8F8;
+  border-radius: 8px;
+  height: 40px;
+  padding: 0 8px;
+}
+
+.summary-item {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
+  color: #666666;
+  position: relative;
+}
+
+.summary-item:not(:last-child)::after {
+  content: '';
+  position: absolute;
+  right: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 1px;
+  height: 20px;
+  background-color: #F0F0F0;
+}
+
+.summary-item strong {
+  color: #333333;
+  font-weight: bold;
+}
+
+.summary-item:last-child strong {
+  color: #FA8C16;
+}
+
+/* 响应式设计 */
+@media screen and (max-width: 320px) {
+  .data-card {
+    width: 100%;
+    height: auto;
+  }
+}
+
+@media screen and (min-width: 400px) {
+  .data-card {
+    width: 360px;
+    height: 292.5px; /* 按比例放大 (360/320)*260 = 292.5 */
+  }
+}
+.content {
+  width: 80%;
+  max-width: 345px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+/* 今日状态卡片 */
+.status-card {
+  width: 100%;
+  height: 80px;
+  background: linear-gradient(to right, #F0F7FF, #E6F2FF);
+  border-radius: 12px;
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0px 8px 24px rgba(0, 0, 0, 0.05);
+}
+
+.status-icon {
+  font-size: 24px;
+  color: #1890FF;
+  margin-bottom: 8px;
+}
+
+.status-title {
+  font-size: 14px;
+  color: #666666;
+  margin-bottom: 8px;
+}
+
+.status-value {
+  font-size: 20px;
+  font-weight: bold;
+  color: #1890FF;
+  text-align: center;
+}
+
+.status-divider {
+  height: 1px;
+  background-color: #D4EBFF;
+  margin-top: 12px;
+}
+
+/* 数据卡片通用样式 */
+.data-card {
+  width: 100%;
+  background-color: #FFFFFF;
+  border-radius: 12px;
+  padding: 16px;
+  border: 1px solid #F0F0F0;
+  box-shadow: 0px 8px 24px rgba(0, 0, 0, 0.05);
+}
+
+.card-title {
+  font-size: 14px;
+  color: #666666;
+  margin-bottom: 16px;
+}
+
+/* 体重卡片样式 */
+.weight-value {
+  display: flex;
+  align-items: baseline;
+  margin-bottom: 12px;
+}
+
+.weight-num {
+  font-size: 36px;
+  font-weight: bold;
+  color: #333333;
+}
+
+.weight-unit {
+  font-size: 24px;
+  color: #666666;
+  margin-left: 8px;
+}
+
+.weight-change {
+  font-size: 14px;
+  color: #52C41A;
+  margin-bottom: 16px;
+}
+
+.change-icon {
+  margin-right: 4px;
+}
+
+/* 进度条通用样式 */
+.progress-container {
+  height: 8px;
+  background-color: #F5F5F5;
+  border-radius: 4px;
+  margin-bottom: 16px;
+  overflow: hidden;
+}
+
+.progress-bar {
+  height: 100%;
+  transition: width 0.5s ease;
+}
+
+/* 体重进度条 */
+.progress-bar[data-type="weight"] {
+  background: linear-gradient(to right, #73D13D, #52C41A);
+}
+
+.weight-labels {
+  display: flex;
+  justify-content: space-between;
+  font-size: 12px;
+  color: #999999;
+  margin-bottom: 12px;
+}
+
+.weight-summary {
+  font-size: 14px;
+  color: #666666;
+  text-align: center;
+}
+
+/* 热量差卡片样式 */
+.calorie-value {
+  font-size: 28px;
+  font-weight: bold;
+  color: #FA8C16;
+  margin-bottom: 8px;
+}
+
+.calorie-detail {
+  font-size: 16px;
+  color: #666666;
+  margin-bottom: 16px;
+}
+
+/* 热量进度条 */
+.calorie-progress {
+  background-color: #FFF7E6;
+}
+
+.progress-bar[data-type="calorie"] {
+  background: linear-gradient(to right, #FFC53D, #FA8C16);
+}
+
+.calorie-tip {
+  font-size: 14px;
+  color: #FA8C16;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.walk-icon {
+  margin-right: 4px;
+}
+
+/* 连续打卡卡片样式 */
+.checkin-days {
+  font-size: 28px;
+  font-weight: bold;
+  color: #722ED1;
+  margin-bottom: 8px;
+}
+
+.checkin-target {
+  font-size: 14px;
+  color: #666666;
+  margin-bottom: 16px;
+}
+
+/* 打卡进度条 */
+.checkin-progress {
+  background-color: #F9F0FF;
+}
+
+.progress-bar[data-type="checkin"] {
+  background: linear-gradient(to right, #B37FEB, #722ED1);
+}
+
+.checkin-percent {
+  font-size: 12px;
+  color: #722ED1;
+  text-align: right;
+}
+
+/* 卡片悬停效果 */
+.data-card, .status-card {
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.data-card:hover, .status-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0px 12px 28px rgba(0, 0, 0, 0.1);
+}
+
+/* 整体页面样式 */
+.data-page {
+  width: 375px;
+  height: 667px;
+  background-color: #F8F8F8;
+  padding: 20px 15px;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.title {
+  font-size: 18px;
+  font-weight: bold;
+  color: #333333;
+  margin-bottom: 20px;
+}
+
+.loading-tip {
+  font-size: 14px;
+  color: #999;
+  margin-top: 100px;
+}
+
+/* 我的数据模块样式 */
+.data-summary-card {
+  width: 345px;
+  height: 260px;
+  background-color: #FFFFFF;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  padding: 16px;
+  box-sizing: border-box;
+  margin-bottom: 16px;
+}
+
+/* 状态栏样式 */
+.status-section {
+  height: 40px;
+  display: flex;
+  align-items: center;
+  margin-bottom: 16px;
+}
+
+.status-icon {
+  font-size: 16px;
+  color: #1890FF;
+  margin-right: 8px;
+}
+
+.status-title {
+  font-size: 12px;
+  color: #999999;
+  margin-right: 8px;
+}
+
+.status-tag {
+  font-size: 16px;
+  color: #52C41A;
+  font-weight: bold;
+  margin-right: 8px;
+}
+
+.status-time {
+  font-size: 20px;
+  color: #1890FF;
+  font-weight: bold;
+  margin-left: auto;
+}
+
+/* 数据三列样式 */
+.metric-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 8px;
+  margin-bottom: 16px;
+}
+
+.data-col {
+  background-color: #FAFAFA;
+  border-radius: 8px;
+  padding: 12px 8px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+.data-value {
+  font-size: 24px;
+  font-weight: bold;
+  margin-bottom: 4px;
+}
+
+.weight .data-value {
+  color: #333333;
+}
+
+.calorie .data-value {
+  color: #FA8C16;
+}
+
+.checkin .data-value {
+  color: #722ED1;
+}
+
+.unit {
+  font-size: 14px;
+  color: #666666;
+  margin-left: 2px;
+}
+
+.data-sub {
+  font-size: 14px;
+}
+
+.weight .data-sub {
+  color: #52C41A;
+}
+
+.calorie .data-sub, .checkin .data-sub {
+  color: #666666;
+}
+
+/* 进度区域样式 */
+.progress-section {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 8px;
+  margin-bottom: 16px;
+}
+
+.progress-col {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+.progress-label {
+  font-size: 12px;
+  color: #999999;
+  margin-bottom: 4px;
+}
+
+.progress-value {
+  font-size: 16px;
+  font-weight: bold;
+  margin-bottom: 4px;
+}
+
+.weight .progress-value {
+  color: #52C41A;
+}
+
+.calorie .progress-value {
+  color: #FA8C16;
+}
+
+.checkin .progress-value {
+  color: #722ED1;
+}
+
+.mini-progress {
+  height: 6px;
+  width: 100%;
+  border-radius: 3px;
+}
+
+.weight-progress {
+  background: linear-gradient(to right, #73D13D, #52C41A);
+}
+
+.calorie-progress {
+  background: linear-gradient(to right, #FFC53D, #FA8C16);
+}
+
+.checkin-progress {
+  background: linear-gradient(to right, #B37FEB, #722ED1);
+}
+
+/* 底部摘要样式 */
+.summary-bar {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  background-color: #F8F8F8;
+  border-radius: 8px;
+  height: 40px;
+  padding: 0 8px;
+}
+
+.summary-item {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 14px;
+  color: #666666;
+  position: relative;
+}
+
+.summary-item:not(:last-child)::after {
+  content: '';
+  position: absolute;
+  right: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 1px;
+  height: 20px;
+  background-color: #F0F0F0;
+}
+
+.summary-item strong {
+  color: #333333;
+  font-weight: bold;
+}
+
+.summary-item:last-child strong {
+  color: #FA8C16;
+}
+
+/* 热量详情模块样式 */
+.calorie-detail-card {
+  width: 345px;
+  height: 380px;
+  background-color: #FFFFFF;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  padding: 16px;
+  box-sizing: border-box;
+}
+
+/* 顶部概览样式 */
+.calorie-overview {
+  margin-bottom: 16px;
+}
+
+.overview-title {
+  font-size: 16px;
+  font-weight: bold;
+  color: #333333;
+  margin-bottom: 8px;
+}
+
+.calorie-gap {
+  display: flex;
+  align-items: baseline;
+}
+
+.gap-value {
+  font-size: 32px;
+  font-weight: bold;
+  color: #52C41A;
+  margin-right: 8px;
+}
+
+.gap-label {
+  font-size: 14px;
+  color: #666666;
+}
+
+/* 摄入消耗对比样式 */
+.intake-consumption-comparison {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+  margin-bottom: 16px;
+  border-bottom: 1px dashed #F0F0F0;
+  padding-bottom: 16px;
+}
+
+.comparison-col {
+  padding: 12px;
+  border-radius: 8px;
+}
+
+.intake {
+  border-left: 2px solid #E6FFFB;
+}
+
+.consume {
+  border-right: 2px solid #FFF7E6;
+}
+
+.comparison-value {
+  font-size: 16px;
+  color: #333333;
+  margin-bottom: 4px;
+}
+
+.comparison-target {
+  font-size: 12px;
+}
+
+.intake .comparison-target {
+  color: #52C41A;
+}
+
+.consume .comparison-target {
+  color: #FA8C16;
+}
+
+/* 来源对比样式 */
+.source-headers {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  margin-bottom: 8px;
+}
+
+.intake-header {
+  font-size: 14px;
+  color: #52C41A;
+  text-align: left;
+}
+
+.consume-header {
+  font-size: 14px;
+  color: #FA8C16;
+  text-align: right;
+}
+
+.source-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.source-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+}
+
+.source-item {
+  height: 60px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 0 8px;
+  border-radius: 8px;
+  position: relative;
+}
+
+.intake .source-item {
+  border-left: 2px solid #E6FFFB;
+}
+
+.consume .source-item {
+  border-right: 2px solid #FFF7E6;
+}
+
+.source-name {
+  font-size: 14px;
+  font-weight: bold;
+  color: #333333;
+  margin-bottom: 2px;
+}
+
+.source-desc {
+  font-size: 12px;
+  color: #999999;
+  margin-bottom: 2px;
+}
+
+.source-calorie {
+  position: absolute;
+  right: 8px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 16px;
+}
+
+.intake .source-calorie {
+  color: #52C41A;
+}
+
+.consume .source-calorie {
+  color: #FA8C16;
+}
+
+.warning .source-name::before {
+  content: '❗️';
+  margin-right: 4px;
+  font-size: 12px;
+}
+
+.warning .source-desc {
+  color: #FF4D4F;
+}
+
+.empty {
+  background-color: #FAFAFA;
+}
+
+/* 响应式设计 */
+@media screen and (min-width: 600px) {
+  .data-page {
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    width: 100%;
+    height: auto;
+  }
+}
+
+@media screen and (min-width: 900px) {
+  .data-page {
+    flex-direction: row;
+    justify-content: space-around;
+  }
+}
