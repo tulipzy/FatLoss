@@ -1,0 +1,140 @@
+<view class="data-page" style="width: 747rpx; display: flex; box-sizing: border-box; left: 0rpx; top: 0rpx">
+  <view class="title">我的数据</view>
+  <view class="loading-tip" wx:if="{{isLoading}}">加载中...</view>
+
+  <!-- 我的数据模块 (顶部) -->
+  <view class="data-summary-card" wx:else style="position: relative; left: 0rpx; top: -18rpx">
+    <!-- 状态栏 -->
+    <view class="status-section">
+      <span class="status-icon">✅</span>
+      <span class="status-title">今日状态</span>
+      <span class="status-tag">已打卡</span>
+      <span class="status-time">{{checkInStatus.time}}</span>
+    </view>
+
+    <!-- 数据三列 -->
+    <view class="metric-grid">
+      <view class="data-col weight">
+        <div class="data-value">{{weightData.current}}<span class="unit">kg</span></div>
+        <div class="data-sub">▼{{weightData.change}}kg</div>
+      </view>
+
+      <view class="data-col calorie">
+        <div class="data-value">{{calorieData.diff}}<span class="unit">kcal</span></div>
+        <div class="data-sub">{{calorieData.intake}}/{{calorieData.consume}}</div>
+      </view>
+
+      <view class="data-col checkin">
+        <div class="data-value">{{checkInData.days}}<span class="unit">天</span></div>
+        <div class="data-sub">{{checkInData.target}}天目标</div>
+      </view>
+    </view>
+
+    <!-- 进度区域 -->
+<view class="progress-section">
+  <view class="progress-col checkin">
+    <div class="progress-label">打卡</div>
+    <div class="progress-value">{{checkInData.progress}}%</div>
+    <!-- 修复：确保样式属性正确结束并添加分号 -->
+    <div class="mini-progress checkin-progress" style="width: {{checkInData.progress}}"></div>
+</view>
+      <view class="progress-col weight">
+        <div class="progress-label">体重</div>
+        <div class="progress-value">{{weightData.progress}}%</div>
+        <div class="mini-progress weight-progress" style="width: {{weightData.progress}}"></div>
+      </view>
+
+      <view class="progress-col calorie">
+        <div class="progress-label">热量</div>
+        <div class="progress-value">{{calorieData.progress}}%</div>
+        <div class="mini-progress calorie-progress" style="width: {{calorieData.progress}}"></div>
+      </view>
+    </view>
+
+    <!-- 底部摘要 -->
+    <view class="summary-bar" style="position: relative; left: 0rpx; top: -27rpx">
+      <view class="summary-item" style="position: relative; left: 0rpx; top: 0rpx">已减<strong>{{weightData.initial - weightData.current}}kg</strong></view>
+      <view class="summary-item" style="position: relative; left: 0rpx; top: 0rpx">距目标<strong>{{weightData.current - weightData.target}}kg</strong></view>
+      <view class="summary-item" style="position: relative; left: 0rpx; top: 0rpx">🚶<strong>15分钟</strong></view>
+    </view>
+  </view>
+
+  <!-- 热量详情模块 (底部) -->
+  <view class="calorie-detail-card">
+    <!-- 顶部概览 -->
+    <view class="calorie-overview">
+      <div class="overview-title">每日热量摄入与消耗</div>
+      <div class="calorie-gap">
+        <span class="gap-value">+{{calorieData.diff}}</span>
+        <span class="gap-label">热量缺口</span>
+      </div>
+    </view>
+
+    <!-- 摄入消耗对比 -->
+    <view class="intake-consumption-comparison">
+      <view class="comparison-col intake">
+        <div class="comparison-value" style="position: relative; left: 0rpx; top: -24rpx">摄入: {{calorieData.intake}}kcal</div>
+        <div class="comparison-target">理想1400-1600</div>
+      </view>
+      <view class="comparison-col consume">
+        <div class="comparison-value" style="position: relative; left: 0rpx; top: -24rpx">消耗: {{calorieData.consume}}kcal</div>
+        <div class="comparison-target">目标1800kcal</div>
+      </view>
+    </view>
+
+    <!-- 来源对比 -->
+    <view class="source-comparison" style="position: relative; left: 0rpx; top: -201rpx">
+      
+
+      <view class="source-list" style="position: relative; left: 0rpx; top: -170rpx">
+        <!-- 第一行 -->
+        <div class="source-row">
+          <div class="source-item intake" style="position: relative; left: 0rpx; top: 291rpx">
+            <div class="source-name">早餐</div>
+            <div class="source-desc">鸡蛋+燕麦</div>
+            <div class="source-calorie">400kcal</div>
+          </div>
+          <div class="source-item consume" style="position: relative; left: -16rpx; top: 291rpx">
+            <div class="source-name">基础代谢</div>
+            <div class="source-desc">日常生命活动</div>
+            <div class="source-calorie">1200kcal</div>
+          </div>
+        </div>
+
+        <!-- 第二行 -->
+        <div class="source-row">
+          <div class="source-item intake" style="position: relative; left: 0rpx; top: 279rpx">
+            <div class="source-name">午餐</div>
+            <div class="source-desc">鸡胸肉沙拉</div>
+            <div class="source-calorie">550kcal</div>
+          </div>
+          <div class="source-item consume" style="position: relative; left: 0rpx; top: 279rpx">
+            <div class="source-name">运动消耗</div>
+            <div class="source-desc">运动时长达标</div>
+            <div class="source-calorie">450kcal</div>
+          </div>
+        </div>
+
+        <!-- 第三行 -->
+        <div class="source-row" style="position: relative; left: 0rpx; top: -124rpx">
+          
+          <div class="source-item consume" style="position: relative; left: 301rpx; top: 412rpx">
+            <div class="source-name">日常活动</div>
+            <div class="source-desc" style="position: relative; left: 0rpx; top: 16rpx">多走楼梯增加消耗</div>
+            <div class="source-calorie" style="position: absolute; left: 175rpx; top: 57rpx">200kcal</div>
+          </div>
+        </div>
+
+        <!-- 第四行 -->
+        <div class="source-row" style="position: relative; left: 0rpx; top: -147rpx">
+          <div class="source-item intake warning" style="position: relative; left: 0rpx; top: 302rpx">
+            <div class="source-name">晚餐</div>
+            <div class="source-desc" style="position: relative; left: 0rpx; top: 17rpx">建议控制占比30%</div>
+            <div class="source-calorie">350kcal</div>
+          </div>
+          
+        </div>
+      </view>
+    </view>
+  </view>
+</view>
