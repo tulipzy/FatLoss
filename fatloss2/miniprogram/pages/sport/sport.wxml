@@ -1,0 +1,289 @@
+<!-- 训练模式选择模块 -->
+<view class="training-mode-container">
+  <view class="mode-title">选择训练模式</view>
+  <view class="mode-options">
+    <view class="mode-item {{currentMode === 'home' ? 'active' : ''}}" bindtap="selectMode" data-mode="home">
+      <text class="mode-name">居家减脂</text>
+    </view>
+    <view class="mode-item {{currentMode === 'outdoor' ? 'active' : ''}}" bindtap="selectMode" data-mode="outdoor">
+      <text class="mode-name">户外训练</text>
+    </view>
+    <view class="mode-item {{currentMode === 'gym' ? 'active' : ''}}" bindtap="selectMode" data-mode="gym">
+      <text class="mode-name">健身房</text>
+    </view>
+  </view>
+</view>
+
+  <!-- 核心信息区域 - 三种模式共用 -->
+  <view class="target-card">
+    <view class="card-header">
+      <text class="card-title">{{modeTitles[currentMode]}}训练</text>
+      <text class="card-subtitle">{{modeSubtitles[currentMode]}}</text>
+    </view>
+    <!-- ... 核心信息区域其他内容保持不变 ... -->
+  </view>
+
+<!-- sport.wxml -->
+<view class="target-card">
+  <!-- 标题区 -->
+  <view class="card-header">
+    <text class="card-title">今日目标：减脂训练</text>
+    <text class="card-subtitle">完成以下训练，燃烧更多卡路里</text>
+  </view>
+  
+  <!-- 数据区 -->
+  <view class="data-container">
+    <view class="data-item">
+      <text class="data-label">已消耗</text>
+      <text class="data-value">{{caloriesBurned}}</text>
+      <text class="data-unit">千卡</text>
+    </view>
+    
+    <view class="data-divider"></view>
+    
+    <view class="data-item">
+      <text class="data-label">训练时长</text>
+      <text class="data-value">{{trainingTime}}</text>
+      <text class="data-unit">分钟</text>
+    </view>
+  </view>
+  
+  <!-- 经验进度 -->
+  <view class="progress-container">
+    <view class="progress-info"> <!-- 添加缺失的容器 -->
+      <text class="level">Lv.{{level}}</text>
+      <text class="role">{{roleName}}</text>
+      <text class="exp">{{currentExp}}/{{totalExp}}经验</text>
+    </view>
+    <view class="progress-bar">
+      <view class="progress" style="width: {{(currentExp/totalExp)*100 + '%'}};" wx:if="{{totalExp > 0}}"></view>
+    </view>
+  </view>
+  
+  <!-- 组数 -->
+  <view class="sets-container">
+    <text>完成组数</text>
+    <text class="sets-count">{{completedSets}} 组</text>
+  </view>
+</view> <!-- 原目标模块结束标签 -->
+
+<!-- 今日训练计划模块 -->
+<view class="plan-card">
+  <!-- 标题 -->
+  <view class="card-header flex-between">
+    <text class="card-title">今日训练计划</text>
+    <text class="edit-plan-btn" bindtap="openEditPanel">修改计划</text>
+  </view>
+  
+  <!-- 训练项目列表 -->
+  <view class="plan-list">
+    <!-- 项目1 -->
+    <view class="plan-item">
+      <view class="plan-header">
+        <text class="plan-name">有氧热身</text>
+        <view class="plan-status status-done">已完成</view>
+      </view>
+      <text class="plan-detail">5分钟·低强度</text>
+      <text class="plan-data">100千卡  120-130次/分钟</text>
+    </view>
+    
+    <!-- 项目2 -->
+    <view class="plan-item">
+      <view class="plan-header">
+        <text class="plan-name">HIIT训练</text>
+        <view class="plan-status status-doing">进行中</view>
+      </view>
+      <text class="plan-detail">15分钟·高强度</text>
+      <text class="plan-data">150千卡  150-170次/分钟</text>
+    </view>
+    
+    <!-- 项目3 -->
+    <view class="plan-item">
+      <view class="plan-header">
+        <text class="plan-name">力量训练</text>
+        <view class="plan-status status-todo">未开始</view>
+      </view>
+      <text class="plan-detail">20分钟·中强度</text>
+      <text class="plan-data">200千卡  130-150次/分钟</text>
+    </view>
+    
+    <!-- 项目4 -->
+    <view class="plan-item">
+      <view class="plan-header">
+        <text class="plan-name">拉伸放松</text>
+        <view class="plan-status status-todo">未开始</view>
+      </view>
+      <text class="plan-detail">10分钟·低强度</text>
+      <text class="plan-data">50千卡  90-110次/分钟</text>
+    </view>
+  </view>
+  
+  <!-- 查看全部 -->
+  <view class="view-all">
+    <text>查看全部</text>
+  </view>
+</view> <!-- 今日训练计划模块结束标签 -->
+
+<!-- 编辑面板 -->
+<view class="edit-panel" wx:if="{{showEditPanel}}" animation="{{panelAnimation}}">
+  <view class="panel-header">
+    <text class="panel-title">编辑训练计划</text>
+    <text class="close-btn" bindtap="closeEditPanel">✕</text>
+  </view>
+  
+  <view class="panel-content">
+    <view class="edit-plan-list" wx:if="{{editPlans.length > 0}}">
+      <block wx:for="{{editPlans}}" wx:key="id">
+        <view class="edit-plan-item" data-index="{{index}}" animation="{{item.animationData}}">
+          <view class="edit-plan-info">
+            <text class="edit-plan-name">{{item.name}}</text>
+            <text class="edit-plan-detail">{{item.duration}}分钟·{{item.intensityText}}</text>
+          </view>
+          <text class="delete-btn" bindtap="confirmDelete" data-index="{{index}}">❌</text>
+        </view>
+      </block>
+    </view>
+    
+    <view class="empty-tip" wx:else>
+      <text>点击+添加首个训练项目</text>
+    </view>
+  </view>
+  
+  <view class="add-btn" bindtap="openAddForm">+ 添加新训练项目</view>
+  
+  <view class="panel-footer">
+    <button class="cancel-btn" bindtap="cancelEdit">取消</button>
+    <button class="save-btn" bindtap="saveEdit">保存</button>
+  </view>
+</view>
+
+<!-- 添加项目表单 -->
+<view class="add-form" wx:if="{{showAddForm}}" animation="{{formAnimation}}">
+  <view class="form-header">
+    <text class="form-title">添加训练项目</text>
+    <text class="close-btn" bindtap="closeAddForm">✕</text>
+  </view>
+  
+  <view class="form-content">
+    <view class="form-item">
+      <text class="form-label">训练名称</text>
+      <input class="form-input" placeholder="请输入训练名称" bindinput="onNameInput" value="{{newPlan.name}}" />
+    </view>
+    
+    <view class="form-item">
+      <text class="form-label">时长</text>
+      <input class="form-input" type="number" placeholder="请输入分钟数" bindinput="onDurationInput" value="{{newPlan.duration}}" />
+    </view>
+    
+    <view class="form-item">
+      <text class="form-label">强度</text>
+      <picker bindchange="onIntensityChange" value="{{intensityIndex}}" range="{{intensityOptions}}">
+        <view class="picker">
+          {{intensityOptions[intensityIndex]}}
+        </view>
+      </picker>
+    </view>
+    
+    <view class="form-item">
+      <text class="form-label">预估消耗</text>
+      <input class="form-input" type="number" placeholder="请输入千卡数" bindinput="onCaloriesInput" value="{{newPlan.calories}}" />
+    </view>
+    
+    <view class="form-item">
+      <text class="form-label">心率范围</text>
+      <input class="form-input" placeholder="如: 120-130" bindinput="onHeartRateInput" value="{{newPlan.heart_rate}}" />
+    </view>
+  </view>
+  
+  <view class="form-footer">
+    <button class="confirm-add-btn" bindtap="confirmAdd">确认添加</button>
+  </view>
+</view>
+
+<!-- 遮罩层 -->
+<view class="mask" wx:if="{{showEditPanel || showAddForm}}" bindtap="closeAllPanels"></view>
+
+<!-- 当前训练模块 -->
+<view class="current-card" style="width: 694rpx; height: 523rpx; display: block; box-sizing: border-box; left: 0rpx; top: 0rpx"> <!-- 移除内联样式 -->
+  <!-- 橙色状态条 -->
+  <view class="status-bar"></view>
+  
+  <!-- 标题 -->
+  <view class="card-header">
+    <text class="card-title">正在进行：HIIT训练</text>
+  </view>
+  
+  <!-- 训练项目 -->
+  <view class="current-training">
+    <text class="training-name">开合跳</text>
+  </view>
+  
+  <!-- 训练数据 -->
+  <view class="training-data">
+    <view class="data-row">
+      <view class="data-item">
+        <text class="data-label">每组次数</text> <!-- 移除内联样式 -->
+        <text class="data-value">30</text> <!-- 移除内联样式 -->
+        <text class="data-unit">次</text> <!-- 移除内联样式 -->
+      </view>
+      
+      <view class="data-item">
+        <text class="data-label">第3/4组</text> <!-- 移除内联样式 -->
+      </view>
+    </view>
+    
+    <view class="data-item full-width">
+      <text class="data-label" style="position: relative; left: 106rpx; top: -143rpx">休息时间</text>
+      <text class="data-value" style="position: relative; left: 106rpx; top: -161rpx">45</text>
+      <text class="data-unit" style="position: relative; left: 166rpx; top: -194rpx">秒</text>
+    </view>
+  </view>
+  
+  <!-- 倒计时 -->
+  <view class="countdown">
+    <text class="countdown-label" style="position: relative; left: 0rpx; top: -186rpx">剩余时间</text>
+    <text class="countdown-value" style="position: relative; left: 0rpx; top: -186rpx">30: 00</text>
+  </view>
+  
+  <!-- 操作按钮 -->
+  <view class="action-buttons">
+    <button class="primary-btn" style="position: relative; left: -31rpx; top: -211rpx">继续</button>
+    <button class="secondary-btn" style="position: relative; left: 36rpx; top: -211rpx">完成组</button>
+  </view>
+</view> <!-- 当前训练模块结束标签 -->
+
+<!-- 训练成就模块 -->
+<view class="achievement-card">
+  <!-- 金色装饰条 -->
+  <view class="decoration-bar"></view>
+  
+  <!-- 标题 -->
+  <view class="card-header">
+    <text class="card-title">训练成就</text>
+  </view>
+  
+  <!-- 成就列表 -->
+  <view class="achievement-list">
+    <!-- 成就项1 -->
+    <view class="achievement-item">
+      <text class="achievement-label">连续7天训练</text>
+    </view>
+    
+    <!-- 成就项2 -->
+    <view class="achievement-item">
+      <text class="achievement-label">累计消耗</text>
+      <text class="achievement-value">10000千卡</text>
+    </view>
+    
+    <!-- 成就项3 -->
+    <view class="achievement-item">
+      <!-- 进度条 -->
+      <view class="progress-container">
+        <view class="progress-bar">
+          <view class="progress-fill" style="width: 60%"></view>
+        </view>
+      </view>
+      <text class="progress-text">已完成3/5</text>
+    </view>
+  </view>
+</view>
