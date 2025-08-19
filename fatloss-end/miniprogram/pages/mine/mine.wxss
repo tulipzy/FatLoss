@@ -1,0 +1,161 @@
+/* pages/mine/mine.wxss */
+.mine-container {
+  background-color: #f7f7f7;
+  min-height: 100vh;
+  padding-bottom: 120rpx;
+}
+
+/* 用户头部区域 */
+.user-header {
+  display: flex;
+  align-items: center;
+  padding: 40rpx 30rpx;
+  background-color: #fff;
+  margin-bottom: 20rpx;
+}
+
+.avatar {
+  width: 120rpx;
+  height: 120rpx;
+  border-radius: 50%;
+  margin-right: 30rpx;
+}
+
+.user-meta {
+  flex: 1;
+}
+
+.nickname {
+  font-size: 36rpx;
+  font-weight: bold;
+  margin-bottom: 10rpx;
+  display: block;
+}
+
+.user-stats {
+  display: flex;
+}
+
+.stat-item {
+  font-size: 24rpx;
+  color: #666;
+  margin-right: 20rpx;
+}
+
+/* 设置区块 */
+.settings-section {
+  background-color: #fff;
+  margin-bottom: 20rpx;
+  border-radius: 12rpx;
+  overflow: hidden;
+}
+
+.section-title {
+  font-size: 28rpx;
+  color: #999;
+  padding: 20rpx 30rpx;
+  border-bottom: 1rpx solid #f0f0f0;
+}
+
+/* 列表布局 */
+.settings-list {
+  padding: 0 30rpx;
+}
+
+.list-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 30rpx 0;
+  border-bottom: 1rpx solid #f0f0f0;
+}
+
+.list-item:last-child {
+  border-bottom: none;
+}
+
+.item-left {
+  display: flex;
+  align-items: center;
+}
+
+.item-right {
+  display: flex;
+  align-items: center;
+  color: #999;
+}
+
+.arrow {
+  font-size: 32rpx;
+  color: #ccc;
+  margin-left: 10rpx;
+}
+
+.logout-text {
+  color: #ff5a5f;
+}
+/* 容器样式 */
+.personal-info-container {
+  padding: 30rpx;
+  background-color: #fff;
+  min-height: 100vh;
+}
+
+/* 头像区域 */
+.avatar-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 40rpx;
+}
+.avatar {
+  width: 120rpx;
+  height: 120rpx;
+  border-radius: 50%;
+  margin-bottom: 20rpx;
+}
+.change-avatar {
+  color: #ff9900;
+  font-size: 28rpx;
+}
+
+/* 表单项通用样式 */
+.form-item {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 30rpx;
+}
+.item-label {
+  font-size: 28rpx;
+  color: #333;
+  margin-bottom: 10rpx;
+}
+
+/* 输入框 & Picker 容器 */
+.item-input, .picker-view {
+  border: 1px solid #eee;
+  padding: 20rpx;
+  border-radius: 8rpx;
+  font-size: 28rpx;
+}
+
+/* 身高输入框 + 单位 */
+.input-wrapper {
+  display: flex;
+  align-items: center;
+}
+.unit {
+  margin-left: 10rpx;
+  color: #999;
+  font-size: 28rpx;
+}
+
+/* 保存按钮 */
+.save-btn {
+  width: 100%;
+  background-color: #8bc34a;
+  color: #fff;
+  font-size: 32rpx;
+  padding: 20rpx 0;
+  border-radius: 8rpx;
+}
