@@ -281,3 +281,400 @@ page {
   font-weight: bold;
   color: #333;
 }
+<<<<<<< Updated upstream:fatloss/miniprogram/pages/first/first.wxss
+=======
+
+/* 添加饮食摄入区域样式 */
+/* 饮食摄入区域 */
+.diet-section {
+  position: relative; /* 添加相对定位，使按钮的绝对定位基于此容器 */
+  padding: 30rpx 20rpx;
+  background: #FFFFFF;
+  margin: 20rpx;
+  border-radius: 24rpx;
+  box-shadow: 0 4rpx 12rpx rgba(0,0,0,0.05);
+  position: relative;
+}
+
+/* 顶部图标容器 */
+.diet-icon-container {
+  position: absolute;
+  top: -40rpx;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100rpx;
+  height: 100rpx;
+  background: #FFFFFF;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4rpx 12rpx rgba(0,0,0,0.1);
+}
+
+.diet-icon {
+  width: 80rpx;
+  height: 80rpx;
+}
+
+/* 主数据区 */
+.diet-main-data {
+  display: flex;
+  justify-content: space-between;
+  padding: 40rpx 20rpx 20rpx;
+}
+
+.diet-item {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.item-icon {
+  width: 60rpx;
+  height: 60rpx;
+  margin-bottom: 10rpx;
+}
+
+.item-label {
+  font-size: 28rpx;
+  color: #888888;
+  margin-bottom: 10rpx;
+}
+
+.item-value {
+  font-size: 48rpx;
+  font-weight: bold;
+  color: #000000;
+}
+
+.item-unit {
+  font-size: 24rpx;
+  color: #888888;
+  margin-top: 5rpx;
+}
+
+/* 中间还可摄入区域 */
+/* 进度环容器样式 */
+.remaining-container {
+  width: 240rpx;
+  height: 240rpx;
+  border-radius: 50%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+
+/* 进度环样式 */
+.progress-ring {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+/* 确保文字显示在进度环上方 */
+.remaining-label,
+.remaining-value,
+.recommended-intake {
+  position: relative;
+  z-index: 1;
+}
+
+.remaining-label {
+  font-size: 30rpx;
+  color: #888888;
+  position: absolute;
+  top: 60rpx;
+}
+
+.remaining-value {
+  font-size: 60rpx;
+  font-weight: bold;
+  color: #00C48F;
+}
+
+.recommended-intake {
+  font-size: 24rpx;
+  color: #888888;
+  position: absolute;
+  bottom: 60rpx;
+}
+
+/* 营养进度区 */
+.nutrition-progress {
+  padding: 10rpx 20rpx;
+}
+
+.nutrition-item {
+  margin-bottom: 25rpx;
+}
+
+.nutrition-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10rpx;
+}
+
+.nutrition-name {
+  font-size: 30rpx;
+  color: #333333;
+}
+
+.nutrition-value {
+  font-size: 26rpx;
+  color: #888888;
+}
+
+.progress-bar {
+  height: 12rpx; /* 6px */
+  background-color: #EEEEEE;
+  border-radius: 6rpx;
+  overflow: hidden;
+}
+
+/* 碳水进度条 - 绿色 */
+.carbs-bar .progress-fill {
+  background-color: #00C48F;
+}
+
+/* 蛋白质进度条 - 蓝色 */
+.protein-bar .progress-fill {
+  background-color: #1890FF;
+}
+
+/* 脂肪进度条 - 橙色 */
+.fat-bar .progress-fill {
+  background-color: #FF7A45;
+}
+
+.progress-fill {
+  height: 100%;
+  border-radius: 6rpx;
+  transition: width 0.3s ease;
+}
+
+.remaining-label {
+  font-size: 30rpx;
+  color: #888888;
+  position: absolute;
+  top: 60rpx;
+}
+
+.remaining-value {
+  font-size: 60rpx;
+  font-weight: bold;
+  color: #00C48F;
+}
+
+.recommended-intake {
+  font-size: 24rpx;
+  color: #888888;
+  position: absolute;
+  bottom: 60rpx;
+}
+
+/* 营养进度区 */
+.nutrition-progress {
+  padding: 10rpx 20rpx;
+}
+
+.nutrition-row {
+  margin-bottom: 20rpx;
+}
+
+.nutrition-item {
+  margin-bottom: 10rpx;
+}
+
+.nutrition-name {
+  font-size: 28rpx;
+  color: #333333;
+  margin-bottom: 8rpx;
+  display: block;
+}
+
+.nutrition-value {
+  font-size: 24rpx;
+  color: #888888;
+  margin-bottom: 10rpx;
+  display: block;
+}
+
+.progress-bar {
+  height: 10rpx;
+  background-color: #EEEEEE;
+  border-radius: 5rpx;
+  overflow: hidden;
+}
+
+.progress-fill {
+  height: 100%;
+  border-radius: 5rpx;
+  transition: width 0.3s ease;
+}
+
+/* 深色模式适配 */
+page[dark-mode=true] .diet-section {
+  background: #333333;
+}
+
+page[dark-mode=true] .diet-icon-container {
+  background: #333333;
+}
+
+page[dark-mode=true] .remaining-container {
+  background: #444444;
+}
+
+page[dark-mode=true] .item-value,
+page[dark-mode=true] .remaining-value,
+page[dark-mode=true] .nutrition-name {
+  color: #FFFFFF;
+}
+
+page[dark-mode=true] .item-label,
+page[dark-mode=true] .item-unit,
+page[dark-mode=true] .remaining-label,
+page[dark-mode=true] .recommended-intake,
+page[dark-mode=true] .nutrition-value {
+  color: #CCCCCC;
+}
+
+.divider {
+  height: 1rpx;
+  background-color: #EEEEEE;
+  margin: 15rpx 0;
+}
+
+.exercise-burned {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15rpx 0;
+}
+
+.section-subtitle {
+  font-size: 30rpx;
+  color: #333333;
+}
+
+.burned-value {
+  font-size: 50rpx; /* 20sp */
+  color: #333333;
+}
+
+.nutrition-progress {
+  padding: 10rpx 0;
+}
+
+.nutrition-item {
+  margin-bottom: 25rpx;
+}
+
+.nutrition-item:last-child {
+  margin-bottom: 0;
+}
+
+.nutrition-name {
+  font-size: 30rpx;
+  color: #333333;
+  margin-bottom: 10rpx;
+  display: block;
+}
+
+.nutrition-value {
+  font-size: 26rpx;
+  color: #888888;
+  margin-bottom: 10rpx;
+  display: block;
+}
+
+.progress-bar {
+  height: 10rpx; /* 4dp */
+  background-color: #EEEEEE;
+  border-radius: 5rpx; /* 2dp */
+  overflow: hidden;
+}
+
+.progress-fill {
+  height: 100%;
+  border-radius: 5rpx;
+  transition: width 0.3s ease;
+}
+
+/* 深色模式适配 */
+page[dark-mode=true] .diet-section {
+  background: #333333;
+}
+
+page[dark-mode=true] .big-number,
+page[dark-mode=true] .section-subtitle,
+page[dark-mode=true] .burned-value,
+page[dark-mode=true] .nutrition-name {
+  color: #FFFFFF;
+}
+
+page[dark-mode=true] .small-label,
+page[dark-mode=true] .nutrition-value {
+  color: #CCCCCC;
+}
+
+/* "我的数据"按钮样式 */
+.my-data-btn {
+  position: absolute;
+  top: 20rpx;
+  right: 20rpx;
+  width: 160rpx; /* 增大点击区域 */
+  height: 88rpx; /* 确保不小于44×44pt (1pt = 2rpx) */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 10; /* 确保按钮在最上层 */
+}
+
+.my-data-text {
+  color: #999999;
+  font-size: 32rpx; /* 增大字体大小到16pt (1pt = 2rpx) */
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.progress-bar {
+  height: 10rpx;
+  background-color: #EEEEEE;
+  border-radius: 5rpx;
+  overflow: hidden;
+}
+
+.progress-fill {
+  height: 100%;
+  border-radius: 5rpx;
+  transition: width 0.3s ease;
+}
+
+/* 深色模式适配 */
+page[dark-mode=true] .diet-section {
+  background: #333333;
+}
+
+page[dark-mode=true] .big-number,
+page[dark-mode=true] .section-subtitle,
+page[dark-mode=true] .burned-value,
+page[dark-mode=true] .nutrition-name {
+  color: #FFFFFF;
+}
+
+page[dark-mode=true] .small-label,
+page[dark-mode=true] .nutrition-value {
+  color: #CCCCCC;
+}
+>>>>>>> Stashed changes:fatloss2/miniprogram/pages/first/first.wxss
