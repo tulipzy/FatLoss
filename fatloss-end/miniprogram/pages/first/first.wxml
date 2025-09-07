@@ -90,34 +90,30 @@
 
     <view class="divider"></view>
 
-    <view class="nutrition-progress" style="width: 674rpx; height: 127rpx; display: block; box-sizing: border-box">
-      <view class="nutrition-item" style="height: 68rpx; display: block; box-sizing: border-box">
-        <view class="nutrition-header" style="width: 224rpx; height: 37rpx; display: flex; box-sizing: border-box">
+    <view class="nutrition-progress">
+      <view class="nutrition-row">
+        <view class="nutrition-item carbs-item">
           <text class="nutrition-name">碳水</text>
-          <text class="nutrition-value" style="position: relative; left: -109rpx; top: 40rpx">{{carbs}}/{{totalCarbs}}克</text>
+          <text class="nutrition-value">{{carbs}}/{{totalCarbs}}克</text>
+          <view class="progress-bar carbs-bar">
+            <view class="progress-fill" style="width: {{calculateProgress(carbs, totalCarbs)}}"></view>
+          </view>
         </view>
-        <view class="progress-bar carbs-bar" style="position: relative; left: 0rpx; top: 49rpx; width: 158rpx; height: 12rpx; display: block; box-sizing: border-box">
-          <view class="progress-fill" style="width: 120rpx; position: relative; left: 0rpx; top: 52rpx; height: 35rpx; display: block; box-sizing: border-box"></view>
-        </view>
-      </view>
 
-      <view class="nutrition-item">
-        <view class="nutrition-header">
-          <text class="nutrition-name" style="position: relative; left: 216rpx; top: -87rpx">蛋白质</text>
-          <text class="nutrition-value" style="position: relative; left: -358rpx; top: -52rpx">{{protein}}/{{totalProtein}}克</text>
+        <view class="nutrition-item protein-item">
+          <text class="nutrition-name">蛋白质</text>
+          <text class="nutrition-value">{{protein}}/{{totalProtein}}克</text>
+          <view class="progress-bar protein-bar">
+            <view class="progress-fill" style="width: {{calculateProgress(protein, totalProtein)}}"></view>
+          </view>
         </view>
-        <view class="progress-bar protein-bar" style="width: 191rpx; height: 12rpx; display: block; box-sizing: border-box; left: 204rpx; top: -58rpx; position: relative">
-          <view class="progress-fill" style="width: 289rpx; height: 2rpx; display: block; box-sizing: border-box; position: relative; left: 37rpx; top: -39rpx"></view>
-        </view>
-      </view>
 
-      <view class="nutrition-item" style="width: 249rpx; height: 74rpx; display: block; box-sizing: border-box">
-        <view class="nutrition-header">
-          <text class="nutrition-name" style="position: relative; left: 464rpx; top: -192rpx">脂肪</text>
-          <text class="nutrition-value" style="position: relative; left: 295rpx; top: -157rpx">{{fat}}/{{totalFat}}克</text>
-        </view>
-        <view class="progress-bar fat-bar" style="position: relative; left: 433rpx; top: -154rpx; width: 170rpx; height: 10rpx; display: block; box-sizing: border-box">
-          <view class="progress-fill" style="width: 0rpx; height: 39rpx; display: block; box-sizing: border-box"></view>
+        <view class="nutrition-item fat-item">
+          <text class="nutrition-name">脂肪</text>
+          <text class="nutrition-value">{{fat}}/{{totalFat}}克</text>
+          <view class="progress-bar fat-bar">
+            <view class="progress-fill" style="width: {{calculateProgress(fat, totalFat)}}"></view>
+          </view>
         </view>
       </view>
     </view>
