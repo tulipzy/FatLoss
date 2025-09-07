@@ -458,50 +458,63 @@ page {
 
 /* 营养进度区 */
 .nutrition-progress {
-  padding: 10rpx 20rpx;
+  padding: 20rpx;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.nutrition-row {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
 }
 
 .nutrition-item {
-  margin-bottom: 25rpx;
-}
-
-.nutrition-header {
+  flex: 1;
+  margin: 0 10rpx;
   display: flex;
-  justify-content: space-between;
+  flex-direction: column;
   align-items: center;
-  margin-bottom: 10rpx;
+  padding: 10rpx 0;
 }
 
 .nutrition-name {
   font-size: 30rpx;
   color: #333333;
+  margin-bottom: 8rpx;
+  font-weight: bold;
 }
 
 .nutrition-value {
   font-size: 26rpx;
   color: #888888;
+  margin-bottom: 12rpx;
 }
 
 .progress-bar {
-  height: 12rpx; /* 6px */
-  background-color: #EEEEEE;
+  height: 12rpx;
+  background-color: #EEEEEE; /* 初始灰色背景 */
   border-radius: 6rpx;
   overflow: hidden;
+  width: 100%;
 }
 
 /* 碳水进度条 - 绿色 */
 .carbs-bar .progress-fill {
   background-color: #00C48F;
+  width: 0%; /* 初始宽度为0 */
 }
 
 /* 蛋白质进度条 - 蓝色 */
 .protein-bar .progress-fill {
   background-color: #1890FF;
+  width: 0%; /* 初始宽度为0 */
 }
 
 /* 脂肪进度条 - 橙色 */
 .fat-bar .progress-fill {
   background-color: #FF7A45;
+  width: 0%; /* 初始宽度为0 */
 }
 
 .progress-fill {
