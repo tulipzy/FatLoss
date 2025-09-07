@@ -14,21 +14,104 @@
   </view>
 </view>
 
-  <!-- 核心信息区域 - 三种模式共用 -->
-  <view class="target-card">
+<!-- 三种模式下的运动推荐区域 -->
+<view class="recommendations-section" wx:if="{{recommendations && !isLoading && !errorMsg}}">
+  <view class="section-title">运动推荐</view>
+  
+  <!-- 居家运动推荐 -->
+  <view class="recommendation-card" wx:if="{{currentMode === 'home'}}">
     <view class="card-header">
-      <text class="card-title">{{modeTitles[currentMode]}}训练</text>
-      <text class="card-subtitle">{{modeSubtitles[currentMode]}}</text>
+      <text class="card-title" style="color: #4CAF50;">居家运动</text>
+      <text class="card-subtitle">适合在家进行的高效训练</text>
     </view>
-    <!-- ... 核心信息区域其他内容保持不变 ... -->
+    <view class="recommendation-list">
+      <block wx:for="{{recommendations['居家']}}" wx:key="exercise_id" wx:for-item="item">
+        <view class="recommendation-item">
+          <text class="exercise-name">{{item.exercise_name}}</text>
+          <view class="exercise-meta">
+            <text class="meta-item">每10分钟消耗: {{item.calories_burned_per_ten_minutes}}千卡</text>
+            <text class="meta-item">{{item.reps_or_duration}} × {{item.sets}}组</text>
+          </view>
+          <button class="add-to-plan-btn" size="mini" bindtap="addToPlan" data-exercise="{{item}}" data-mode="home" style="color: #7ebaeb;">
+            添加到计划
+          </button>
+        </view>
+      </block>
+    </view>
   </view>
+  
+  <!-- 户外运动推荐 -->
+  <view class="recommendation-card" wx:if="{{currentMode === 'outdoor'}}">
+    <view class="card-header">
+      <text class="card-title" style="color: #2196F3;">户外运动</text>
+      <text class="card-subtitle">享受大自然的同时燃烧卡路里</text>
+    </view>
+    <view class="recommendation-list">
+      <block wx:for="{{recommendations['户外']}}" wx:key="exercise_id" wx:for-item="item">
+        <view class="recommendation-item">
+          <text class="exercise-name">{{item.exercise_name}}</text>
+          <view class="exercise-meta">
+            <text class="meta-item">每10分钟消耗: {{item.calories_burned_per_ten_minutes}}千卡</text>
+            <text class="meta-item">{{item.reps_or_duration}} × {{item.sets}}组</text>
+          </view>
+          <button class="add-to-plan-btn" size="mini" bindtap="addToPlan" data-exercise="{{item}}" data-mode="outdoor" style="color: #2196F3;">
+            添加到计划
+          </button>
+        </view>
+      </block>
+    </view>
+  </view>
+  
+  <!-- 健身房运动推荐 -->
+  <view class="recommendation-card" wx:if="{{currentMode === 'gym'}}">
+    <view class="card-header">
+      <text class="card-title" style="color: #FF9800;">健身房运动</text>
+      <text class="card-subtitle">专业器械助力，塑造完美身材</text>
+    </view>
+    <view class="recommendation-list">
+      <block wx:for="{{recommendations['健身房']}}" wx:key="exercise_id" wx:for-item="item">
+        <view class="recommendation-item">
+          <text class="exercise-name">{{item.exercise_name}}</text>
+          <view class="exercise-meta">
+            <text class="meta-item">每10分钟消耗: {{item.calories_burned_per_ten_minutes}}千卡</text>
+            <text class="meta-item">{{item.reps_or_duration}} × {{item.sets}}组</text>
+          </view>
+          <button class="add-to-plan-btn" size="mini" bindtap="addToPlan" data-exercise="{{item}}" data-mode="gym" style="color: #2196F3;">
+            添加到计划
+          </button>
+        </view>
+      </block>
+    </view>
+  </view>
+</view>
 
-<!-- sport.wxml -->
+<!-- 操作按钮区域 -->
+<view class="action-buttons-section">
+  <!-- 确认锻炼任务按钮 -->
+  <view class="confirm-task-section" wx:if="{{!hasConfirmedToday && recommendations}}">
+    <button class="confirm-task-btn" bindtap="confirmExerciseTask" type="primary">
+      确认今日锻炼任务
+    </button>
+    <text class="confirm-task-tip">确认后将保存推荐的运动到您的锻炼记录</text>
+  </view>
+  
+  <!-- 已确认提示 -->
+  <view class="confirmed-section" wx:if="{{hasConfirmedToday}}">
+    <text class="confirmed-text">今日锻炼任务已确认 ✓</text>
+  </view>
+  
+  <!-- 添加自定义任务按钮 -->
+  <button class="custom-task-btn" bindtap="addCustomTask" wx:if="{{plans.length > 0}}">
+    添加为自定义任务
+  </button>
+</view>
+
+<!-- 今日目标与数据展示模块 -->
 <view class="target-card">
   <!-- 标题区 -->
   <view class="card-header">
-    <text class="card-title">今日目标：减脂训练</text>
-    <text class="card-subtitle">完成以下训练，燃烧更多卡路里</text>
+    <text class="card-title">今日目标：{{modeTitles[currentMode]}}训练</text>
+    <text class="card-subtitle">{{modeSubtitles[currentMode]}}</text>
   </view>
   
   <!-- 数据区 -->
@@ -50,7 +133,7 @@
   
   <!-- 经验进度 -->
   <view class="progress-container">
-    <view class="progress-info"> <!-- 添加缺失的容器 -->
+    <view class="progress-info">
       <text class="level">Lv.{{level}}</text>
       <text class="role">{{roleName}}</text>
       <text class="exp">{{currentExp}}/{{totalExp}}经验</text>
@@ -65,7 +148,8 @@
     <text>完成组数</text>
     <text class="sets-count">{{completedSets}} 组</text>
   </view>
-</view> <!-- 原目标模块结束标签 -->
+</view>
+
 
 <!-- 今日训练计划模块 -->
 <view class="plan-card">
@@ -77,52 +161,87 @@
   
   <!-- 训练项目列表 -->
   <view class="plan-list">
-    <!-- 项目1 -->
-    <view class="plan-item">
-      <view class="plan-header">
-        <text class="plan-name">有氧热身</text>
-        <view class="plan-status status-done">已完成</view>
+    <block wx:for="{{plans}}" wx:key="id">
+      <view class="plan-item">
+        <view class="plan-header">
+          <text class="plan-name">{{item.name}}</text>
+          <view class="plan-status status-{{item.status}}">
+            {{item.status === 'completed' ? '已完成' : item.status === 'doing' ? '进行中' : '未开始'}}
+          </view>
+        </view>
+        <text class="plan-detail">{{item.duration}}分钟·{{item.intensityText}}</text>
+        <text class="plan-data">{{item.calories}}千卡  {{item.heart_rate}}次/分钟</text>
       </view>
-      <text class="plan-detail">5分钟·低强度</text>
-      <text class="plan-data">100千卡  120-130次/分钟</text>
-    </view>
-    
-    <!-- 项目2 -->
-    <view class="plan-item">
-      <view class="plan-header">
-        <text class="plan-name">HIIT训练</text>
-        <view class="plan-status status-doing">进行中</view>
-      </view>
-      <text class="plan-detail">15分钟·高强度</text>
-      <text class="plan-data">150千卡  150-170次/分钟</text>
-    </view>
-    
-    <!-- 项目3 -->
-    <view class="plan-item">
-      <view class="plan-header">
-        <text class="plan-name">力量训练</text>
-        <view class="plan-status status-todo">未开始</view>
-      </view>
-      <text class="plan-detail">20分钟·中强度</text>
-      <text class="plan-data">200千卡  130-150次/分钟</text>
-    </view>
-    
-    <!-- 项目4 -->
-    <view class="plan-item">
-      <view class="plan-header">
-        <text class="plan-name">拉伸放松</text>
-        <view class="plan-status status-todo">未开始</view>
-      </view>
-      <text class="plan-detail">10分钟·低强度</text>
-      <text class="plan-data">50千卡  90-110次/分钟</text>
-    </view>
+    </block>
   </view>
   
   <!-- 查看全部 -->
   <view class="view-all">
     <text>查看全部</text>
   </view>
-</view> <!-- 今日训练计划模块结束标签 -->
+</view>
+
+<!-- 近三天运动记录模块 -->
+<view class="recent-exercises-section">
+  <view class="card-header">
+    <text class="card-title">近三天运动记录</text>
+  </view>
+  
+  <view class="recent-exercises-list" wx:if="{{!isLoadingRecentExercises}}">
+    <block wx:if="{{recentExercises.length > 0}}">
+      <block wx:for="{{recentExercises}}" wx:key="index" wx:for-item="item">
+        <view class="recent-exercise-item">
+          <text class="exercise-name">{{item.exercise_name}}</text>
+          <text class="exercise-time">{{item.spent_time}} 分钟</text>
+          <text class="exercise-date">{{item.date}}</text>
+        </view>
+      </block>
+    </block>
+    <view class="empty-state" wx:else>
+      <text>暂无运动记录</text>
+    </view>
+  </view>
+  
+  <view class="loading-state" wx:if="{{isLoadingRecentExercises}}">
+    <text>加载中...</text>
+  </view>
+</view>
+
+<!-- 训练成就模块 -->
+<view class="achievement-card">
+  <!-- 金色装饰条 -->
+  <view class="decoration-bar"></view>
+  
+  <!-- 标题 -->
+  <view class="card-header">
+    <text class="card-title">训练成就</text>
+  </view>
+  
+  <!-- 成就列表 -->
+  <view class="achievement-list">
+    <!-- 成就项1 -->
+    <view class="achievement-item">
+      <text class="achievement-label">连续7天训练</text>
+    </view>
+    
+    <!-- 成就项2 -->
+    <view class="achievement-item">
+      <text class="achievement-label">累计消耗</text>
+      <text class="achievement-value">10000千卡</text>
+    </view>
+    
+    <!-- 成就项3 -->
+    <view class="achievement-item">
+      <!-- 进度条 -->
+      <view class="progress-container">
+        <view class="progress-bar">
+          <view class="progress-fill" style="width: 60%"></view>
+        </view>
+      </view>
+      <text class="progress-text">已完成3/5</text>
+    </view>
+  </view>
+</view>
 
 <!-- 编辑面板 -->
 <view class="edit-panel" wx:if="{{showEditPanel}}" animation="{{panelAnimation}}">
@@ -203,87 +322,17 @@
 <!-- 遮罩层 -->
 <view class="mask" wx:if="{{showEditPanel || showAddForm}}" bindtap="closeAllPanels"></view>
 
-<!-- 当前训练模块 -->
-<view class="current-card" style="width: 694rpx; height: 523rpx; display: block; box-sizing: border-box; left: 0rpx; top: 0rpx"> <!-- 移除内联样式 -->
-  <!-- 橙色状态条 -->
-  <view class="status-bar"></view>
-  
-  <!-- 标题 -->
-  <view class="card-header">
-    <text class="card-title">正在进行：HIIT训练</text>
-  </view>
-  
-  <!-- 训练项目 -->
-  <view class="current-training">
-    <text class="training-name">开合跳</text>
-  </view>
-  
-  <!-- 训练数据 -->
-  <view class="training-data">
-    <view class="data-row">
-      <view class="data-item">
-        <text class="data-label">每组次数</text> <!-- 移除内联样式 -->
-        <text class="data-value">30</text> <!-- 移除内联样式 -->
-        <text class="data-unit">次</text> <!-- 移除内联样式 -->
-      </view>
-      
-      <view class="data-item">
-        <text class="data-label">第3/4组</text> <!-- 移除内联样式 -->
-      </view>
-    </view>
-    
-    <view class="data-item full-width">
-      <text class="data-label" style="position: relative; left: 106rpx; top: -143rpx">休息时间</text>
-      <text class="data-value" style="position: relative; left: 106rpx; top: -161rpx">45</text>
-      <text class="data-unit" style="position: relative; left: 166rpx; top: -194rpx">秒</text>
-    </view>
-  </view>
-  
-  <!-- 倒计时 -->
-  <view class="countdown">
-    <text class="countdown-label" style="position: relative; left: 0rpx; top: -186rpx">剩余时间</text>
-    <text class="countdown-value" style="position: relative; left: 0rpx; top: -186rpx">30: 00</text>
-  </view>
-  
-  <!-- 操作按钮 -->
-  <view class="action-buttons">
-    <button class="primary-btn" style="position: relative; left: -31rpx; top: -211rpx">继续</button>
-    <button class="secondary-btn" style="position: relative; left: 36rpx; top: -211rpx">完成组</button>
-  </view>
-</view> <!-- 当前训练模块结束标签 -->
-
-<!-- 训练成就模块 -->
-<view class="achievement-card">
-  <!-- 金色装饰条 -->
-  <view class="decoration-bar"></view>
-  
-  <!-- 标题 -->
-  <view class="card-header">
-    <text class="card-title">训练成就</text>
-  </view>
-  
-  <!-- 成就列表 -->
-  <view class="achievement-list">
-    <!-- 成就项1 -->
-    <view class="achievement-item">
-      <text class="achievement-label">连续7天训练</text>
-    </view>
-    
-    <!-- 成就项2 -->
-    <view class="achievement-item">
-      <text class="achievement-label">累计消耗</text>
-      <text class="achievement-value">10000千卡</text>
-    </view>
-    
-    <!-- 成就项3 -->
-    <view class="achievement-item">
-      <!-- 进度条 -->
-      <view class="progress-container">
-        <view class="progress-bar">
-          <view class="progress-fill" style="width: 60%"></view>
-        </view>
-      </view>
-      <text class="progress-text">已完成3/5</text>
-    </view>
+<!-- 加载状态 -->
+<view class="loading-mask" wx:if="{{isLoading}}">
+  <view class="loading-content">
+    <view class="loading-spinner"></view>
+    <text class="loading-text">加载运动推荐...</text>
   </view>
 </view>
+
+<!-- 错误提示 -->
+<view class="error-message" wx:if="{{errorMsg}}">
+  <text>{{errorMsg}}</text>
+  <button bindtap="getExerciseRecommendations" size="mini">重试</button>
+</view>
+    
