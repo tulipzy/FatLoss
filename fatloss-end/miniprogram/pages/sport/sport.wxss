@@ -1,3 +1,12 @@
+/* 核心修改：页面背景渐变效果 */
+page {
+  /* 淡蓝色线性渐变（从左上到右下） */
+  background: linear-gradient(135deg, #E0F7FA 0%, #B2EBF2 100%);
+  min-height: 100vh; /* 确保背景铺满整个屏幕高度 */
+  margin: 0;
+  padding: 0;
+}
+
 /* 训练模式选择模块 */
 .training-mode-container {
   background: #FFFFFF;
@@ -274,7 +283,167 @@
 .sets-count {
   font-weight: bold;
 }
+/* 运动推荐区域样式 */
+.recommendations-section {
+  margin-top: 30rpx;
+  padding-top: 20rpx;
+  border-top: 1rpx solid #f0f0f0;
+}
 
+.recommendations-header {
+  margin-bottom: 20rpx;
+}
+
+.recommendations-title {
+  font-size: 28rpx;
+  font-weight: bold;
+  color: #333333;
+  display: block;
+}
+
+.recommendations-subtitle {
+  font-size: 22rpx;
+  color: #999999;
+  display: block;
+  margin-top: 6rpx;
+}
+
+.recommendations-list {
+  max-height: 500rpx;
+  overflow-y: auto;
+  margin-bottom: 20rpx;
+}
+
+.recommendation-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16rpx 0;
+  border-bottom: 1rpx solid #f5f5f5;
+}
+
+.recommendation-item:last-child {
+  border-bottom: none;
+}
+
+.recommendation-info {
+  flex: 1;
+}
+
+.recommendation-name {
+  font-size: 26rpx;
+  color: #333333;
+  display: block;
+}
+
+.recommendation-details {
+  font-size: 22rpx;
+  color: #666666;
+  display: block;
+  margin-top: 4rpx;
+}
+
+.recommendation-calories {
+  font-size: 22rpx;
+  color: #FF6B6B;
+  background-color: #FFF5F5;
+  padding: 6rpx 14rpx;
+  border-radius: 16rpx;
+}
+
+/* 推荐统计样式 */
+.recommendations-stats {
+  display: flex;
+  justify-content: space-around;
+  background-color: #f8f9fa;
+  border-radius: 8rpx;
+  padding: 16rpx 0;
+  margin-bottom: 20rpx;
+}
+
+.stats-item {
+  text-align: center;
+}
+
+.stats-label {
+  font-size: 22rpx;
+  color: #666666;
+  display: block;
+}
+
+.stats-value {
+  font-size: 26rpx;
+  font-weight: bold;
+  color: #333333;
+  display: block;
+  margin-top: 4rpx;
+}
+
+/* 添加计划按钮 */
+.add-plan-section {
+  margin-top: 20rpx;
+}
+
+.add-plan-btn {
+  font-size: 26rpx;
+  line-height: 1.8;
+}
+
+/* 加载状态 */
+.recommendations-loading {
+  margin-top: 30rpx;
+  padding: 20rpx;
+  text-align: center;
+  color: #666666;
+  font-size: 24rpx;
+}
+
+.loading-spinner {
+  width: 40rpx;
+  height: 40rpx;
+  border: 4rpx solid #f3f3f3;
+  border-top: 4rpx solid #3498db;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+  margin: 0 auto 20rpx;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* 错误状态 */
+.recommendations-error {
+  margin-top: 30rpx;
+  padding: 20rpx;
+  text-align: center;
+  color: #FF6B6B;
+  font-size: 24rpx;
+}
+
+.retry-btn {
+  margin-top: 15rpx;
+  font-size: 22rpx;
+  padding: 6rpx 20rpx;
+  line-height: 1.4;
+}
+
+/* 响应式设计 */
+@media (max-width: 320px) {
+  .stats-container {
+    flex-direction: column;
+  }
+  
+  .stat-divider {
+    width: 60rpx;
+    height: 2rpx;
+  }
+  
+  .exercise-carousel {
+    height: 380rpx;
+  }
+}
 
 /* 计划卡片 - 复用第一模块样式并添加间距 */
 .plan-card {
@@ -352,9 +521,15 @@
 /* 查看全部 */
 .view-all {
   text-align: center;
-  padding-top: 20rpx;
-  color: #1E90FF; /* 微信蓝 */
-  font-size: 28rpx;
+  padding: 10px 0;
+  color: #2196F3;
+  font-size: 14px;
+  cursor: pointer;
+  margin-top: 5px;
+}
+
+.view-all:active {
+  opacity: 0.7;
 }
 
 
@@ -575,19 +750,6 @@
   color: #333333;
 }
 
-.close-btn {
-  font-size: 36rpx;
-  color: #999999;
-}
-
-/* 面板标题 */
-.panel-title {
-  font-size: 32rpx;
-  font-weight: bold;
-  color: #333333;
-}
-
-/* 关闭按钮 */
 .close-btn {
   font-size: 36rpx;
   color: #999999;
@@ -918,4 +1080,329 @@
   border: 1rpx solid #ddd;
   border-radius: 8rpx;
   font-size: 28rpx;
+}
+
+/* 运动推荐区域样式 */
+.recommendations-section {
+  margin: 20rpx;
+  background-color: #fff;
+  border-radius: 10rpx;
+  overflow: hidden;
+  box-shadow: 0 2rpx 10rpx rgba(0, 0, 0, 0.1);
+}
+
+.section-title {
+  font-size: 32rpx;
+  font-weight: bold;
+  color: #333;
+  padding: 20rpx;
+  background-color: #f8f8f8;
+  border-bottom: 2rpx solid #eee;
+}
+
+.recommendation-card {
+  margin: 20rpx;
+  padding: 20rpx;
+  background-color: #fafafa;
+  border-radius: 10rpx;
+  border-left: 8rpx solid transparent;
+}
+
+.recommendation-card:nth-child(2) {
+  border-left-color: #4CAF50;
+}
+
+.recommendation-card:nth-child(3) {
+  border-left-color: #2196F3;
+}
+
+.recommendation-card:nth-child(4) {
+  border-left-color: #FF9800;
+}
+
+.recommendation-list {
+  margin-top: 10rpx;
+}
+
+.recommendation-item {
+  padding: 20rpx;
+  margin-bottom: 15rpx;
+  background-color: white;
+  border-radius: 8rpx;
+  display: flex;
+  flex-direction: column;
+  transition: all 0.3s ease;
+}
+
+.recommendation-item:hover {
+  box-shadow: 0 4rpx 15rpx rgba(0, 0, 0, 0.1);
+  transform: translateY(-2rpx);
+}
+
+.exercise-name {
+  font-size: 28rpx;
+  font-weight: bold;
+  color: #333;
+  margin-bottom: 10rpx;
+}
+
+.exercise-meta {
+  display: flex;
+  flex-wrap: wrap;
+  margin-bottom: 15rpx;
+}
+
+.meta-item {
+  font-size: 24rpx;
+  color: #666;
+  margin-right: 30rpx;
+  margin-bottom: 10rpx;
+}
+
+.add-to-plan-btn {
+  align-self: flex-end;
+  font-size: 24rpx;
+  padding: 8rpx 20rpx;
+  border-radius: 6rpx;
+}
+
+/* 加载状态和错误提示样式 */
+.loading-mask {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.3);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 999;
+}
+
+.loading-content {
+  background-color: white;
+  padding: 30rpx;
+  border-radius: 10rpx;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.loading-spinner {
+  width: 60rpx;
+  height: 60rpx;
+  border: 6rpx solid #f3f3f3;
+  border-top: 6rpx solid #3498db;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+.loading-text {
+  margin-top: 20rpx;
+  font-size: 28rpx;
+  color: #333;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.error-message {
+  padding: 20rpx;
+  background-color: #fee7e7;
+  border: 2rpx solid #ff9e9e;
+  border-radius: 10rpx;
+  margin: 20rpx;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.error-message text {
+  font-size: 28rpx;
+  color: #e74c3c;
+  flex: 1;
+}
+
+/* 强度选择器样式 */
+.intensity-selector {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20rpx;
+  background-color: white;
+  margin: 20rpx;
+  border-radius: 10rpx;
+  box-shadow: 0 2rpx 10rpx rgba(0, 0, 0, 0.1);
+}
+
+.intensity-label {
+  font-size: 28rpx;
+  color: #333;
+  margin-right: 20rpx;
+}
+
+.intensity-current {
+  font-size: 28rpx;
+  color: #2196F3;
+  padding: 10rpx 20rpx;
+  border: 2rpx solid #2196F3;
+  border-radius: 6rpx;
+}
+
+/* 确认锻炼任务区域样式 */
+.confirm-task-section {
+  margin: 20rpx;
+  padding: 30rpx;
+  background-color: #fff;
+  border-radius: 10rpx;
+  box-shadow: 0 2rpx 10rpx rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.confirm-task-btn {
+  width: 600rpx;
+  margin-bottom: 15rpx;
+  background-color: #4CAF50;
+  color: white;
+}
+
+.confirm-task-btn:active {
+  background-color: #388E3C;
+}
+
+.confirm-task-tip {
+  font-size: 24rpx;
+  color: #666;
+  text-align: center;
+}
+
+/* 已确认状态样式 */
+.confirmed-section {
+  margin: 20rpx;
+  padding: 20rpx;
+  background-color: #E8F5E9;
+  border: 2rpx solid #C8E6C9;
+  border-radius: 10rpx;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.confirmed-text {
+  font-size: 28rpx;
+  color: #388E3C;
+  font-weight: bold;
+}
+
+/* 操作按钮区域样式 */
+.action-buttons-section {
+  margin: 20rpx;
+  display: flex;
+  justify-content: center;
+}
+
+.custom-task-btn {
+  width: 600rpx;
+  background-color: #2196F3;
+  color: white;
+}
+
+.custom-task-btn:active {
+  background-color: #1976D2;
+}
+
+/* 近三天运动记录样式 */
+.recent-exercises-section {
+  margin: 20rpx;
+  background-color: #fff;
+  border-radius: 10rpx;
+  overflow: hidden;
+  box-shadow: 0 2rpx 10rpx rgba(0, 0, 0, 0.1);
+}
+
+.recent-exercises-list {
+  padding: 20rpx;
+}
+
+.recent-exercise-item {
+  padding: 20rpx;
+  margin-bottom: 15rpx;
+  background-color: #f8f8f8;
+  border-radius: 8rpx;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.recent-exercise-item:last-child {
+  margin-bottom: 0;
+}
+
+.exercise-name {
+  font-size: 28rpx;
+  font-weight: bold;
+  color: #333;
+  flex: 2;
+}
+
+.exercise-time {
+  font-size: 26rpx;
+  color: #666;
+  flex: 1;
+  text-align: center;
+}
+
+.exercise-date {
+  font-size: 24rpx;
+  color: #999;
+  flex: 2;
+  text-align: right;
+}
+
+.empty-state,
+.loading-state {
+  padding: 40rpx;
+  text-align: center;
+  color: #999;
+  font-size: 26rpx;
+}
+
+/* 记录运动时间样式 */
+.record-time-section {
+  margin-top: 20rpx;
+  padding: 20rpx;
+  background-color: #f8f8f8;
+  border-radius: 8rpx;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.record-time-label {
+  font-size: 26rpx;
+  color: #333;
+  flex: 2;
+}
+
+.time-input {
+  flex: 1;
+  height: 60rpx;
+  border: 2rpx solid #ddd;
+  border-radius: 6rpx;
+  padding: 0 15rpx;
+  margin: 0 15rpx;
+  font-size: 26rpx;
+}
+
+.record-time-btn {
+  flex: 1;
+  font-size: 24rpx;
+  padding: 8rpx 15rpx;
+  background-color: #FF9800;
+  color: white;
 }
