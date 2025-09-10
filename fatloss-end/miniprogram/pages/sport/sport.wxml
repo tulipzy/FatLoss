@@ -88,7 +88,7 @@
 <!-- 操作按钮区域 -->
 <view class="action-buttons-section">
   <!-- 确认锻炼任务按钮 -->
-  <view class="confirm-task-section" wx:if="{{!hasConfirmedToday && recommendations}}">
+  <view class="confirm-task-section" wx:if="{{!hasConfirmedToday && recommendations}}" style="width: 606rpx; display: flex; box-sizing: border-box">
     <button class="confirm-task-btn" bindtap="confirmExerciseTask" type="primary">
       确认今日锻炼任务
     </button>
@@ -101,7 +101,7 @@
   </view>
   
   <!-- 添加自定义任务按钮 -->
-  <button class="custom-task-btn" bindtap="addCustomTask" wx:if="{{plans.length > 0}}">
+  <button class="custom-task-btn" bindtap="addCustomTask" wx:if="{{plans.length > 0}}" style="height: 177rpx; display: block; box-sizing: border-box; left: -1rpx; top: 52rpx; position: relative">
     添加为自定义任务
   </button>
 </view>
