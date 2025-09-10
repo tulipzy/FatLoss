@@ -92,8 +92,15 @@ Page({
     } as CheckInData,
     currentTab: 0,
     dietRecords: [] as DietRecordItem[][],
-    exerciseRecords: {} as ExerciseRecords,
-    progressPercent: 0
+    // 确保exerciseRecords有正确的内部结构，即使没有数据
+    exerciseRecords: {
+      homeWorkout: [],
+      outdoorTraining: [],
+      gymWorkout: []
+    } as ExerciseRecords,
+    progressPercent: 0,
+    hasNoDietData: false,   // 饮食日记无数据标志
+    hasNoExerciseData: false // 运动记录无数据标志
   },
 
   onLoad() {
@@ -102,16 +109,39 @@ Page({
       title: '加载中',
     });
 
-    // 发起GET请求到后端API - 使用正确的URL和用户ID
+    // 首先从缓存中获取用户ID
+    const userId = wx.getStorageSync('userID');
+    
+    // 从本地存储中获取用户体重信息
+    const userInfo = wx.getStorageSync('userInfo') || {};
+    
+    // 设置初始体重数据，使用用户存储的体重信息，如果没有则使用默认值
+    const initialWeightData = {
+      initial: userInfo.weight || 0,
+      current: userInfo.weight || 0,
+      target: userInfo.targetWeight || 0
+    };
+
+    // 如果缓存中没有用户ID，使用默认ID（可以根据实际情况调整处理逻辑）
+    const currentUserId = userId || 'a631c63702a5453c86fce9a42008e54a';
+
+    // 先更新体重数据，避免页面显示空白
+    this.setData({
+      weightData: initialWeightData
+    });
+
+    // 发起GET请求到后端API - 使用动态构建的URL
     wx.request({
-      url: 'http://60.205.245.221:9090/FoodIntake/meal?userId=a631c63702a5453c86fce9a42008e54a',
+      url: `http://60.205.245.221:9090/FoodIntake/meal?userId=${currentUserId}`,
       method: 'GET',
       timeout: 10000, // 添加超时设置
       success: (res: { data: FoodIntakeResponse }) => {
         console.log('后端数据返回:', res.data);
 
-        // 将user ID存入storage
-        wx.setStorageSync('userID', 'a631c63702a5453c86fce9a42008e54a');
+        // 如果缓存中没有用户ID，则存入storage
+        if (!userId) {
+          wx.setStorageSync('userID', currentUserId);
+        }
 
         // 处理后端返回的数据
         const backendData = res.data;
@@ -125,30 +155,49 @@ Page({
           this.setData({
             isLoading: false,
             dietRecords: parsedDietRecords,
-            weightData: {
-              initial: 55.0, // 可从后端获取实际数据
-              current: 53.0, // 可从后端获取实际数据
-              target: 49.0  // 可从后端获取实际数据
-            },
-            checkInData: {
-              days: 8,       // 可从后端获取实际数据
-              target: 10,    // 可从后端获取实际数据
-              progress: 80   // 可从后端获取实际数据
-            },
-            exerciseRecords: this.getMockExerciseRecords() // 可从后端获取实际数据
+            hasNoDietData: false,
+            hasNoExerciseData: true, // 暂时假设没有运动数据，实际应根据后端返回设置
+            // 确保使用用户存储的体重信息
+            weightData: initialWeightData
           });
+          
+          // 计算减重数据
+          this.calculateWeightProgress();
         } else {
-          // 无数据时使用模拟数据
-          this.useMockData();
+          // 无饮食数据时的处理
+          this.setData({
+            isLoading: false,
+            dietRecords: [],
+            hasNoDietData: true,
+            hasNoExerciseData: true,
+            // 确保使用用户存储的体重信息
+            weightData: initialWeightData,
+            // 确保exerciseRecords有正确的内部结构
+            exerciseRecords: {
+              homeWorkout: [],
+              outdoorTraining: [],
+              gymWorkout: []
+            }
+          });
         }
-
-        // 计算减重数据
-        this.calculateWeightProgress();
       },
       fail: (err) => {
         console.error('获取数据失败:', err);
-        // 请求失败时使用模拟数据作为备份
-        this.useMockData();
+        // 请求失败时的处理
+        this.setData({
+          isLoading: false,
+          dietRecords: [],
+          hasNoDietData: true,
+          hasNoExerciseData: true,
+          // 确保使用用户存储的体重信息
+          weightData: initialWeightData,
+          // 确保exerciseRecords有正确的内部结构
+          exerciseRecords: {
+            homeWorkout: [],
+            outdoorTraining: [],
+            gymWorkout: []
+          }
+        });
       },
       complete: () => {
         wx.hideLoading();
@@ -156,149 +205,135 @@ Page({
     });
   },
 
-  // 解析从后端获取的饮食数据
-  parseFoodIntakeData(foodItems: FoodItem[]): DietRecordItem[][] {
-    // 创建一个数组来存储三天的饮食记录 [前天, 昨天, 今天]
-    const dietRecords: DietRecordItem[][] = [[], [], []];
-    
-    // 获取当前日期和时间
-    const now = new Date();
-    const today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
-    const yesterday = new Date(today);
-    yesterday.setDate(yesterday.getDate() - 1);
-    const dayBeforeYesterday = new Date(today);
-    dayBeforeYesterday.setDate(dayBeforeYesterday.getDate() - 2);
-    
-    // 遍历所有食物项
-    foodItems.forEach(item => {
-      // 解析食物项的时间
-      const itemDate = new Date(item.eatingTime);
-      const itemDateOnly = new Date(itemDate.getFullYear(), itemDate.getMonth(), itemDate.getDate());
-      
-      // 确定食物项属于哪一天
-      let dayIndex = -1;
-      if (itemDateOnly.getTime() === today.getTime()) {
-        dayIndex = 2; // 今天
-      } else if (itemDateOnly.getTime() === yesterday.getTime()) {
-        dayIndex = 1; // 昨天
-      } else if (itemDateOnly.getTime() === dayBeforeYesterday.getTime()) {
-        dayIndex = 0; // 前天
-      }
-      
-      // 如果食物项属于这三天之一，则添加到对应的记录中
-      if (dayIndex !== -1) {
-        // 格式化时间
-        const hours = itemDate.getHours().toString().padStart(2, '0');
-        const minutes = itemDate.getMinutes().toString().padStart(2, '0');
-        const formattedTime = `${hours}:${minutes}`;
-        
-        // 创建饮食记录项
-        const dietRecord: DietRecordItem = {
-          time: formattedTime,
-          mealType: item.mealType,
-          foodDetails: `${item.foodName} ${item.weight}${item.unit}`,
-          calorie: item.calories
-        };
-        
-        dietRecords[dayIndex].push(dietRecord);
-      }
-    });
-    
-    // 按时间排序每个日期的记录
-    dietRecords.forEach(dayRecords => {
-      dayRecords.sort((a, b) => a.time.localeCompare(b.time));
-    });
-    
-    return dietRecords;
-  },
-
-  // 计算减重进度
+  // 计算减重进度 - 根据当前体重与目标体重来计算圆环进度
   calculateWeightProgress() {
-    const totalLost = this.data.weightData.initial - this.data.weightData.current;
-    const targetLost = this.data.weightData.initial - this.data.weightData.target;
+    // 确保weightData对象存在
+    const weightData = this.data.weightData || {};
+    const initial = weightData.initial || 0;
+    const current = weightData.current || 0;
+    const target = weightData.target || 0;
+    
+    // 计算总减重和目标减重
+    const totalLost = initial - current;
+    const targetLost = initial - target;
     const remainingLost = targetLost - totalLost;
-    const progressPercent = targetLost > 0 ? (totalLost / targetLost) * 100 : 0;
     const formattedTotalLost = totalLost.toFixed(1);
+    
+    // 新的进度计算逻辑：进度 = (当前体重 / 目标体重) * 100%
+    let progressPercent = 0;
+    if (target > 0) {
+      // 计算进度百分比
+      progressPercent = (current / target) * 100;
+      // 超额处理：如果超过100%，则设置为100%
+      progressPercent = Math.min(100, progressPercent);
+    }
+    
+    // 根据进度百分比确定颜色
+    let progressColor = '#1890FF'; // 默认蓝色
+    if (progressPercent <= 30) {
+      progressColor = '#FF4D4F'; // 红色：0%-30%
+    } else if (progressPercent <= 70) {
+      progressColor = '#FAAD14'; // 黄色：31%-70%
+    } else {
+      progressColor = '#52C41A'; // 绿色：71%-100%
+    }
 
     this.setData({
       'weightGoal.totalLost': totalLost,
       'weightGoal.formattedTotalLost': formattedTotalLost,
       'weightGoal.targetLost': targetLost,
       'weightGoal.remainingLost': remainingLost.toFixed(1),
-      'weightGoal.daysInsisted': this.data.checkInData.days || 8,
-      'progressPercent': progressPercent
+      'weightGoal.daysInsisted': this.data.checkInData?.days || 0,
+      'progressPercent': progressPercent,
+      'progressColor': progressColor // 新增：进度条颜色
     });
   },
-
-  // 获取模拟饮食记录数据（作为备用）
-  getMockDietRecords() {
-    return [
-      // 前天数据
-      [
-        { time: '08:30', mealType: '早餐', foodDetails: '牛奶 250ml, 面包 1个, 鸡蛋 1个', calorie: 350 },
-        { time: '12:00', mealType: '午餐', foodDetails: '米饭 100g, 红烧肉 100g, 青菜 200g', calorie: 550 },
-        { time: '18:30', mealType: '晚餐', foodDetails: '面条 150g, 鸡胸肉 100g, 西兰花 200g', calorie: 450 }
-      ],
-      // 昨天数据
-      [
-        { time: '08:00', mealType: '早餐', foodDetails: '豆浆 300ml, 包子 2个', calorie: 320 },
-        { time: '12:15', mealType: '午餐', foodDetails: '米饭 100g, 鱼 150g, 青菜 200g', calorie: 500 },
-        { time: '18:45', mealType: '晚餐', foodDetails: '粥 200g, 凉拌黄瓜 150g', calorie: 300 }
-      ],
-      // 今天数据
-      [
-        { time: '08:15', mealType: '早餐', foodDetails: '酸奶 200ml, 燕麦 50g, 水果 100g', calorie: 330 },
-        { time: '12:30', mealType: '午餐', foodDetails: '杂粮饭 100g, 牛肉 100g, 胡萝卜 150g', calorie: 480 }
-      ]
-    ];
+  
+  // 添加：处理用户输入当前体重
+  onCurrentWeightInput(e: any) {
+    const newWeight = parseFloat(e.detail.value) || 0;
+    if (!isNaN(newWeight)) {
+      // 更新当前体重
+      this.setData({
+        'weightData.current': newWeight
+      });
+      // 重新计算减重进度
+      this.calculateWeightProgress();
+      // 保存到本地存储
+      const userInfo = wx.getStorageSync('userInfo') || {};
+      userInfo.weight = newWeight;
+      wx.setStorageSync('userInfo', userInfo);
+    }
   },
 
-  // 获取模拟运动记录数据（作为备用）
-  getMockExerciseRecords() {
-    return {
-      homeWorkout: [
-        { name: 'HIIT训练', detail: '30分钟, 高强度', calorie: 320, date: '今天' },
-        { name: '瑜伽拉伸', detail: '45分钟, 低强度', calorie: 180, date: '昨天' },
-        { name: '核心训练', detail: '25分钟, 中强度', calorie: 240, date: '前天' }
-      ],
-      outdoorTraining: [
-        { name: '晨跑', detail: '5公里, 35分钟', calorie: 380, date: '今天' },
-        { name: '骑行', detail: '15公里, 50分钟', calorie: 420, date: '昨天' },
-        { name: '快走', detail: '3公里, 40分钟', calorie: 220, date: '前天' }
-      ],
-      gymWorkout: [
-        { name: '力量训练', detail: '胸部+三头, 60分钟', calorie: 380, date: '今天' },
-        { name: '有氧训练', detail: '椭圆机, 45分钟', calorie: 350, date: '昨天' },
-        { name: '腿部训练', detail: '深蹲+硬拉, 70分钟', calorie: 450, date: '前天' }
-      ]
-    };
-  },
+  // 可以删除或注释掉模拟数据相关的方法，因为不再需要
+  // getMockDietRecords() {
+  //   return [
+  //     // 前天数据
+  //     [
+  //       { time: '08:30', mealType: '早餐', foodDetails: '牛奶 250ml, 面包 1个, 鸡蛋 1个', calorie: 350 },
+  //       { time: '12:00', mealType: '午餐', foodDetails: '米饭 100g, 红烧肉 100g, 青菜 200g', calorie: 550 },
+  //       { time: '18:30', mealType: '晚餐', foodDetails: '面条 150g, 鸡胸肉 100g, 西兰花 200g', calorie: 450 }
+  //     ],
+  //     // 昨天数据
+  //     [
+  //       { time: '08:00', mealType: '早餐', foodDetails: '豆浆 300ml, 包子 2个', calorie: 320 },
+  //       { time: '12:15', mealType: '午餐', foodDetails: '米饭 100g, 鱼 150g, 青菜 200g', calorie: 500 },
+  //       { time: '18:45', mealType: '晚餐', foodDetails: '粥 200g, 凉拌黄瓜 150g', calorie: 300 }
+  //     ],
+  //     // 今天数据
+  //     [
+  //       { time: '08:15', mealType: '早餐', foodDetails: '酸奶 200ml, 燕麦 50g, 水果 100g', calorie: 330 },
+  //       { time: '12:30', mealType: '午餐', foodDetails: '杂粮饭 100g, 牛肉 100g, 胡萝卜 150g', calorie: 480 }
+  //     ]
+  //   ];
+  // },
 
-  // 当API请求失败时使用模拟数据
-  useMockData() {
-    this.setData({
-      isLoading: false,
-      weightData: {
-        initial: 55.0,
-        current: 53.0,
-        target: 49.0
-      },
-      checkInData: {
-        days: 8,
-        target: 10,
-        progress: 80
-      },
-      dietRecords: this.getMockDietRecords(),
-      exerciseRecords: this.getMockExerciseRecords()
-    });
+  // getMockExerciseRecords() {
+  //   return {
+  //     homeWorkout: [
+  //       { name: 'HIIT训练', detail: '30分钟, 高强度', calorie: 320, date: '今天' },
+  //       { name: '瑜伽拉伸', detail: '45分钟, 低强度', calorie: 180, date: '昨天' },
+  //       { name: '核心训练', detail: '25分钟, 中强度', calorie: 240, date: '前天' }
+  //     ],
+  //     outdoorTraining: [
+  //       { name: '晨跑', detail: '5公里, 35分钟', calorie: 380, date: '今天' },
+  //       { name: '骑行', detail: '15公里, 50分钟', calorie: 420, date: '昨天' },
+  //       { name: '快走', detail: '3公里, 40分钟', calorie: 220, date: '前天' }
+  //     ],
+  //     gymWorkout: [
+  //       { name: '力量训练', detail: '胸部+三头, 60分钟', calorie: 380, date: '今天' },
+  //       { name: '有氧训练', detail: '椭圆机, 45分钟', calorie: 350, date: '昨天' },
+  //       { name: '腿部训练', detail: '深蹲+硬拉, 70分钟', calorie: 450, date: '前天' }
+  //     ]
+  //   };
+  // },
 
-    this.calculateWeightProgress();
-
-    wx.showToast({
-      title: '网络连接失败，显示本地数据',
-      icon: 'none'
-    });
-  },
+  // 当API请求失败时使用模拟数据 - 此方法不再需要
+  // useMockData() {
+  //   this.setData({
+  //     isLoading: false,
+  //     weightData: {
+  //       initial: 55.0,
+  //       current: 53.0,
+  //       target: 49.0
+  //     },
+  //     checkInData: {
+  //       days: 8,
+  //       target: 10,
+  //       progress: 80
+  //     },
+  //     dietRecords: this.getMockDietRecords(),
+  //     exerciseRecords: this.getMockExerciseRecords()
+  //   });
+  
+  //   this.calculateWeightProgress();
+  
+  //   wx.showToast({
+  //     title: '网络连接失败，显示本地数据',
+  //     icon: 'none'
+  //   });
+  // },
 
   // 格式化数字为一位小数
   formatNumber(num: number) {
