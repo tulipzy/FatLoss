@@ -11,7 +11,8 @@
     "pages/login/login",
     "pages/my-badges/my-badges",
     "pages/my-data/my-data",
-    "pages/register/register"
+    "pages/register/register",
+    "pages/exerciseHistory/exerciseHistory"
    
     
   ],
