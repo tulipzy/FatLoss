@@ -76,10 +76,10 @@ interface AddSpentTimeResponse {
 }
 
 interface RecentExerciseItem {
-  date: string;
+  created_at: string;
   exercise_name: string;
   spent_time: number;
-  calories: number;
+  calories?: number;
 }
 
 interface RecentExercisesResponse {
@@ -797,32 +797,53 @@ Page({
       return;
     }
     
-    wx.showLoading({ title: '添加中...' });
-    
-    try {
-      const response = await this.requestAPI<CustomTaskResponse>('/api/readd', 'POST', {
-        id: this.data.userID,
-        type: modeMap[this.data.currentMode] || 1,
-        exercises: exercises
-      });
-      
-      if (response.status === 'success') {
-        wx.showToast({
-          title: response.message,
-          icon: 'success',
-          duration: 2000
-        });
+    // 使用弹窗让用户输入运动天数
+    wx.showModal({
+      title: '设置运动天数',
+      content: '请输入您计划进行的运动天数',
+      editable: true,
+      placeholderText: '14', // 默认14天，与示例一致
+      success: async (res) => {
+        if (res.confirm && res.content) {
+          const days = Number(res.content);
+          
+          if (!isNaN(days) && days > 0 && Number.isInteger(days)) {
+            wx.showLoading({ title: '添加中...' });
+            
+            try {
+              const response = await this.requestAPI<CustomTaskResponse>('/api/readd', 'POST', {
+                id: this.data.userID,
+                type: modeMap[this.data.currentMode] || 1,
+                days: days, // 添加days参数
+                exercises: exercises
+              });
+              
+              if (response.status === 'success') {
+                wx.showToast({
+                  title: response.message,
+                  icon: 'success',
+                  duration: 2000
+                });
+              }
+            } catch (error) {
+              console.error('添加自定义任务失败:', error);
+              wx.showToast({
+                title: error instanceof Error ? error.message : '添加失败',
+                icon: 'none',
+                duration: 2000
+              });
+            } finally {
+              wx.hideLoading();
+            }
+          } else {
+            wx.showToast({ 
+              title: '请输入有效的整数天数', 
+              icon: 'none' 
+            });
+          }
+        }
       }
-    } catch (error) {
-      console.error('添加自定义任务失败:', error);
-      wx.showToast({
-        title: error instanceof Error ? error.message : '添加失败',
-        icon: 'none',
-        duration: 2000
-      });
-    } finally {
-      wx.hideLoading();
-    }
+    });
   },
   
   /**
@@ -882,10 +903,35 @@ Page({
       );
       
       if (response.status === 'success' && response.data) {
-        this.setData({ recentExercises: response.data });
+        // 处理API返回的数据，转换日期格式并计算卡路里
+        const processedExercises = response.data.map(item => {
+          // 将created_at (Mon, 01 Sep 2025 08:45:44 GMT) 转换为YYYY-MM-DD格式
+          const dateObj = new Date(item.created_at);
+          const year = dateObj.getFullYear();
+          const month = String(dateObj.getMonth() + 1).padStart(2, '0');
+          const day = String(dateObj.getDate()).padStart(2, '0');
+          const formattedDate = `${year}-${month}-${day}`;
+          
+          // 计算卡路里消耗（假设每分钟消耗约10卡路里）
+          const calories = Math.round(item.spent_time * 10);
+          
+          return {
+            ...item,
+            date: formattedDate, // 添加date字段供WXML使用
+            calories: calories
+          };
+        });
+        
+        this.setData({ recentExercises: processedExercises });
       }
     } catch (error) {
       console.error('获取近三天运动数据失败:', error);
+      // 添加友好的错误提示
+      wx.showToast({
+        title: '获取运动记录失败',
+        icon: 'none',
+        duration: 2000
+      });
     } finally {
       this.setData({ isLoadingRecentExercises: false });
     }
