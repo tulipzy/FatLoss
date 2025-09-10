@@ -1,0 +1,5 @@
+{
+  "$schema": "https://raw.githubusercontent.com/Cap32/wx-miniprogram-schemas/master/page.json",
+  "navigationBarTitleText": "运动记录",
+  "usingComponents": {}
+}
