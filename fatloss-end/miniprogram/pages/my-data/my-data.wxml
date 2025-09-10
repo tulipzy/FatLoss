@@ -5,7 +5,7 @@
   <!-- 减重进度模块 -->
   <view class="weight-progress-module" wx:else>
     <!-- 淡蓝色渐变背景 -->
-    <view class="module-bg" style="height: 675rpx; display: flex; box-sizing: border-box; position: relative; left: -2rpx; top: 14rpx">
+    <view class="module-bg" style="height: 675rpx; display: flex; box-sizing: border-box; position: relative; left: -1rpx; top: 15rpx">
       <!-- 新增：目标计划标题 -->
       <view class="module-title">目标计划</view>
       <!-- 坚持天数和目标减重 -->
@@ -25,8 +25,9 @@
       <!-- 大圆环 -->
       <view class="circle-container" style="position: relative; left: 1rpx; top: -43rpx">
         <view class="circle-bg"></view>
-        <view class="circle-progress" style="transform: rotate(45deg); border-top-color: #1890FF; border-right-color: #1890FF; position: absolute; left: 1rpx; top: 0rpx"></view>
-        <view class="circle-content">
+        <!-- 修改圆环进度条，支持动态颜色 -->
+        <view class="circle-progress" style="transform: rotate(45deg); border-top-color: {{progressColor}}; border-right-color: {{progressColor}}; position: absolute; left: 0rpx; top: 0rpx;"></view>
+        <view class="circle-content" style="position: absolute; left: 24rpx; top: 24rpx">
           <view class="circle-title">累计减重</view>
           <view class="circle-value">{{weightGoal.totalLost.toFixed(1)}}</view>
           <view class="circle-unit">千克</view>
@@ -41,7 +42,8 @@
         </view>
         <view class="weight-card current">
           <view class="card-label">当前(kg)</view>
-          <view class="card-value">{{weightData.current}}</view>
+          <input class="card-input" type="digit" value="{{weightData.current}}" bindinput="onCurrentWeightInput" placeholder="请输入"/>
+          <view class="input-hint">请输入当前体重</view>
         </view>
         <view class="weight-card target">
           <view class="card-label">目标(kg)</view>
@@ -63,16 +65,16 @@
         </view>
         <view class="view-all">查看全部</view>
       </view>
-
+  
       <!-- 日期导航 -->
-      <view class="date-tabs">
+      <view class="date-tabs" wx:if="{{!hasNoDietData}}">
         <view class="date-tab {{currentTab === 0 ? 'active' : ''}}" bindtap="switchTab" data-tab="0">前天</view>
         <view class="date-tab {{currentTab === 1 ? 'active' : ''}}" bindtap="switchTab" data-tab="1">昨天</view>
         <view class="date-tab {{currentTab === 2 ? 'active' : ''}}" bindtap="switchTab" data-tab="2">今天</view>
       </view>
-
+  
       <!-- 饮食记录列表 -->
-      <view class="diet-records">
+      <view class="diet-records" wx:if="{{!hasNoDietData && dietRecords[currentTab] && dietRecords[currentTab].length > 0}}">
         <block wx:for="{{dietRecords[currentTab]}}" wx:key="index">
           <view class="diet-record-card">
             <view class="record-time">{{item.time}}</view>
@@ -84,9 +86,14 @@
           </view>
         </block>
       </view>
-
+  
+      <!-- 饮食日记无数据提示 -->
+      <view class="no-record-tip" wx:if="{{hasNoDietData}}">
+        <view class="no-record-icon"></view>
+        <view class="no-record-text">最近几天没有记录哦~快去记录吧~</view>
+      </view>
+  
       <!-- 添加饮食记录按钮 -->
-      
     </view>
   </view>
 
@@ -101,9 +108,9 @@
         </view>
         <view class="view-all-exercise">查看全部</view>
       </view>
-
+  
       <!-- 三列运动类型布局 -->
-      <view class="exercise-types-grid">
+      <view class="exercise-types-grid" wx:if="{{!hasNoExerciseData}}">
         <!-- 居家减脂 -->
         <view class="exercise-type-card">
           <view class="exercise-type-header">
@@ -125,7 +132,7 @@
             </block>
           </view>
         </view>
-
+  
         <!-- 户外训练 -->
         <view class="exercise-type-card">
           <view class="exercise-type-header">
@@ -147,7 +154,7 @@
             </block>
           </view>
         </view>
-
+  
         <!-- 健身房 -->
         <view class="exercise-type-card">
           <view class="exercise-type-header">
@@ -169,6 +176,12 @@
             </block>
           </view>
         </view>
+      </view>
+      
+      <!-- 运动记录无数据提示 - 添加这部分 -->
+      <view class="no-record-tip" wx:if="{{hasNoExerciseData}}">
+        <view class="no-record-icon"></view>
+        <view class="no-record-text">最近几天没有记录哦~快去记录吧~</view>
       </view>
     </view>
   </view>
