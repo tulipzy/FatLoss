@@ -1,0 +1,59 @@
+<view class="container">
+  <!-- 搜索栏 -->
+  <view class="search-bar">
+    <input 
+      class="search-input" 
+      placeholder="搜索日期/运动名称/类型" 
+      bindinput="onSearch" 
+      value="{{searchKeyword}}"
+    />
+  </view>
+
+  <!-- 运动记录列表 -->
+  <view class="record-list">
+    <!-- 加载状态 -->
+    <block wx:if="{{isLoading}}">
+      <view class="loading">加载中...</view>
+    </block>
+    
+    <!-- 有记录状态 -->
+    <block wx:elif="{{!isLoading && exerciseHistoryList.length > 0}}">
+      <view 
+        class="record-card" 
+        wx:for="{{exerciseHistoryList}}" 
+        wx:key="date"
+      >
+        <!-- 日期和总热量 -->
+        <view class="card-header">
+          <text class="date">{{item.date}}</text>
+          <text class="day-total">当日总消耗：{{item.totalCalorie}} 千卡</text>
+        </view>
+
+        <!-- 具体运动记录 -->
+        <view class="exercise-items">
+          <view 
+            class="exercise-item" 
+            wx:for="{{item.records}}" 
+            wx:key="time" 
+            wx:for-item="exercise"
+          >
+            <view class="item-left">
+              <text class="exercise-name">{{exercise.exerciseName}}</text>
+              <text class="calorie">消耗：{{exercise.calorie}} 千卡</text>
+              <text class="type">类型：{{exercise.type}}</text>
+            </view>
+            <text class="time">{{exercise.time}}</text>
+          </view>
+        </view>
+      </view>
+    </block>
+    
+    <!-- 无记录状态 -->
+    <block wx:else>
+      <view class="no-record">
+        <text>暂无运动记录</text>
+      </view>
+    </block>
+  </view>
+</view>
+    
