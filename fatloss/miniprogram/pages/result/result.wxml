@@ -1,0 +1,86 @@
+<view class="result-container">
+  <!-- 顶部图片区域 -->
+  <view class="image-wrapper">
+    <image class="result-image" src="{{previewImage}}" mode="aspectFill"></image>
+  </view>
+
+  <!-- 食物名称标题 -->
+  <text class="food-name-title">识别食物：{{dishName}}</text>
+
+  <!-- 详细信息卡片 -->
+  <view class="detail-card">
+    <view class="detail-item">
+      <text class="detail-label">估算重量：</text>
+      <text class="detail-value">{{weight}} g</text>
+    </view>
+    <view class="detail-item">
+      <text class="detail-label">热量：</text>
+      <text class="detail-value">{{calorie}} 千卡</text>
+    </view>
+    <view class="detail-item">
+      <text class="detail-label">每100g热量：</text>
+      <text class="detail-value">{{kcalPer100g}} 千卡</text>
+    </view>
+  </view>
+  <!-- 操作按钮组 -->
+  <view class="button-group">
+    <button class="edit-button" bindtap="onEditData">编辑数据</button>
+    <button class="record-button" bindtap="onAddToRecord">添加到饮食记录</button>
+  </view>
+
+  <!-- 编辑数据弹窗 -->
+  <view class="edit-modal" wx:if="{{showEditModal}}">
+    <view class="edit-modal-content">
+      <!-- 弹窗标题 -->
+      <text class="edit-modal-title">编辑识别数据</text>
+      
+      <!-- 照片展示 -->
+      <view class="modal-image-wrapper">
+        <image class="edit-modal-image" src="{{previewImage}}" mode="aspectFill"></image>
+      </view>
+      
+      <!-- 食物名称输入框 -->
+      <view class="edit-item">
+        <text class="edit-label">食物名称：<text class="required">*</text></text>
+        <input 
+          class="edit-input" 
+          value="{{dishName}}" 
+          bindinput="onDishNameInput" 
+          placeholder="请输入食物名称" 
+        />
+      </view>
+      
+      <!-- 热量输入框 -->
+      <view class="edit-item">
+        <text class="edit-label">热量(千卡)：<text class="required">*</text></text>
+        <input 
+          class="edit-input" 
+          value="{{calorie}}" 
+          bindinput="onCalorieInput" 
+          placeholder="请输入热量" 
+          type="number"
+          min="0"
+        />
+      </view>
+      
+      <!-- 重量输入框 -->
+      <view class="edit-item">
+        <text class="edit-label">重量(g)：<text class="required">*</text></text>
+        <input 
+          class="edit-input" 
+          value="{{weight}}" 
+          bindinput="onWeightInput"  
+          placeholder="请输入重量" 
+          type="number"
+          min="0"
+        />
+      </view>
+      
+      <!-- 操作按钮 -->
+      <view class="edit-button-group">
+        <button class="edit-cancel" bindtap="onCancelEdit">取消</button>
+        <button class="edit-confirm" bindtap="onConfirmEdit">确定</button>
+      </view>
+    </view>
+  </view>
+</view>

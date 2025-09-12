@@ -1,0 +1,87 @@
+<!-- pages/register/register.wxml -->
+<view class="scrollarea">
+  <!-- 背景图 -->
+  <image class="bg-image" src="/images/fm.jpg"></image>
+  
+  <!-- 居中容器 -->
+  <view class="center-wrapper">
+    <!-- 注册表单内容 -->
+    <view class="form-container">
+      <view class="form-title">用户注册</view>
+      
+      <!-- 用户名输入 -->
+      <view class="form-item">
+        <text class="form-label">用户名</text>
+        <view class="input-wrapper">
+          <input 
+            class="form-input" 
+            placeholder="请输入用户名(2-20位字符)" 
+            value="{{nickname}}"
+            bindinput="onNicknameInput"
+            type="text"
+            maxlength="20"
+          />
+          <view class="checking-indicator" wx:if="{{checkingUsername}}">
+            <text>检查中...</text>
+          </view>
+        </view>
+        <!-- 显示用户名错误信息 -->
+        <text class="error-message">{{nicknameError}}</text>
+      </view>
+      
+      <!-- 电子邮箱输入 -->
+      <view class="form-item">
+        <text class="form-label">电子邮箱</text>
+        <view class="input-wrapper">
+          <input 
+            class="form-input" 
+            placeholder="请输入有效邮箱地址" 
+            value="{{email}}"
+            bindinput="onEmailChange"
+            type="text"
+          />
+          <view class="checking-indicator" wx:if="{{checkingEmail}}">
+            <text>检查中...</text>
+          </view>
+        </view>
+        <!-- 显示邮箱错误信息 -->
+        <text class="error-message">{{emailError}}</text>
+      </view>
+      
+      <!-- 密码输入 -->
+      <view class="form-item">
+        <text class="form-label">密码</text>
+        <view class="input-wrapper">
+          <input 
+            class="form-input" 
+            placeholder="请输入密码(6-20位字符)" 
+            value="{{password}}"
+            bindinput="onPasswordChange"
+            type="{{showPassword ? 'text' : 'password'}}" 
+            password="{{!showPassword}}"
+            maxlength="20"
+          />
+          <view class="toggle-password" bindtap="togglePasswordVisibility">
+            {{showPassword ? '隐藏' : '显示'}}
+          </view>
+        </view>
+      </view>
+      
+      <!-- 注册按钮 -->
+      <button 
+        class="primary-btn" 
+        bindtap="onRegister" 
+        disabled="{{loading || checkingUsername || checkingEmail}}"
+        loading="{{loading}}"
+      >
+        {{loading ? '注册中...' : '立即注册'}}
+      </button>
+      
+      <!-- 登录链接 -->
+      <view class="login-link">
+        <text>已有账号？</text>
+        <text class="link-text" bindtap="navigateToLogin">立即登录</text>
+      </view>
+    </view>
+  </view>
+</view>

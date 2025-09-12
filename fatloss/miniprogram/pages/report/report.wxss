@@ -1,0 +1,104 @@
+/* 基础样式 */
+.container {
+  padding: 24rpx;
+  background-color: #f5f7fa;
+  min-height: 100vh;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+}
+
+/* 头部样式 */
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 30rpx;
+  padding: 0 10rpx;
+}
+
+.title {
+  font-size: 36rpx;
+  font-weight: 600;
+  color: #1a1a1a;
+}
+
+/* 标题通用样式 */
+.section-title {
+  font-size: 32rpx;
+  font-weight: 600;
+  color: #1a1a1a;
+  display: block;
+  margin: 36rpx 0 20rpx;
+  padding-left: 6rpx;
+  border-left: 6rpx solid #1677ff;
+}
+
+/* 分析部分 */
+.analysis-content {
+  background-color: white;
+  border-radius: 12rpx;
+  padding: 28rpx;
+  box-shadow: 0 4rpx 12rpx rgba(0, 0, 0, 0.05);
+  line-height: 1.6;
+}
+
+.analysis-item {
+  margin-bottom: 24rpx;
+}
+
+.analysis-item:last-child {
+  margin-bottom: 0;
+}
+
+.analysis-label {
+  font-weight: 600;
+  color: #333;
+  display: inline-block;
+  margin-bottom: 6rpx;
+}
+
+.analysis-text {
+  color: #555;
+  font-size: 28rpx;
+  white-space: pre-line; /* 支持换行符 */
+}
+
+/* 建议部分 */
+.suggestions-list {
+  background-color: white;
+  border-radius: 12rpx;
+  padding: 28rpx;
+  box-shadow: 0 4rpx 12rpx rgba(0, 0, 0, 0.05);
+}
+
+.suggestion-item {
+  display: flex;
+  margin-bottom: 20rpx;
+  align-items: flex-start;
+}
+
+.suggestion-item:last-child {
+  margin-bottom: 0;
+}
+
+.bullet {
+  color: #1677ff;
+  font-weight: bold;
+  margin-right: 14rpx;
+  margin-top: 6rpx;
+  font-size: 28rpx;
+}
+
+.suggestion-text {
+  color: #333;
+  font-size: 28rpx;
+  line-height: 1.6;
+  flex: 1;
+}
+
+.no-suggestions {
+  color: #666;
+  font-size: 28rpx;
+  text-align: center;
+  padding: 20rpx 0;
+  line-height: 1.6;
+}

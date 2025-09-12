@@ -1,0 +1,836 @@
+/* 全局样式 */
+page {
+  background: linear-gradient(to bottom, #a0e9ff, #fcdbe6); 
+  padding-bottom: 100rpx;
+  min-height: 100%;
+}
+
+/* 顶部横幅 */
+.full-top-banner {
+  width: 100%;
+  height: 250rpx;
+  position: relative;
+  overflow: hidden;
+  background: linear-gradient(135deg, #b2e2f8, #fdcfea); 
+  box-shadow: 0 4rpx 12rpx rgba(0,0,0,0.05); 
+}
+
+.full-banner-content {
+  position: relative;
+  z-index: 2;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  color: #333;
+  text-shadow: 0 2rpx 4rpx rgba(0,0,0,0.05);
+}
+
+.full-banner-title {
+  font-size: 38rpx;
+  font-weight: bold;
+  margin-bottom: 10rpx;
+  animation: fadeIn 1s ease;
+}
+
+.full-banner-desc {
+  font-size: 26rpx;
+  opacity: 0.9;
+  animation: fadeIn 1s ease 0.3s forwards;
+  opacity: 0;
+}
+
+/* 圆弧分割线 */
+.arc-divider {
+  width: 110%;
+  height: 60rpx;
+  background: #fff;
+  border-radius: 50% 50% 0 0 / 100% 100% 0 0;
+  margin-top: -40rpx;
+  margin-left: -5%;
+  position: relative;
+  z-index: 2;
+}
+
+/* 今日推荐区域 */
+.today-recommend {
+  padding: 5rpx 20rpx 30rpx;
+  background: #fff;
+  position: relative;
+  z-index: 3;
+  margin-top: -20rpx;
+  border-radius: 30rpx 30rpx 0 0;
+}
+
+.recommend-title {
+  font-size: 34rpx;
+  font-weight: bold;
+  color: #333;
+  margin: 25rpx 0;
+  padding-left: 10rpx;
+  position: relative;
+}
+
+.recommend-title::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 6rpx;
+  height: 30rpx;
+  background: #ff6b81;
+  border-radius: 3rpx;
+}
+
+/* 三餐横向滚动容器 */
+.meals-scroll {
+  width: 100%;
+  padding: 10rpx 0 20rpx;
+  box-sizing: border-box;
+  overflow-x: auto; 
+  scrollbar-width: none; 
+  -ms-overflow-style: none; 
+}
+
+.meals-scroll::-webkit-scrollbar {
+  display: none;
+}
+
+.meals-container {
+  display: flex;
+  gap: 20rpx;
+  width: fit-content; 
+  padding-bottom: 10rpx;
+}
+
+/* 特色卡片样式 */
+.feature-card {
+  width: 350rpx; 
+  height: 300rpx;
+  border-radius: 24rpx;
+  position: relative;
+  overflow: hidden;
+  flex-shrink: 0;
+  transition: transform 0.3s ease;
+  background-color: #fff;
+  padding: 15rpx;
+  box-sizing: border-box;
+}
+
+
+
+.feature-card:hover {
+  transform: translateY(-5rpx);
+}
+
+/* 三餐卡片颜色（去掉早餐原绘制图标相关代码 ）*/
+.feature-card.breakfast-card {
+  border: 4rpx solid #FAD7A0;
+  box-shadow: 0 8rpx 20rpx rgba(230, 190, 103, 0.3);
+}
+.feature-card.lunch-card {
+  border: 4rpx solid #A3E4B8;
+  box-shadow: 0 8rpx 20rpx rgba(113, 212, 138, 0.3);
+}
+.feature-card.dinner-card {
+  border: 4rpx solid #F8C0A8;
+  box-shadow: 0 8rpx 20rpx rgba(241, 138, 78, 0.3);
+}
+
+/* 配饰图片样式，放到右上角 */
+.accessory-img {
+  position: absolute;
+  top: 10rpx; /* 距离顶部 */
+  right: 10rpx; /* 距离右侧 */
+  width: 60rpx; /* 图片宽度，可调整 */
+  height: auto;
+  z-index: 3; /* 保证在卡片内容上层 */
+  
+}
+/* 早餐图片单独设置大小等样式，可按需调整 */
+.breakfast-img {
+  width: 120rpx; 
+  top: -15rpx; /* 距离顶部 */
+  transform: rotate(10deg);
+  right: 5rpx; /* 距离右侧 */
+}
+/* 午餐图片单独设置大小等样式，可按需调整 */
+.lunch-img {
+  width: 100rpx; 
+}
+/* 晚餐图片单独设置大小等样式，可按需调整 */
+.dinner-img {
+  width: 150rpx; 
+  top: 0rpx; /* 距离顶部 */
+}
+/* 餐点标签 */
+.feature-tag {
+  position: absolute;
+  top: 20rpx;
+  left: 20rpx;
+  padding: 6rpx 16rpx;
+  border-radius: 20rpx;
+  font-size: 24rpx;
+  color: white;
+  font-weight: bold;
+  box-shadow: 0 2rpx 6rpx rgba(0,0,0,0.1);
+  z-index: 2;
+  transition: all 0.3s;
+}
+
+.feature-card:hover .feature-tag {
+  transform: scale(1.1);
+  box-shadow: 0 4rpx 12rpx rgba(0,0,0,0.2);
+}
+
+/* 餐点标签颜色 */
+.breakfast {
+  background: rgba(230, 190, 103, 0.932);
+}
+
+.lunch {
+  background: rgba(113, 212, 138, 0.85);
+}
+
+.dinner {
+  background: rgba(241, 138, 78, 0.85);
+}
+
+/* 食物推荐内容容器 */
+.feature-content {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: linear-gradient(to top, rgba(255,255,255,0.95), rgba(255,255,255,0.7));
+  padding: 25rpx 30rpx;
+  z-index: 2;
+  border-top: 1rpx solid rgba(240,240,240,0.8);
+  top: 80rpx;
+}
+
+/* 营养项样式 */
+.nutrition-item {
+  display: flex;
+  align-items: center;
+  margin-bottom: 12rpx;
+}
+
+.nutrition-label {
+  font-size: 26rpx;
+  color: #333;
+  font-weight: bold;
+  width: 160rpx;
+}
+
+.nutrition-value {
+  font-size: 26rpx;
+  color: #666;
+  flex: 1;
+  padding-left: 10rpx;
+}
+
+/* 每日标题样式 */
+.day-title {
+  font-size: 30rpx;
+  color: #666;
+  margin: 15rpx 0 10rpx 10rpx;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+}
+
+.day-title::after {
+  content: '';
+  flex: 1;
+  height: 1rpx;
+  background: #eee;
+  margin-left: 15rpx;
+}
+
+/* 加载状态样式 */
+.loading-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 60rpx 0;
+}
+
+.loading-spinner {
+  width: 60rpx;
+  height: 60rpx;
+  border: 6rpx solid #f3f3f3;
+  border-top: 6rpx solid #ff6b81;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+  margin-bottom: 20rpx;
+}
+
+.loading-text {
+  font-size: 28rpx;
+  color: #888;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10rpx); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* 饮食摄入区域样式 */
+.diet-section {
+  padding: 30rpx 20rpx 40rpx;
+  background: #FFFFFF;
+  margin: 20rpx;
+  border-radius: 24rpx;
+  box-shadow: 0 4rpx 12rpx rgba(0,0,0,0.05);
+  position: relative;
+}
+
+/* 顶部图标容器 */
+.diet-icon-container {
+  position: absolute;
+  top: -40rpx;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100rpx;
+  height: 100rpx;
+  background: #FFFFFF;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4rpx 12rpx rgba(0,0,0,0.1);
+}
+
+.diet-icon {
+  width: 80rpx;
+  height: 80rpx;
+}
+
+/* 主数据区 */
+.diet-main-data {
+  display: flex;
+  justify-content: space-between;
+  padding: 40rpx 20rpx 20rpx;
+}
+
+.diet-item {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.item-icon {
+  width: 60rpx;
+  height: 60rpx;
+  margin-bottom: 10rpx;
+}
+
+.item-label {
+  font-size: 28rpx;
+  color: #888888;
+  margin-bottom: 10rpx;
+}
+
+.item-value {
+  font-size: 48rpx;
+  font-weight: bold;
+  color: #000000;
+}
+
+.item-unit {
+  font-size: 24rpx;
+  color: #888888;
+  margin-top: 5rpx;
+}
+
+/* 中间还可摄入区域 */
+.remaining-container {
+  width: 240rpx;
+  height: 240rpx;
+  border-radius: 50%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+
+.progress-ring {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+.remaining-label,
+.remaining-value,
+.recommended-intake {
+  position: relative;
+  z-index: 1;
+}
+
+.remaining-label {
+  font-size: 30rpx;
+  color: #888888;
+  position: absolute;
+  top: 60rpx;
+}
+
+.remaining-value {
+  font-size: 60rpx;
+  font-weight: bold;
+  color: #00C48F;
+}
+
+.recommended-intake {
+  font-size: 24rpx;
+  color: #888888;
+  position: absolute;
+  bottom: 60rpx;
+}
+
+/* 营养进度区 */
+.nutrition-progress {
+  padding: 10rpx 20rpx;
+  margin-top: 20rpx;
+}
+
+.nutrition-item {
+  margin-bottom: 25rpx;
+}
+
+.nutrition-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10rpx;
+}
+
+.nutrition-name {
+  font-size: 30rpx;
+  color: #333333;
+}
+
+.nutrition-value {
+  font-size: 26rpx;
+  color: #888888;
+}
+
+.progress-bar {
+  height: 12rpx;
+  background-color: #d38f8f;
+  border-radius: 6rpx;
+  overflow: hidden;
+}
+
+/* 营养进度条颜色 */
+.carbs-bar .progress-fill {
+  background-color: #00C48F;
+}
+
+.protein-bar .progress-fill {
+  background-color: #1890FF;
+}
+
+.fat-bar .progress-fill {
+  background-color: #FF7A45;
+}
+
+.progress-fill {
+  height: 100%;
+  border-radius: 6rpx;
+  transition: width 0.5s ease;
+}
+
+/* "我的数据"按钮样式 */
+.my-data-btn {
+  position: absolute;
+  top: 20rpx;
+  right: 20rpx;
+  width: 160rpx;
+  height: 88rpx;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 10;
+}
+
+.my-data-text {
+  color: #999999;
+  font-size: 32rpx;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: color 0.3s;
+}
+
+.my-data-btn:hover .my-data-text {
+  color: #ff6b81;
+}
+
+/* 底部导航 */
+.tab-bar {
+  display: flex;
+  height: 100rpx;
+  background: #fff;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  box-shadow: 0 -2rpx 10rpx rgba(0,0,0,0.05);
+  z-index: 100;
+}
+
+.tab-item {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  transition: all 0.3s;
+}
+
+.tab-item.active {
+  background-color: rgba(252, 219, 230, 0.3);
+}
+
+.tab-icon {
+  width: 44rpx;
+  height: 44rpx;
+  margin-bottom: 6rpx;
+}
+
+.tab-text {
+  font-size: 22rpx;
+  color: #666;
+  transition: all 0.3s;
+}
+
+.tab-item.active .tab-text {
+  color: #ff6b81;
+  font-weight: bold;
+}
+
+/* 深色模式适配 */
+page[dark-mode=true] {
+  background: linear-gradient(to bottom, #1a237e, #4a148c);
+}
+
+page[dark-mode=true] .diet-section,
+page[dark-mode=true] .today-recommend {
+  background: #333333;
+}
+
+page[dark-mode=true] .big-number,
+page[dark-mode=true] .section-subtitle,
+page[dark-mode=true] .burned-value,
+page[dark-mode=true] .nutrition-name,
+page[dark-mode=true] .full-banner-title,
+page[dark-mode=true] .full-banner-desc,
+page[dark-mode=true] .recommend-title,
+page[dark-mode=true] .day-title,
+page[dark-mode=true] .nutrition-label,
+page[dark-mode=true] .nutrition-value,
+page[dark-mode=true] .item-label,
+page[dark-mode=true] .item-value,
+page[dark-mode=true] .remaining-label,
+page[dark-mode=true] .remaining-value,
+page[dark-mode=true] .recommended-intake {
+  color: #FFFFFF;
+}
+
+page[dark-mode=true] .tab-bar {
+  background: #222;
+}
+
+page[dark-mode=true] .tab-item.active {
+  background-color: rgba(74, 20, 140, 0.3);
+}
+
+/* AI瘦身区域样式 */
+.ai-slimming-section {
+  padding: 30rpx 20rpx;
+  background: #FFFFFF;
+  margin: 20rpx;
+  border-radius: 24rpx;
+  box-shadow: 0 4rpx 12rpx rgba(0,0,0,0.05);
+}
+
+.section-title {
+  font-size: 34rpx;
+  font-weight: bold;
+  color: #333;
+  margin-bottom: 25rpx;
+  padding-left: 10rpx;
+  position: relative;
+}
+
+.section-title::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 6rpx;
+  height: 30rpx;
+  background: #ff6b81;
+  border-radius: 3rpx;
+}
+
+.slimming-card {
+  background: linear-gradient(135deg, #f9f0ff, #e6f7ff);
+  border-radius: 20rpx;
+  padding: 40rpx 30rpx;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.slimming-intro {
+  display: flex;
+  align-items: center;
+  margin-bottom: 30rpx;
+}
+
+.slimming-icon {
+  width: 60rpx;
+  height: 60rpx;
+  margin-right: 20rpx;
+}
+
+.intro-text {
+  font-size: 30rpx;
+  color: #333;
+  font-weight: 500;
+}
+
+.slimming-btn {
+  background: linear-gradient(90deg, #ff6b81, #ff9a9e);
+  color: white;
+  border-radius: 50rpx;
+  padding: 0 50rpx;
+  height: 80rpx;
+  line-height: 80rpx;
+  font-size: 32rpx;
+  font-weight: bold;
+  box-shadow: 0 6rpx 20rpx rgba(255,107,129,0.4);
+}
+
+/* 模态框样式 */
+.modal-container, .result-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 999;
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.3s ease;
+}
+
+.modal-show {
+  opacity: 1;
+  visibility: visible;
+}
+
+.modal-mask {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+}
+
+.modal-content, .result-content {
+  background: white;
+  border-radius: 24rpx;
+  width: 85%;
+  max-height: 80%;
+  overflow: hidden;
+  z-index: 1000;
+  position: relative;
+  transform: translateY(50rpx);
+  transition: transform 0.3s ease;
+}
+
+.modal-show .modal-content, .modal-show .result-content {
+  transform: translateY(0);
+}
+
+.modal-header, .result-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 30rpx;
+  border-bottom: 1rpx solid #eee;
+}
+
+.modal-title, .result-title {
+  font-size: 34rpx;
+  font-weight: bold;
+  color: #333;
+}
+
+.modal-close, .result-close {
+  font-size: 40rpx;
+  color: #999;
+  width: 50rpx;
+  height: 50rpx;
+  text-align: center;
+  line-height: 50rpx;
+}
+
+.modal-body {
+  padding: 30rpx;
+  max-height: 70vh;
+  overflow-y: auto;
+}
+
+.upload-area {
+  height: 300rpx;
+  border: 2rpx dashed #ddd;
+  border-radius: 16rpx;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 30rpx;
+  background: #fafafa;
+}
+
+.upload-area.has-image {
+  border: none;
+  padding: 0;
+  height: auto;
+}
+
+.upload-icon {
+  width: 80rpx;
+  height: 80rpx;
+  margin-bottom: 20rpx;
+}
+
+.upload-text {
+  font-size: 28rpx;
+  color: #999;
+}
+
+.preview-image {
+  width: 100%;
+  height: 300rpx;
+  border-radius: 12rpx;
+}
+
+.input-group, .option-group {
+  margin-bottom: 30rpx;
+}
+
+.input-label, .option-label {
+  display: block;
+  font-size: 28rpx;
+  color: #333;
+  margin-bottom: 15rpx;
+  font-weight: 500;
+}
+
+.prompt-input {
+  width: 100%;
+  height: 160rpx;
+  border: 1rpx solid #ddd;
+  border-radius: 12rpx;
+  padding: 20rpx;
+  box-sizing: border-box;
+  font-size: 28rpx;
+}
+
+.picker {
+  padding: 20rpx;
+  border: 1rpx solid #ddd;
+  border-radius: 12rpx;
+  font-size: 28rpx;
+  color: #333;
+}
+
+.modal-footer {
+  display: flex;
+  padding: 0 30rpx 30rpx;
+}
+
+.btn-cancel, .btn-confirm {
+  flex: 1;
+  height: 80rpx;
+  line-height: 80rpx;
+  border-radius: 12rpx;
+  font-size: 32rpx;
+  margin: 0 10rpx;
+}
+
+.btn-cancel {
+  background: #f5f5f5;
+  color: #666;
+}
+
+.btn-confirm {
+  background: linear-gradient(90deg, #ff6b81, #ff9a9e);
+  color: white;
+}
+
+.btn-confirm:disabled {
+  background: #ccc;
+}
+
+/* 结果模态框样式 */
+.result-body {
+  padding: 30rpx;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.result-image {
+  width: 100%;
+  height: 400rpx;
+  border-radius: 12rpx;
+  margin-bottom: 30rpx;
+}
+
+.result-actions {
+  display: flex;
+  width: 100%;
+}
+
+.btn-download, .btn-share {
+  flex: 1;
+  height: 80rpx;
+  line-height: 80rpx;
+  border-radius: 12rpx;
+  font-size: 32rpx;
+  margin: 0 10rpx;
+}
+
+.btn-download {
+  background: #ff6b81;
+  color: white;
+}
+
+.btn-share {
+  background: #4CAF50;
+  color: white;
+}

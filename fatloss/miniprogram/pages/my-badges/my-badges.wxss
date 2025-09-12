@@ -1,0 +1,247 @@
+/* 基础样式重置 */
+page {
+  background-color: #FFFFFF;
+  min-height: 100vh;
+}
+
+.demo-container {
+  padding: 20rpx 30rpx;
+}
+
+/* 顶部导航 */
+.demo-header {
+  display: flex;
+  align-items: center;
+  padding: 24rpx 0;
+  border-bottom: 1px solid #E5E5E5;
+}
+
+.back-btn {
+  font-size: 28rpx;
+  color: #333333;
+  display: flex;
+  align-items: center;
+  padding: 10rpx;
+}
+
+.header-title {
+  flex: 1;
+  font-size: 32rpx;
+  font-weight: bold;
+  color: #333333;
+  text-align: center;
+}
+
+.empty-space {
+  width: 40rpx;
+}
+
+/* 演示操作按钮组样式 */
+.demo-operate-btn-group {
+  display: flex;
+  gap: 20rpx;
+  margin: 20rpx 0;
+}
+
+.demo-operate-btn {
+  flex: 1;
+  background-color: #409EFF;
+  color: #FFFFFF;
+  font-size: 24rpx;
+  padding: 16rpx 0;
+  border-radius: 32rpx;
+}
+
+.demo-operate-btn::after {
+  border: none;
+}
+
+/* section通用样式 */
+.section-container {
+  margin-top: 30rpx;
+}
+
+.section-header {
+  margin-bottom: 20rpx;
+}
+
+.section-title {
+  font-size: 28rpx;
+  font-weight: bold;
+  color: #333333;
+}
+
+.section-desc {
+  font-size: 22rpx;
+  color: #999999;
+  margin-top: 8rpx;
+}
+
+/* 已获得勋章样式 */
+.owned-badges {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 40rpx;
+}
+
+.owned-badge-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 120rpx;
+  position: relative; /* 用于新勋章标记定位 */
+}
+
+/* 新勋章标记样式 */
+.new-badge-tag {
+  position: absolute;
+  top: 0;
+  right: 0;
+  background-color: #FF4D4F;
+  color: white;
+  font-size: 18rpx;
+  padding: 2rpx 8rpx;
+  border-radius: 10rpx;
+  z-index: 1;
+}
+
+.badge-image {
+  width: 120rpx;
+  height: 120rpx;
+  border-radius: 50%;
+}
+
+.badge-name {
+  font-size: 24rpx;
+  color: #333333;
+  margin-top: 12rpx;
+  text-align: center;
+}
+
+.badge-desc {
+  font-size: 20rpx;
+  color: #666666;
+  margin-top: 4rpx;
+  text-align: center;
+}
+
+/* 待解锁勋章样式 */
+.unlocked-badges {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 40rpx;
+}
+
+.unlocked-badge-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 120rpx;
+}
+
+.unlocked-badge-image {
+  width: 120rpx;
+  height: 120rpx;
+  border-radius: 50%;
+  opacity: 0.4;
+  filter: grayscale(100%);
+}
+
+.locked-name {
+  font-size: 24rpx;
+  color: #999999;
+  margin-top: 12rpx;
+  text-align: center;
+}
+
+.locked-condition {
+  font-size: 20rpx;
+  color: #999999;
+  margin-top: 4rpx;
+  text-align: center;
+}
+
+/* 进度任务样式 */
+.progress-item {
+  margin-top: 30rpx;
+}
+
+.progress-title {
+  font-size: 26rpx;
+  color: #333333;
+  font-weight: 500;
+}
+
+.progress-info {
+  font-size: 22rpx;
+  color: #666666;
+  margin-top: 12rpx;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 10rpx;
+}
+
+.progress-text {
+  font-size: 22rpx;
+  color: #999999;
+}
+
+.progress-bar-container {
+  width: 100%;
+  height: 12rpx;
+  background-color: #F5F5F5;
+  border-radius: 6rpx;
+  overflow: hidden;
+  margin-top: 12rpx;
+}
+
+.progress-bar-fill {
+  height: 100%;
+  border-radius: 6rpx;
+  transition: width 0.3s ease;
+}
+
+/* 空状态样式 */
+.empty-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 100rpx 30rpx;
+  text-align: center;
+  margin-top: 50rpx;
+}
+
+.empty-icon {
+  font-size: 80rpx;
+  color: #DDDDDD;
+  margin-bottom: 30rpx;
+}
+
+.empty-title {
+  font-size: 28rpx;
+  color: #333333;
+  font-weight: bold;
+  margin-bottom: 16rpx;
+}
+
+.empty-desc {
+  font-size: 22rpx;
+  color: #999999;
+  margin-bottom: 40rpx;
+  line-height: 1.5;
+}
+
+.go-record-btn {
+  background-color: #FF9900;
+  color: #FFFFFF;
+  font-size: 24rpx;
+  padding: 16rpx 48rpx;
+  border-radius: 32rpx;
+}
+
+.go-record-btn::after {
+  border: none;
+}

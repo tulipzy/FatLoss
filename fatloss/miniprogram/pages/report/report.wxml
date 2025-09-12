@@ -1,0 +1,39 @@
+<view class="container">
+  <!-- 页面头部 -->
+  <view class="header">
+    <text class="title">{{date}} 饮食分析报告</text>
+    
+  </view>
+
+  <!-- 饮食分析 -->
+  <view class="analysis-section">
+    <text class="section-title">饮食分析</text>
+    <view class="analysis-content">
+      <view class="analysis-item">
+        <text class="analysis-label">热量评估：</text>
+        <text class="analysis-text">{{analysis.calories}}</text>
+      </view>
+      
+      <view class="analysis-item">
+        <text class="analysis-label">餐次分布：</text>
+        <text class="analysis-text">{{analysis.mealDistribution}}</text>
+      </view>
+      
+    </view>
+  </view>
+
+  <!-- 饮食建议 -->
+  <view class="suggestions-section">
+    <text class="section-title">个性化饮食建议</text>
+    <view class="suggestions-list">
+      <view wx:for="{{analysis.suggestions}}" wx:key="index" class="suggestion-item">
+        <text class="bullet">•</text>
+        <text class="suggestion-text">{{item}}</text>
+      </view>
+      <view wx:if="{{analysis.suggestions.length === 0}}" class="no-suggestions">
+        <text>今日饮食结构均衡，继续保持当前饮食习惯即可。</text>
+      </view>
+    </view>
+  </view>
+</view>
+    

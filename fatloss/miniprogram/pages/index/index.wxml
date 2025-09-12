@@ -1,0 +1,65 @@
+<scroll-view class="scrollarea" scroll-y>
+  <!-- 背景图 -->
+  <image class="bg-image" src="/images/fm.jpg"></image>
+
+  <!-- 居中表单内容 -->
+  <view class="center-container">
+    <view class="form-content">
+      <!-- 用户名输入 -->
+      <view class="form-item">
+        <text class="form-label">用户名</text>
+        <view class="input-wrapper">
+          <input 
+            class="form-input" 
+            placeholder="请输入用户名" 
+            value="{{nickname}}"
+            bindinput="onNicknameInput"
+            type="text"
+          />
+        </view>
+        <!-- 显示昵称错误信息 -->
+        <text class="error-message">{{nicknameError}}</text>
+      </view>
+      
+      <!-- 密码输入 -->
+      <view class="form-item">
+        <text class="form-label">密码</text>
+        <view class="input-wrapper">
+          <input 
+            class="form-input" 
+            placeholder="请输入密码" 
+            value="{{password}}"
+            bindinput="onPasswordChange"
+            type="{{showPassword ? 'text' : 'password'}}" 
+          />
+          <text 
+            class="toggle-password" 
+            bindtap="togglePasswordVisibility"
+          >
+            {{showPassword ? '隐藏' : '显示'}}
+          </text>
+        </view>
+      </view>
+      
+      <!-- 登录按钮 -->
+      <button 
+        class="primary-btn" 
+        bindtap="onLogin" 
+        disabled="{{loading || !canLogin}}"
+      >
+        {{loading ? '登录中...' : '登录'}}
+      </button>
+      
+      <!-- 注册链接 -->
+      <view class="register-link">
+        <text bindtap="navigateToRegister">注册</text>
+      </view>
+      
+      <!-- 忘记密码链接（单独放在右下角） -->
+      <view class="forgot-password-link">
+        <text bindtap="navigateToForgotPassword">忘记密码</text>
+      </view>
+    </view>
+  </view>
+  
+</scroll-view>

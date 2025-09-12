@@ -1,0 +1,100 @@
+<view class="demo-container">
+  <!-- 页面顶部导航 -->
+  <view class="demo-header">
+    <view class="back-btn" bindtap="onBackTap">← </view>
+    <view class="header-title">我的勋章</view>
+    <view class="empty-space"></view>
+  </view>
+
+  <!-- 演示操作按钮 -->
+  <view class="demo-operate-btn-group">
+    <button class="demo-operate-btn" bindtap="onAddRecordDay">
+      模拟：增加1天记录
+    </button>
+    <button class="demo-operate-btn" bindtap="onAddExp">
+      模拟：增加20点经验值
+    </button>
+  </view>
+
+  <!-- 已获得勋章区域 -->
+  <view class="section-container">
+    <view class="section-header">
+      <view class="section-title">我的勋章</view>
+      <view class="section-desc">累计获得 {{ownedBadges.length}} 枚勋章 坚持记录，解锁更多惊喜~</view>
+    </view>
+
+    <view class="owned-badges">
+      <view 
+        class="owned-badge-item" 
+        wx:for="{{ownedBadges}}" 
+        wx:key="id"
+        bindtap="onBadgeTap"
+        data-index="{{index}}"
+      >
+        <image 
+          src="{{item.imageUrl}}" 
+          class="badge-image"
+          mode="aspectFit"
+          lazy-load="true"
+          fallback-src="/images/weizhi.jpg"
+        ></image>
+        <!-- 新勋章标记 -->
+        <view class="new-badge-tag" wx:if="{{item.isNew}}">新</view>
+        <view class="badge-name">{{item.name}}</view>
+        <view class="badge-desc">{{item.desc}}</view>
+      </view>
+    </view>
+  </view>
+
+  <!-- 待解锁勋章区域 -->
+  <view class="section-container" wx:if="{{unlockedBadges.length > 0}}">
+    <view class="section-header">
+      <view class="section-title">待解锁勋章</view>
+    </view>
+
+    <view class="unlocked-badges">
+      <view 
+        class="unlocked-badge-item" 
+        wx:for="{{unlockedBadges}}" 
+        wx:key="id"
+      >
+        <image 
+          src="{{item.imageUrl}}" 
+          class="unlocked-badge-image"
+          mode="aspectFit"
+          lazy-load="true"
+          fallback-src="/images/weizhi.jpg"
+        ></image>
+        <view class="badge-name locked-name">{{item.name}}</view>
+        <view class="badge-condition locked-condition">
+          {{item.condition}}
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <!-- 勋章进度任务区域 -->
+  <view class="section-container" wx:if="{{taskProgress.length > 0}}">
+    <view class="progress-item" wx:for="{{taskProgress}}" wx:key="id">
+      <view class="progress-title">{{item.desc}}</view>
+      <view class="progress-info">
+        {{item.current}}{{item.unit}} / {{item.target}}{{item.unit}}
+        <text class="progress-text">距离「{{item.badgeName}}」还差 {{item.target - item.current}}{{item.unit}}</text>
+      </view>
+      <view class="progress-bar-container">
+        <view 
+          class="progress-bar-fill" 
+          style="width: {{item.progressPercent + '%'}}; background-color: {{item.progressPercent >= 100 ? '#52C41A' : '#FF9900'}}"
+        ></view>
+      </view>
+    </view>
+  </view>
+
+  <!-- 空状态提示 -->
+  <view class="empty-state" wx:if="{{ownedBadges.length === 0 && unlockedBadges.length === 0}}">
+    <view class="empty-icon">📭</view>
+    <view class="empty-title">暂无勋章</view>
+    <view class="empty-desc">快去完成饮食记录，积累经验值，解锁你的第一枚勋章吧！</view>
+    <button class="go-record-btn" bindtap="onGoRecordTap">去记录</button>
+  </view>
+</view>

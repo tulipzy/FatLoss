@@ -1,0 +1,231 @@
+<view class="badges-container">
+  <!-- 顶部横幅容器 -->
+  <view class="full-top-banner">
+    <view class="full-banner-content">
+      <text class="full-banner-title">欢迎使用循环减脂助手</text>
+      <text class="full-banner-desc">把减脂融入日常，轻松成为习惯</text>
+    </view>
+  </view>
+
+  <!-- 圆弧分割线 -->
+  <view class="arc-divider"></view>
+
+  <!-- 今日推荐区域（修改为三餐横向滚动） -->
+  <view class="today-recommend">
+    <view class="recommend-title">今日推荐</view>
+    
+    <!-- 加载状态 -->
+    <view wx:if="{{isLoading}}" class="loading-container">
+      <view class="loading-spinner"></view>
+      <text class="loading-text">加载推荐中...</text>
+    </view>
+
+    <!-- 推荐列表（按天分组，每天的三餐横向滚动） -->
+    <view wx:else>
+      <view wx:for="{{recommendations}}" wx:key="day" class="day-group">
+        <!-- 显示当前天（如“第3天”） -->
+        <view class="day-title">第{{item.day}}天</view>
+        
+        <!-- 三餐横向滚动容器 -->
+        <scroll-view class="meals-scroll" scroll-x show-scrollbar="{{false}}">
+          <view class="meals-container">
+            <!-- 内层循环：当天的三餐推荐（按早中晚排序） -->
+            <view   
+              class="feature-card {{meal.mealTime === '早餐' ? 'breakfast-card' : meal.mealTime === '午餐' ? 'lunch-card' : 'dinner-card'}}" 
+              wx:for="{{item.items}}" 
+              wx:for-item="meal" 
+              wx:key="meal.id">
+              <!-- 餐点标签（早餐/午餐/晚餐） -->
+              <view class="feature-tag {{meal.mealTime === '早餐' ? 'breakfast' : meal.mealTime === '午餐' ? 'lunch' : 'dinner'}}">
+                {{meal.mealTime}}
+              </view>
+
+              <!-- 早餐图片 -->
+              <image 
+                wx:if="{{meal.mealTime === '早餐'}}"
+                class="accessory-img breakfast-img"
+                src="/images/zao.jpg"
+                mode="widthFix"
+              />
+              <!-- 午餐图片 -->
+              <image 
+                wx:if="{{meal.mealTime === '午餐'}}"
+                class="accessory-img lunch-img"  
+                src="/images/wu.jpg"
+                mode="widthFix"
+              />
+              <!-- 晚餐图片 -->
+              <image 
+                wx:if="{{meal.mealTime === '晚餐'}}"
+                class="accessory-img dinner-img"  
+                src="/images/wan.jpg"
+                mode="widthFix"
+              />
+
+              <!-- 食物推荐内容 -->
+              <view class="feature-content">
+                <view class="nutrition-item">
+                  <text class="nutrition-label">碳水：</text>
+                  <text class="nutrition-value">{{meal.carbSource}}</text>
+                </view>
+                <view class="nutrition-item">
+                  <text class="nutrition-label">蛋白质：</text>
+                  <text class="nutrition-value">{{meal.proteinSource}}</text>
+                </view>
+                <view class="nutrition-item">
+                  <text class="nutrition-label">膳食纤维：</text>
+                  <text class="nutrition-value">{{meal.fiberSource}}</text>
+                </view>
+              </view>
+            </view>
+          </view>
+        </scroll-view>
+      </view>
+    </view>
+  </view>
+
+  <!-- 饮食摄入区域（保持不变） -->
+  <view class="diet-section">
+    <!-- 添加"我的数据"按钮 -->
+    <view class="my-data-btn" bindtap="navigateToMyData">
+      <text class="my-data-text" style="position: relative; left: -22rpx; top: -22rpx">我的数据></text>
+    </view>
+    <view class="diet-icon-container">
+      <image class="diet-icon" src="/images/小猫.png" style="width: 118rpx; display: block; box-sizing: border-box; position: relative; left: 0rpx; top: 11rpx"></image>
+    </view>
+
+    <view class="diet-main-data">
+      <view class="diet-item">
+        <image class="item-icon" src="/images/饮食摄入.png" style="width: 68rpx; display: block; box-sizing: border-box"></image>
+        <text class="item-label">饮食摄入</text>
+        <text class="item-value">{{dietCalories}}</text>
+        <text class="item-unit">千卡</text>
+      </view>
+
+      <view class="remaining-container">
+        <svg class="progress-ring" width="240" height="240">
+          <circle class="progress-ring-bg" cx="120" cy="120" r="100" fill="none" stroke="#BBDEFB" stroke-width="16" />
+          <circle class="progress-ring-circle" cx="120" cy="120" r="100" fill="none" 
+                  stroke="{{getProgressColor(dietCalories, calorieGoal)}}" stroke-width="12"
+                  stroke-dasharray="628" 
+                  stroke-dashoffset="{{calculateRemainingProgress(remainingCalories, calorieGoal)}}"
+                  transform="rotate(-90 120 120)" />
+        </svg>
+        <text class="remaining-label">还可摄入</text>
+        <text class="remaining-value">{{remainingCalories}}</text>
+        <text class="recommended-intake">推荐摄入{{calorieGoal}}千卡</text>
+      </view>
+
+      <view class="diet-item">
+        <image class="item-icon" src="/images/运动消耗.png" style="width: 70rpx; display: block; box-sizing: border-box"></image>
+        <text class="item-label">运动消耗</text>
+        <text class="item-value">{{exerciseCalories}}</text>
+        <text class="item-unit">千卡</text>
+      </view>
+    </view>
+
+    <view class="divider"></view>
+    <view class="nutrition-progress">
+      <view class="nutrition-row">
+        <view class="nutrition-item carbs-item">
+          
+          <view class="progress-bar carbs-bar">
+            <view class="progress-fill" style="width: {{calculateProgress(carbs, totalCarbs)}}"></view>
+          </view>
+        </view>
+
+        <view class="nutrition-item protein-item">
+          
+          <view class="progress-bar protein-bar">
+            <view class="progress-fill" style="width: {{calculateProgress(protein, totalProtein)}}"></view>
+          </view>
+        </view>
+
+        <view class="nutrition-item fat-item">
+        
+          <view class="progress-bar fat-bar">
+            <view class="progress-fill" style="width: {{calculateProgress(fat, totalFat)}}"></view>
+          </view>
+        </view>
+      </view>
+    </view>
+
+   
+  </view>
+</view>
+<!-- AI瘦身功能区域 -->
+<view class="ai-slimming-section">
+  <view class="section-title">AI一键瘦身</view>
+  <view class="slimming-card">
+    <view class="slimming-intro">
+      
+      <text class="intro-text">上传照片，AI智能生成您的瘦身后效果</text>
+    </view>
+    
+    <button class="slimming-btn" bindtap="openSlimmingModal">开始体验</button>
+  </view>
+</view>
+
+<!-- AI瘦身模态框 -->
+<view class="modal-container {{isSlimmingModalOpen ? 'modal-show' : ''}}">
+  <view class="modal-mask" bindtap="closeSlimmingModal"></view>
+  <view class="modal-content">
+    <view class="modal-header">
+      <text class="modal-title">AI一键瘦身</text>
+      <view class="modal-close" bindtap="closeSlimmingModal">×</view>
+    </view>
+    
+    <view class="modal-body">
+      <!-- 图片上传区域 -->
+      <view class="upload-area {{uploadedImage ? 'has-image' : ''}}" bindtap="uploadImage">
+        <block wx:if="{{!uploadedImage}}">
+   
+    <text class="upload-text">点击上传照片</text>
+  </block>
+  <block wx:else>
+    <image class="preview-image" src="{{uploadedImage}}" mode="aspectFit"></image>
+  </block>
+      </view>
+      
+      <!-- 提示词输入 -->
+      <view class="input-group">
+        <text class="input-label">描述您想要的效果</text>
+        <textarea 
+          class="prompt-input" 
+          placeholder="例如：让我看起来更苗条，腰部更细，腿更长" 
+          value="{{promptText}}"
+          bindinput="inputPrompt"
+        ></textarea>
+      </view>
+      
+      
+     
+    </view>
+    
+    <view class="modal-footer">
+      <button class="btn-cancel" bindtap="closeSlimmingModal">取消</button>
+      <button class="btn-confirm" bindtap="generateSlimmingEffect" disabled="{{isProcessing}}">
+        {{isProcessing ? '处理中...' : '生成效果'}}
+      </button>
+    </view>
+  </view>
+</view>
+
+<!-- 结果展示模态框 -->
+<view class="result-modal {{isResultModalOpen ? 'modal-show' : ''}}">
+  <view class="modal-mask" bindtap="closeResultModal"></view>
+  <view class="result-content">
+    <view class="result-header">
+      <text class="result-title">瘦身效果生成成功</text>
+      <view class="result-close" bindtap="closeResultModal">×</view>
+    </view>
+    
+    <view class="result-body">
+      <image class="result-image" src="{{resultImage}}" mode="aspectFit"></image>
+      <view class="result-actions">
+        <button class="btn-download" bindtap="downloadResult">保存图片</button>
+        <button class="btn-share" bindtap="shareResult">分享效果</button>
+      </view>
+    </view>
+  </view>
+</view>

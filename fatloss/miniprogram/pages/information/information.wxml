@@ -1,0 +1,184 @@
+<view class="container">
+  <view class="header">个人信息</view>
+
+  <!-- 头像部分 -->
+  <view class="avatar-section">
+    <button 
+      wx:if="{{canIUseChooseAvatar}}"
+      id="avatarButton"
+      class="avatar-btn"
+      open-type="chooseAvatar"
+      bindchooseavatar="onChooseAvatar"
+    >
+      <image 
+        class="avatar" 
+        src="{{userInfo.avatarUrl || defaultAvatarUrl}}" 
+        mode="aspectFill"
+      />
+    </button>
+    <view wx:else>
+      <image 
+        class="avatar" 
+        src="{{userInfo.avatarUrl}}" 
+        mode="aspectFill"
+      />
+    </view>
+    <view class="change-btn" bindtap="changeAvatar">更换头像</view>
+  </view>
+
+  <form bindsubmit="saveInfo">
+    <!-- 昵称 -->
+    <view class="form-item">
+      <text class="label">昵称</text>
+      <view class="input-wrapper">
+        <input
+          class="input right-align"
+          type="nickname"
+          value="{{userInfo.nickname}}"
+          placeholder="请输入昵称"
+          bindinput="onNicknameInput"
+        />
+      </view>
+      <text class="error-message">{{nicknameError}}</text>
+    </view>
+
+    <!-- 性别 -->
+    <view class="form-item">
+      <text class="label">性别</text>
+      <picker
+        mode="selector"
+        range="{{genders}}"
+        value="{{genderIndex}}"
+        bindchange="onGenderChange"
+      >
+        <view class="picker-view right-align">
+          {{userInfo.gender || '请选择性别'}}
+        </view>
+      </picker>
+    </view>
+
+    <!-- 生日 -->
+    <view class="form-item">
+      <text class="label">生日</text>
+      <picker
+        mode="date"
+        value="{{userInfo.birthday}}"
+        start="1900-01-01"
+        end="{{currentDate}}"
+        bindchange="onBirthdayChange"
+      >
+        <view class="picker-view right-align">
+          {{userInfo.birthday || '请选择生日'}}
+        </view>
+      </picker>
+    </view>
+
+    <!-- 年龄 -->
+    <view class="form-item">
+      <text class="label">年龄</text>
+      <input
+        class="input right-align"
+        value="{{userInfo.age}}"
+        placeholder="请输入年龄"
+        type="number"
+        bindinput="onAgeInput"
+      />
+    </view>
+
+    <!-- 身高 -->
+    <view class="form-item">
+      <text class="label">身高(cm)</text>
+      <input
+        class="input right-align"
+        value="{{userInfo.height}}"
+        placeholder="请输入身高"
+        type="number"  
+        bindinput="onHeightInput"
+      />
+    </view>
+
+    <!-- 当前体重 -->
+    <view class="form-item">
+      <text class="label">当前体重(kg)</text>
+      <picker
+        mode="selector"
+        range="{{weightOptions}}"
+        value="{{weightIndex}}" 
+        bindchange="onWeightChange"
+      >
+        <view class="picker-view right-align">
+          {{userInfo.weight ? userInfo.weight + ' kg' : '请选择体重'}}
+        </view>
+      </picker>
+    </view>
+
+    <!-- 目标体重 -->
+    <view class="form-item">
+      <text class="label">目标体重(kg)</text>
+      <picker
+        mode="selector"
+        range="{{targetWeightOptions}}"
+        value="{{targetWeightIndex}}" 
+        bindchange="onTargetWeightChange"
+      >
+        <view class="picker-view right-align">
+          {{userInfo.targetWeight ? userInfo.targetWeight + ' kg' : '请选择目标体重'}}
+        </view>
+      </picker>
+    </view>
+
+    <!-- 手长 -->
+    <view class="form-item">
+      <text class="label">手长(cm)</text>
+      <input
+        class="input right-align"
+        value="{{userInfo.handLength}}"
+        placeholder="请输入手长"
+        type="number"
+        bindinput="onHandLengthInput"
+      />
+    </view>
+
+    <!-- 活动水平 -->
+    <view class="form-item">
+      <text class="label">活动水平</text>
+      <picker
+        mode="selector"
+        range="{{intensityOptions}}"
+        value="{{intensityIndex}}"
+        bindchange="onIntensityChange"
+      >
+        <view class="picker-view right-align">
+          {{userInfo.intensity || '请选择活动水平'}}
+        </view>
+      </picker>
+      <!-- 活动水平说明提示 -->
+      <text class="intensity-tip">
+        {{userInfo.intensity ? '（' + intensityTips[intensityIndex] + '）' : ''}}
+      </text>
+    </view>
+
+    <!-- 手机号 -->
+    <view class="form-item">
+      <text class="label">手机号</text>
+      <input
+        class="input right-align"
+        value="{{userInfo.phone}}"
+        placeholder="请输入手机号"
+        type="number"
+        maxlength="11"
+        bindinput="onPhoneInput"
+      />
+    </view>
+
+    <!-- 提交按钮 -->
+    <button
+      formType="submit"
+      class="submit-btn"
+      loading="{{isSubmitting}}"
+      disabled="{{isSubmitting}}"
+    >
+      保存信息
+    </button>
+  </form>
+</view>
