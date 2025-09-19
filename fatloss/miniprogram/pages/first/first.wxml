@@ -85,7 +85,7 @@
   </view>
 
   <!-- 饮食摄入区域（保持不变） -->
-  <view class="diet-section">
+  <view class="diet-section" style="height: 327rpx; display: block; box-sizing: border-box; left: 0rpx; top: 0rpx">
     <!-- 添加"我的数据"按钮 -->
     <view class="my-data-btn" bindtap="navigateToMyData">
       <text class="my-data-text" style="position: relative; left: -22rpx; top: -22rpx">我的数据></text>
@@ -103,17 +103,20 @@
       </view>
 
       <view class="remaining-container">
-        <svg class="progress-ring" width="240" height="240">
-          <circle class="progress-ring-bg" cx="120" cy="120" r="100" fill="none" stroke="#BBDEFB" stroke-width="16" />
-          <circle class="progress-ring-circle" cx="120" cy="120" r="100" fill="none" 
-                  stroke="{{getProgressColor(dietCalories, calorieGoal)}}" stroke-width="12"
-                  stroke-dasharray="628" 
-                  stroke-dashoffset="{{calculateRemainingProgress(remainingCalories, calorieGoal)}}"
-                  transform="rotate(-90 120 120)" />
-        </svg>
-        <text class="remaining-label">还可摄入</text>
-        <text class="remaining-value">{{remainingCalories}}</text>
-        <text class="recommended-intake">推荐摄入{{calorieGoal}}千卡</text>
+        <!-- 从food.wxml复制的双环进度条部分 -->
+        <view class="progress-circle-wrap">
+          <view class="outer-circle" style="height: 241rpx; display: flex; box-sizing: border-box">
+            <view class="progress-ring" style="{{progressCircleStyle}}">
+              <view class="inner-circle">
+                <view class="circle-text">
+                  <text class="remain-title">还可摄入</text>
+                  <text class="remain-value">{{remainingCalories}}</text>
+                  <text class="recommend">推荐摄入{{calorieGoal}}千卡</text>
+                </view>
+              </view>
+            </view>
+          </view>
+        </view>
       </view>
 
       <view class="diet-item">
@@ -125,30 +128,7 @@
     </view>
 
     <view class="divider"></view>
-    <view class="nutrition-progress">
-      <view class="nutrition-row">
-        <view class="nutrition-item carbs-item">
-          
-          <view class="progress-bar carbs-bar">
-            <view class="progress-fill" style="width: {{calculateProgress(carbs, totalCarbs)}}"></view>
-          </view>
-        </view>
-
-        <view class="nutrition-item protein-item">
-          
-          <view class="progress-bar protein-bar">
-            <view class="progress-fill" style="width: {{calculateProgress(protein, totalProtein)}}"></view>
-          </view>
-        </view>
-
-        <view class="nutrition-item fat-item">
-        
-          <view class="progress-bar fat-bar">
-            <view class="progress-fill" style="width: {{calculateProgress(fat, totalFat)}}"></view>
-          </view>
-        </view>
-      </view>
-    </view>
+    
 
    
   </view>
@@ -229,3 +209,4 @@
     </view>
   </view>
 </view>
+

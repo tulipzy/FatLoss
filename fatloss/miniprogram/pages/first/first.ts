@@ -1,4 +1,4 @@
-// 定义后端端返回数据接口类型（适配新结构，后端直接返回数组）
+// 定义后端返回数据接口类型（适配新结构，后端直接返回数组）
 interface ApiResponseArray extends Array<Recommendation> {}
 
 // 定义食物推荐数据结构（与后端返回字段完全匹配）
@@ -51,6 +51,11 @@ interface PageData {
   isProcessing: boolean;
   isSlimmingModalOpen: boolean;
   isResultModalOpen: boolean;
+
+  // 进度环相关
+  progressCircleStyle: string;
+  // 新增进度环动画相关属性
+  progressAnimation: WechatMiniprogram.Animation | null;
 }
 
 Page({
@@ -86,7 +91,11 @@ Page({
     resultImage: "",
     isProcessing: false,
     isSlimmingModalOpen: false,
-    isResultModalOpen: false
+    isResultModalOpen: false,
+
+    // 进度环相关
+    progressCircleStyle: "",
+    progressAnimation: null
   } as PageData,
 
   onLoad() {
@@ -95,16 +104,66 @@ Page({
     this.startAutoScroll();
     this.syncCalorieData(); // 同步热量数据（优先从缓存读取）
     this.getDietRecommendations();
+    // 初始化进度环
+    this.updateProgressCircle(true);
   },
 
+  // 计算进度环样式并应用动画
+  calculateProgressCircleStyle() {
+    // 计算已摄入比例（而非剩余比例）
+    const consumedCalories = this.data.calorieGoal - this.data.remainingCalories;
+    const progressRatio = Math.max(0, Math.min(1, consumedCalories / this.data.calorieGoal));
+    const circumference = 2 * Math.PI * 100; // 半径为100的圆的周长
+    const strokeDashoffset = (1 - progressRatio) * circumference;
+    
+    return `
+      stroke-dasharray: ${circumference};
+      stroke-dashoffset: ${strokeDashoffset};
+      stroke: ${this.getProgressColor(consumedCalories, this.data.calorieGoal)};
+      stroke-width: 12;
+      fill: none;
+      transition: stroke-dashoffset 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+    `;
+  },
+
+  // 更新进度环（添加动画效果）
+  updateProgressCircle(initial = false) {
+    // 移除未使用的progressRatio变量声明
+    const consumedCalories = this.data.calorieGoal - this.data.remainingCalories;
+    
+    // 如果是首次加载，直接设置样式
+    if (initial) {
+      this.setData({
+        progressCircleStyle: this.calculateProgressCircleStyle()
+      });
+      return;
+    }
+    
+    // 非首次加载，添加过渡动画
+    this.setData({
+      progressCircleStyle: this.calculateProgressCircleStyle()
+    });
+  },
+
+  // 进度颜色计算方法
+  getProgressColor(current: number, total: number): string {
+    const progress = current / total;
+    if (progress < 0.3) return '#FF4D4F'; 
+    if (progress < 0.7) return '#FAAD14'; 
+    return '#52C41A'; 
+  },
+
+  // 数据更新时重新计算进度环
   onShow() {
     // 每次显示页面时重新同步数据
     this.syncCalorieData();
     if (this.data.recommendations.length === 0 && !this.data.isLoading) {
       this.getDietRecommendations();
     }
+    // 更新进度环
+    this.updateProgressCircle();
   },
-
+  
   onUnload() {
     this.stopAutoScroll();
     this.removeEventBusListener();
@@ -136,6 +195,8 @@ Page({
   // 处理饮食摄入变化（从事件总线接收）
   handleDietIntakeChange() {
     this.syncCalorieData();
+    // 数据变化后更新进度环
+    this.updateProgressCircle();
     wx.showToast({
       title: '数据已更新',
       icon: 'none',
@@ -173,6 +234,9 @@ Page({
       protein: todayNutrition.protein,
       fat: todayNutrition.fat
     });
+    
+    // 数据更新后立即更新进度环
+    this.updateProgressCircle();
   },
 
   // 检查缓存是否有效
@@ -332,24 +396,12 @@ Page({
     return Math.min((current / total) * 100, 100);
   },
 
-  calculateRemainingProgress(remaining: number, recommended: number): number {
-    const remainingRatio = remaining / recommended;
-    const circumference = 2 * Math.PI * 100;
+  // 计算文字外侧进度环的进度偏移量
+  calculateTextProgressOffset(remaining: number, recommended: number): number {
+    if (recommended <= 0) return 0;
+    const remainingRatio = Math.max(0, Math.min(1, remaining / recommended));
+    const circumference = 2 * Math.PI * 60; // 半径为60的圆的周长
     return (1 - remainingRatio) * circumference;
-  },
-
-  getProgressColor(current: number, total: number): string {
-    const progress = current / total;
-    if (progress < 0.3) return '#FF4D4F'; 
-    if (progress < 0.7) return '#FAAD14'; 
-    return '#52C41A'; 
-  },
-
-  // 跳转至饮食记录页
-  navigateToDietRecord() {
-    wx.navigateTo({
-      url: '/pages/food/food'
-    });
   },
 
   // 轮播相关方法
@@ -419,11 +471,13 @@ Page({
       isSlimmingModalOpen: false
     });
   },
+  
   openSlimmingModal() {
     this.setData({
       isSlimmingModalOpen: true
     });
   },
+  
   closeResultModal() {
     this.setData({
       isResultModalOpen: false
@@ -552,3 +606,4 @@ Page({
     }
   }
 });
+    

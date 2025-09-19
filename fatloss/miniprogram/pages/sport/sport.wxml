@@ -1,116 +1,9 @@
-<!-- 训练模式选择模块 -->
-<view class="training-mode-container">
-  <view class="mode-title">选择训练模式</view>
-  <view class="mode-options">
-    <view class="mode-item {{currentMode === 'home' ? 'active' : ''}}" bindtap="selectMode" data-mode="home">
-      <text class="mode-name">居家减脂</text>
-    </view>
-    <view class="mode-item {{currentMode === 'outdoor' ? 'active' : ''}}" bindtap="selectMode" data-mode="outdoor">
-      <text class="mode-name">户外训练</text>
-    </view>
-    <view class="mode-item {{currentMode === 'gym' ? 'active' : ''}}" bindtap="selectMode" data-mode="gym">
-      <text class="mode-name">健身房</text>
-    </view>
-  </view>
-</view>
 
-<!-- 三种模式下的运动推荐区域 -->
-<view class="recommendations-section" wx:if="{{recommendations && !isLoading && !errorMsg}}">
-  <view class="section-title">运动推荐</view>
-  
-  <!-- 居家运动推荐 -->
-  <view class="recommendation-card" wx:if="{{currentMode === 'home'}}">
-    <view class="card-header">
-      <text class="card-title" style="color: #4CAF50;">居家运动</text>
-      <text class="card-subtitle">适合在家进行的高效训练</text>
-    </view>
-    <view class="recommendation-list">
-      <block wx:for="{{recommendations['居家']}}" wx:key="exercise_id" wx:for-item="item">
-        <view class="recommendation-item">
-          <text class="exercise-name">{{item.exercise_name}}</text>
-          <view class="exercise-meta">
-            <text class="meta-item">每10分钟消耗: {{item.calories_burned_per_ten_minutes}}千卡</text>
-            <text class="meta-item">{{item.reps_or_duration}} × {{item.sets}}组</text>
-          </view>
-          <button class="add-to-plan-btn" size="mini" bindtap="addToPlan" data-exercise="{{item}}" data-mode="home" style="color: #7ebaeb;">
-            添加到计划
-          </button>
-        </view>
-      </block>
-    </view>
-  </view>
-  
-  <!-- 户外运动推荐 -->
-  <view class="recommendation-card" wx:if="{{currentMode === 'outdoor'}}">
-    <view class="card-header">
-      <text class="card-title" style="color: #2196F3;">户外运动</text>
-      <text class="card-subtitle">享受大自然的同时燃烧卡路里</text>
-    </view>
-    <view class="recommendation-list">
-      <block wx:for="{{recommendations['户外']}}" wx:key="exercise_id" wx:for-item="item">
-        <view class="recommendation-item">
-          <text class="exercise-name">{{item.exercise_name}}</text>
-          <view class="exercise-meta">
-            <text class="meta-item">每10分钟消耗: {{item.calories_burned_per_ten_minutes}}千卡</text>
-            <text class="meta-item">{{item.reps_or_duration}} × {{item.sets}}组</text>
-          </view>
-          <button class="add-to-plan-btn" size="mini" bindtap="addToPlan" data-exercise="{{item}}" data-mode="outdoor" style="color: #2196F3;">
-            添加到计划
-          </button>
-        </view>
-      </block>
-    </view>
-  </view>
-  
-  <!-- 健身房运动推荐 -->
-  <view class="recommendation-card" wx:if="{{currentMode === 'gym'}}">
-    <view class="card-header">
-      <text class="card-title" style="color: #FF9800;">健身房运动</text>
-      <text class="card-subtitle">专业器械助力，塑造完美身材</text>
-    </view>
-    <view class="recommendation-list">
-      <block wx:for="{{recommendations['健身房']}}" wx:key="exercise_id" wx:for-item="item">
-        <view class="recommendation-item">
-          <text class="exercise-name">{{item.exercise_name}}</text>
-          <view class="exercise-meta">
-            <text class="meta-item">每10分钟消耗: {{item.calories_burned_per_ten_minutes}}千卡</text>
-            <text class="meta-item">{{item.reps_or_duration}} × {{item.sets}}组</text>
-          </view>
-          <button class="add-to-plan-btn" size="mini" bindtap="addToPlan" data-exercise="{{item}}" data-mode="gym" style="color: #2196F3;">
-            添加到计划
-          </button>
-        </view>
-      </block>
-    </view>
-  </view>
-</view>
-
-<!-- 操作按钮区域 -->
-<view class="action-buttons-section">
-  <!-- 确认锻炼任务按钮 -->
-  <view class="confirm-task-section" wx:if="{{!hasConfirmedToday && recommendations}}" style="width: 606rpx; display: flex; box-sizing: border-box">
-    <button class="confirm-task-btn" bindtap="confirmExerciseTask" type="primary">
-      确认今日锻炼任务
-    </button>
-    <text class="confirm-task-tip">确认后将保存推荐的运动到您的锻炼记录</text>
-  </view>
-  
-  <!-- 已确认提示 -->
-  <view class="confirmed-section" wx:if="{{hasConfirmedToday}}">
-    <text class="confirmed-text">今日锻炼任务已确认 ✓</text>
-  </view>
-  
-  <!-- 添加自定义任务按钮 -->
-  <button class="custom-task-btn" bindtap="addCustomTask" wx:if="{{plans.length > 0}}" style="height: 177rpx; display: block; box-sizing: border-box; left: -1rpx; top: 52rpx; position: relative">
-    添加为自定义任务
-  </button>
-</view>
-
-<!-- 今日目标与数据展示模块 -->
-<view class="target-card">
+<!-- 今日成就与数据展示模块 -->
+<view class="target-card" style="position: relative; left: 28rpx; top: 29rpx">
   <!-- 标题区 -->
   <view class="card-header">
-    <text class="card-title">今日目标：{{modeTitles[currentMode]}}训练</text>
+    <text class="card-title">今日成就：</text>
     <text class="card-subtitle">{{modeSubtitles[currentMode]}}</text>
   </view>
   
@@ -152,7 +45,7 @@
 
 
 <!-- 今日训练计划模块 -->
-<view class="plan-card">
+<view class="plan-card" style="position: relative; left: 28rpx; top: 72rpx; width: 639rpx; display: block; box-sizing: border-box">
   <!-- 标题 -->
   <view class="card-header flex-between">
     <text class="card-title">今日训练计划</text>
@@ -162,11 +55,11 @@
   <!-- 训练项目列表 -->
   <view class="plan-list">
     <block wx:for="{{plans}}" wx:key="id">
-      <view class="plan-item">
+      <view class="plan-item" bindtap="changePlanStatus" data-id="{{item.id}}">
         <view class="plan-header">
           <text class="plan-name">{{item.name}}</text>
-          <view class="plan-status status-{{item.status}}">
-            {{item.status === 'completed' ? '已完成' : item.status === 'doing' ? '进行中' : '未开始'}}
+          <view class="plan-status status-{{item.status === 'completed' ? 'completed' : 'todo'}}" bindtap="changePlanStatus" data-id="{{item.id}}">
+            {{item.status === 'completed' ? '已完成' : '待完成'}}
           </view>
         </view>
         <text class="plan-detail">{{item.duration}}分钟·{{item.intensityText}}</text>
@@ -176,15 +69,15 @@
   </view>
   
   <!-- 查看全部 -->
-  <view class="view-all">
+  <view class="view-all" bindtap="showNoMoreDataToast">
     <text>查看全部</text>
   </view>
 </view>
 
 <!-- 近三天运动记录模块 -->
-<view class="recent-exercises-section">
-  <view class="card-header">
-    <text class="card-title">近三天运动记录</text>
+<view class="recent-exercises-section" style="position: relative; left: 37rpx; top: 112rpx; width: 639rpx; display: block; box-sizing: border-box">
+  <view class="card-header" style="position: relative; left: 0rpx; top: 149rpx">
+    <text class="card-title" style="position: relative; left: 22rpx; top: -133rpx">近三天运动记录</text>
   </view>
   
   <view class="recent-exercises-list" wx:if="{{!isLoadingRecentExercises}}">
@@ -204,42 +97,6 @@
   
   <view class="loading-state" wx:if="{{isLoadingRecentExercises}}">
     <text>加载中...</text>
-  </view>
-</view>
-
-<!-- 训练成就模块 -->
-<view class="achievement-card">
-  <!-- 金色装饰条 -->
-  <view class="decoration-bar"></view>
-  
-  <!-- 标题 -->
-  <view class="card-header">
-    <text class="card-title">训练成就</text>
-  </view>
-  
-  <!-- 成就列表 -->
-  <view class="achievement-list">
-    <!-- 成就项1 -->
-    <view class="achievement-item">
-      <text class="achievement-label">连续7天训练</text>
-    </view>
-    
-    <!-- 成就项2 -->
-    <view class="achievement-item">
-      <text class="achievement-label">累计消耗</text>
-      <text class="achievement-value">10000千卡</text>
-    </view>
-    
-    <!-- 成就项3 -->
-    <view class="achievement-item">
-      <!-- 进度条 -->
-      <view class="progress-container">
-        <view class="progress-bar">
-          <view class="progress-fill" style="width: 60%"></view>
-        </view>
-      </view>
-      <text class="progress-text">已完成3/5</text>
-    </view>
   </view>
 </view>
 
@@ -334,5 +191,127 @@
 <view class="error-message" wx:if="{{errorMsg}}">
   <text>{{errorMsg}}</text>
   <button bindtap="getExerciseRecommendations" size="mini">重试</button>
+</view>
+
+
+<!-- 将图片移到页面末尾并添加固定容器 -->
+<view class="fixed-bottom-right-image">
+  <image 
+    src="../../images/运动记录.jpg" 
+    class="sports-record-image" 
+    mode="aspectFill" 
+    bindtap="toggleImageDisplay"
+  ></image>
+  <!-- 添加灰色文字 -->
+  <text class="sports-record-text">点击记录运动哦~</text>
+</view>
+
+<!-- 运动记录新视图 -->
+<view class="sports-record-view" wx:if="{{showSportsRecordView}}">
+  <!-- 视图标题 -->
+  <view class="record-view-header">
+    <text class="record-view-title">运动记录</text>
+    <text class="record-view-close" bindtap="toggleImageDisplay">×</text>
+  </view>
+  
+  <!-- 视图内容 -->
+  <view class="record-view-content">
+    <!-- 添加搜索框 -->
+    <view class="search-container">
+      <view class="search-box">
+        <icon class="search-icon" type="search" size="24" color="#999"/>
+        <input type="text" class="search-input" placeholder="搜索运动名称" placeholder-style="color:#999" bindinput="onSearchInput"/>
+      </view>
+    </view>
+    
+    <!-- 训练模式选择模块 -->
+    <view class="training-mode-container">
+      <view class="mode-title">选择训练模式</view>
+      <view class="mode-options">
+        <view class="mode-item {{currentMode === 'home' ? 'active' : ''}}" bindtap="selectMode" data-mode="home">
+          <text class="mode-name">居家减脂</text>
+        </view>
+        <view class="mode-item {{currentMode === 'outdoor' ? 'active' : ''}}" bindtap="selectMode" data-mode="outdoor">
+          <text class="mode-name">户外训练</text>
+        </view>
+        <view class="mode-item {{currentMode === 'gym' ? 'active' : ''}}" bindtap="selectMode" data-mode="gym">
+          <text class="mode-name">健身房</text>
+        </view>
+      </view>
+    </view>
+    
+    <!-- 三种模式下的运动推荐区域 -->
+    <view class="recommendations-section" wx:if="{{recommendations && !isLoading && !errorMsg}}">
+      <view class="section-title">运动推荐</view>
+      
+      <!-- 居家运动推荐 -->
+      <view class="recommendation-card" wx:if="{{currentMode === 'home'}}">
+        <view class="card-header">
+          <text class="card-title" style="color: #4CAF50;">居家运动</text>
+          <text class="card-subtitle">适合在家进行的高效训练</text>
+        </view>
+        <view class="recommendation-list">
+          <block wx:for="{{recommendations['居家']}}" wx:key="exercise_id" wx:for-item="item">
+            <view class="recommendation-item">
+              <text class="exercise-name">{{item.exercise_name}}</text>
+              <view class="exercise-meta">
+                <text class="meta-item">每10分钟消耗: {{item.calories_burned_per_ten_minutes}}千卡</text>
+                <text class="meta-item">{{item.reps_or_duration}} × {{item.sets}}组</text>
+              </view>
+              <button class="add-to-plan-btn" size="mini" bindtap="showTimeInputDialog" data-exercise="{{item.exercise_name}}" data-calories-per-ten="{{item.calories_burned_per_ten_minutes}}" style="color: #7ebaeb;">
+                添加到运动记录
+              </button>
+            </view>
+          </block>
+        </view>
+      </view>
+      
+      <!-- 户外运动推荐 -->
+      <view class="recommendation-card" wx:if="{{currentMode === 'outdoor'}}">
+        <view class="card-header">
+          <text class="card-title" style="color: #2196F3;">户外运动</text>
+          <text class="card-subtitle">享受大自然的同时燃烧卡路里</text>
+        </view>
+        <view class="recommendation-list">
+          <block wx:for="{{recommendations['户外']}}" wx:key="exercise_id" wx:for-item="item">
+            <view class="recommendation-item">
+              <text class="exercise-name">{{item.exercise_name}}</text>
+              <view class="exercise-meta">
+                <text class="meta-item">每10分钟消耗: {{item.calories_burned_per_ten_minutes}}千卡</text>
+                <text class="meta-item">{{item.reps_or_duration}} × {{item.sets}}组</text>
+              </view>
+              <button class="add-to-plan-btn" size="mini" bindtap="showTimeInputDialog" data-exercise="{{item.exercise_name}}" data-calories-per-ten="{{item.calories_burned_per_ten_minutes}}" style="color: #2196F3;">
+                添加到运动记录
+              </button>
+            </view>
+          </block>
+        </view>
+      </view>
+      
+      <!-- 健身房运动推荐 -->
+      <view class="recommendation-card" wx:if="{{currentMode === 'gym'}}">
+        <view class="card-header">
+          <text class="card-title" style="color: #FF9800;">健身房运动</text>
+          <text class="card-subtitle">专业器械助力，塑造完美身材</text>
+        </view>
+        <view class="recommendation-list">
+          <block wx:for="{{recommendations['健身房']}}" wx:key="exercise_id" wx:for-item="item">
+            <view class="recommendation-item">
+              <text class="exercise-name">{{item.exercise_name}}</text>
+              <view class="exercise-meta">
+                <text class="meta-item">每10分钟消耗: {{item.calories_burned_per_ten_minutes}}千卡</text>
+                <text class="meta-item">{{item.reps_or_duration}} × {{item.sets}}组</text>
+              </view>
+              <button class="add-to-plan-btn" size="mini" bindtap="showTimeInputDialog" data-exercise="{{item.exercise_name}}" data-calories-per-ten="{{item.calories_burned_per_ten_minutes}}" style="color: #2196F3;">
+                添加到运动记录
+              </button>
+            </view>
+          </block>
+        </view>
+      </view>
+    </view>
+    
+    <!-- 这里可以根据需求添加其他运动记录内容 -->
+  </view>
 </view>
     

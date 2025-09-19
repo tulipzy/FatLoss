@@ -145,12 +145,16 @@ Page({
     recommendations: null as Recommendations | null,
     isLoading: false,
     errorMsg: '',
-    userID: '071563acc1004860a77393b35f73e635',
+    userID: '60be50077e3e4d32a7f5adf0e4472ca4',
     selectedIntensity: 'low',
     apiBaseUrl: 'http://60.205.245.221:5050',
     hasConfirmedToday: false,
     isLoadingRecentExercises: false,
     recentExercises: [] as RecentExerciseItem[],
+    
+    // 图片显示控制
+    showFullImage: false, // 控制图片是否完全显示
+    clickCount: 0, // 记录点击次数
     
     // 计时核心状态 - 正向计时（修复NodeJS类型问题）
     isRunning: false, // 计时是否进行中
@@ -164,7 +168,20 @@ Page({
     isResting: false, // 是否处于休息状态
     
     // 按钮文本
-    primaryBtnText: "开始" // 主按钮文本
+    primaryBtnText: "开始", // 主按钮文本
+    
+    // 新视图控制
+    showSportsRecordView: false, // 控制运动记录新视图的显示/隐藏
+    
+    // 提示窗口控制
+    showNoMoreToast: false, // 控制"暂时没有更多啦"提示窗口的显示/隐藏
+    
+    // 时间输入相关
+    tempExerciseData: {
+      name: '',
+      caloriesPerTen: 0,
+      spentTime: 0
+    }
   },
 
   // 动画实例
@@ -310,7 +327,7 @@ Page({
       let totalDuration = 0;
       
       if (rec.reps_or_duration.includes('minutes')) {
-        totalDuration = parseInt(rec.reps_or_duration) * rec.sets;
+        totalDuration = parseInt(rec.reps_or_duration);
       } else if (rec.reps_or_duration.includes('reps')) {
         totalDuration = 3 * rec.sets;
       }
@@ -363,17 +380,8 @@ Page({
     this.formAnimation.opacity(0).translateY(-50).step();
     this.setData({ formAnimation: this.formAnimation.export() });
 
-    // 加载本地存储数据
-    const userData = wx.getStorageSync('fitnessUserData');
-    if (userData) {
-      this.setData({
-        hasConfirmedToday: userData.hasConfirmedToday || false,
-        plans: userData.plans || [],
-        currentExp: userData.currentExp || 0,
-        level: userData.level || 1,
-        roleName: userData.roleName || '健身新手'
-      });
-    }
+    // 加载本地存储数据并初始化训练计划
+    this.loadUserDataFromStorage();
 
     // 初始化页面数据
     this.renderModeContent('home');
@@ -551,6 +559,17 @@ Page({
    */
   onHeartRateInput(e: { detail: { value: any } }): void {
     this.setData({ 'newPlan.heart_rate': e.detail.value });
+  },
+
+  /**
+   * 处理搜索输入
+   * @param e 事件对象
+   */
+  onSearchInput(e: any) {
+    const searchValue = e.detail.value;
+    // 这里可以根据搜索值进行过滤或其他操作
+    console.log('搜索输入:', searchValue);
+    // 可以添加过滤逻辑，例如 this.filteredRecords = this.records.filter(...);
   },
 
   /**
@@ -802,7 +821,7 @@ Page({
       title: '设置运动天数',
       content: '请输入您计划进行的运动天数',
       editable: true,
-      placeholderText: '14', // 默认14天，与示例一致
+      placeholderText: '14', // 默认14天
       success: async (res) => {
         if (res.confirm && res.content) {
           const days = Number(res.content);
@@ -814,7 +833,7 @@ Page({
               const response = await this.requestAPI<CustomTaskResponse>('/api/readd', 'POST', {
                 id: this.data.userID,
                 type: modeMap[this.data.currentMode] || 1,
-                days: days, // 添加days参数
+                days: days,
                 exercises: exercises
               });
               
@@ -926,7 +945,6 @@ Page({
       }
     } catch (error) {
       console.error('获取近三天运动数据失败:', error);
-      // 添加友好的错误提示
       wx.showToast({
         title: '获取运动记录失败',
         icon: 'none',
@@ -1067,5 +1085,162 @@ Page({
     this.setData({
       showAllRecommendations: !this.data.showAllRecommendations
     });
+  },
+  
+  /**
+   * 切换图片显示状态的方法
+   */
+  toggleImageDisplay(): void {
+    // 切换新视图的显示状态
+    this.setData({
+      showSportsRecordView: !this.data.showSportsRecordView
+    });
+  },
+
+  /**
+   * 显示"暂时没有更多啦"提示窗口
+   */
+  showNoMoreDataToast(): void {
+    this.setData({
+      showNoMoreToast: true
+    });
+  },
+
+  /**
+   * 隐藏"暂时没有更多啦"提示窗口
+   */
+  hideNoMoreToast(): void {
+    this.setData({
+      showNoMoreToast: false
+    });
+  },
+
+  /**
+   * 显示时间输入对话框
+   */
+  showTimeInputDialog(e: any): void {
+    const exerciseName = e.currentTarget.dataset.exercise;
+    const caloriesPerTen = parseFloat(e.currentTarget.dataset.caloriesPerTen) || 50;
+    
+    this.setData({
+      'tempExerciseData.name': exerciseName,
+      'tempExerciseData.caloriesPerTen': caloriesPerTen
+    });
+    
+    wx.showModal({
+      title: '输入运动时间',
+      content: `请输入进行"${exerciseName}"的时间（分钟）`,
+      editable: true,
+      placeholderText: '10',
+      success: (res) => {
+        if (res.confirm && res.content) {
+          const spentTime = Number(res.content);
+          
+          if (!isNaN(spentTime) && spentTime > 0 && spentTime <= 300) {
+            // 先计算消耗的卡路里，以便在对话框中显示
+            const caloriesBurned = Math.round((spentTime / 10) * caloriesPerTen);
+            
+            // 显示确认对话框，包含计算的卡路里
+            wx.showModal({
+              title: '确认记录',
+              content: `\n运动项目：${exerciseName}\n运动时间：${spentTime}分钟\n消耗：${caloriesBurned}千卡\n\n是否确认记录？`,
+              showCancel: true,
+              success: (confirmRes) => {
+                if (confirmRes.confirm) {
+                  // 调用添加函数，传递计算的卡路里值
+                  this.addExerciseTimeWithCalories(exerciseName, spentTime, caloriesBurned);
+                }
+              }
+            });
+          } else {
+            wx.showToast({
+              title: '请输入有效的时间（1-300分钟）',
+              icon: 'none'
+            });
+          }
+        }
+      }
+    });
+  },
+
+  /**
+   * 添加运动时间记录（带计算的卡路里）
+   * @param exerciseName 运动名称
+   * @param spentTime 运动时间（分钟）
+   * @param caloriesBurned 计算的卡路里消耗
+   */
+  async addExerciseTimeWithCalories(exerciseName: string, spentTime: number, caloriesBurned: number): Promise<void> {
+    if (!exerciseName || spentTime <= 0) {
+      wx.showToast({ title: '运动信息不完整', icon: 'none' });
+      return;
+    }
+    
+    wx.showLoading({ title: '记录中...' });
+    
+    try {
+      const response = await this.requestAPI<AddSpentTimeResponse>('/api/add_spentTime', 'POST', {
+        id: this.data.userID,
+        exercise_name: exerciseName,
+        spent_time: spentTime
+      });
+      
+      if (response.status === 'success') {
+        // 记录成功后显示消耗的卡路里
+        wx.showToast({
+          title: `记录成功，消耗${caloriesBurned}千卡`,
+          icon: 'success',
+          duration: 2000
+        });
+        
+        // 更新最近运动记录和训练数据
+        this.getRecentExercises();
+        this.updateTrainingData(spentTime, caloriesBurned);
+      }
+    } catch (error) {
+      console.error('记录运动时间失败:', error);
+      wx.showToast({
+        title: error instanceof Error ? error.message : '记录失败',
+        icon: 'none',
+        duration: 2000
+      });
+    } finally {
+      wx.hideLoading();
+    }
+  },
+
+    /**
+   * 切换计划项完成状态
+   */
+  changePlanStatus(e: { currentTarget: { dataset: { id: string } } }): void {
+    const planId = e.currentTarget.dataset.id;
+    const plan = this.data.plans.find((p: ExercisePlan) => p.id === planId);
+    
+    if (!plan) {
+      wx.showToast({ title: '计划不存在', icon: 'none' });
+      return;
+    }
+    
+    // 只有待完成状态可以切换为已完成
+    if (plan.status === 'todo') {
+      const updatedPlans = this.data.plans.map((p: ExercisePlan) => {
+        if (p.id === planId) {
+          return { ...p, status: 'completed' as const };
+        }
+        return p;
+      });
+      
+      this.setData({ plans: updatedPlans });
+      
+      // 保存到本地存储
+      wx.setStorageSync('fitnessUserData', { ...this.data, plans: updatedPlans });
+      
+      // 显示成功提示
+      wx.showToast({
+        title: '已添加到记录，你太棒了~',
+        icon: 'success',
+        duration: 2000
+      });
+    }
   }
 });
+    

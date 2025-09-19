@@ -1,3 +1,38 @@
+/* 固定在屏幕最下面最右边的容器 - 高z-index确保置顶 */
+.fixed-bottom-right-image {
+  position: fixed; /* 固定定位 - 相对于屏幕视口 */
+  bottom: 20rpx; /* 距离屏幕底部的距离 */
+  right: 20rpx; /* 距离屏幕右边的距离 */
+  z-index: 9999; /* 极高的z-index值，确保在所有元素上层 */
+  /* 确保容器不会被其他元素的overflow:hidden影响 */
+  overflow: visible;
+  /* 调整为flex布局，使文字在图片下方 */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* 图片样式 */
+.sports-record-image {
+  width: 129rpx; /* 图片宽度 */
+  height: 124rpx; /* 图片高度 */
+  display: block; /* 确保是块级元素 */
+  border-radius: 12rpx; /* 圆角效果 */
+  box-shadow: 0 8rpx 24rpx rgba(0,0,0,0.2); /* 阴影效果 */
+  cursor: pointer; /* 鼠标悬停显示手型 */
+  /* 确保图片不会被其他样式覆盖 */
+  position: relative;
+  z-index: 1;
+}
+
+/* 图片下方文字样式 */
+.sports-record-text {
+  font-size: 24rpx; /* 文字大小 */
+  color: #999999; /* 灰色文字 */
+  margin-top: 8rpx; /* 与图片保持适当距离 */
+  white-space: nowrap; /* 防止文字换行 */
+}
+
 /* 核心修改：页面背景渐变效果 */
 page {
   /* 淡蓝色线性渐变（从左上到右下） */
@@ -5,6 +40,7 @@ page {
   min-height: 100vh; /* 确保背景铺满整个屏幕高度 */
   margin: 0;
   padding: 0;
+  padding-bottom: 164rpx; /* 图片高度(124rpx) + 底部距离(20rpx) + 额外间距(20rpx) */
 }
 
 /* 训练模式选择模块 */
@@ -164,11 +200,14 @@ page {
 
 /* sport.wxss */
 .target-card {
+  width:85%;
+  max-width: 500px;
   background: #FFFFFF;
-  border-radius: 24rpx;
-  box-shadow: 0 8rpx 24rpx rgba(0,0,0,0.1);
-  padding: 32rpx;
+  border-radius:30rpx;
+  box-shadow: 0 2rpx 8rpx rgba(0,0,0,0.08);
+  padding: 16rpx;
   margin: 30rpx;
+  box-sizing: border-box;
 }
 
 .card-header {
@@ -485,9 +524,10 @@ page {
 }
 
 .plan-status {
-  font-size: 26rpx;
   padding: 6rpx 16rpx;
-  border-radius: 20rpx;
+  border-radius: 16rpx;
+  font-size: 24rpx;
+  font-weight: 500;
 }
 
 .status-done {
@@ -500,9 +540,16 @@ page {
   color: #FFA500;
 }
 
+/* 待完成状态样式 */
 .status-todo {
-  background-color: #F5F5F5;
-  color: #999999;
+  background-color: #FFE5E5;
+  color: #FF6B6B;
+}
+
+/* 已完成状态样式（绿色）*/
+.status-completed {
+  background-color: #E8F5E9;
+  color: #4CAF50;
 }
 
 .plan-detail {
@@ -1405,4 +1452,155 @@ page {
   padding: 8rpx 15rpx;
   background-color: #FF9800;
   color: white;
+}
+
+/* 搜索框容器样式 */
+.search-container {
+  margin-bottom: 10rpx;
+  padding: 0 20rpx;
+}
+
+/* 搜索框样式 */
+.search-box {
+  display: flex;
+  align-items: center;
+  background-color: #F5F5F5;
+  border-radius: 50rpx;
+  padding: 16rpx 24rpx;
+}
+
+/* 搜索图标样式 */
+.search-icon {
+  margin-right: 16rpx;
+}
+
+/* 搜索输入框样式 */
+.search-input {
+  flex: 1;
+  font-size: 28rpx;
+  color: #333333;
+  background-color: transparent;
+}
+
+/* 调整运动记录新视图中训练模式选择模块的样式 */
+.sports-record-view .training-mode-container {
+  margin: 20rpx;
+  width: calc(100% - 40rpx);
+}
+
+/* 运动记录新视图样式 - 增大高度 */
+.sports-record-view {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh; /* 从70vh增加到90vh，占据更多屏幕空间 */
+  background: #FFFFFF;
+  border-top-left-radius: 30rpx;
+  border-top-right-radius: 30rpx;
+  z-index: 10000;
+  box-shadow: 0 -8rpx 24rpx rgba(0, 0, 0, 0.15);
+  display: flex;
+  flex-direction: column;
+}
+
+.record-view-header {
+  padding: 30rpx;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1rpx solid #EEEEEE;
+}
+
+.record-view-title {
+  font-size: 36rpx;
+  font-weight: bold;
+  color: #333333;
+}
+
+.record-view-close {
+  font-size: 48rpx;
+  color: #999999;
+  padding: 10rpx;
+}
+
+/* 视图内容区域优化 */
+.record-view-content {
+  flex: 1;
+  padding: 60rpx; /* 增加内边距 */
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  overflow-y: auto; /* 添加滚动条，确保内容过多时可以滚动 */
+}
+
+/* 增加占位文字的大小 */
+.record-view-placeholder {
+  font-size: 36rpx; /* 增大字体大小 */
+  color: #666666;
+  margin-top: 50rpx; /* 调整垂直位置 */
+}
+
+/* 调整运动记录新视图中运动推荐区域的样式 */
+.sports-record-view .recommendations-section {
+  margin-top: 10rpx;
+  padding: 0 10rpx;
+  width: calc(100% - 40rpx);
+}
+
+.sports-record-view .recommendation-card {
+  margin-bottom: 10rpx;
+}
+
+.sports-record-view .recommendation-list {
+  max-height: 500rpx;
+  overflow-y: auto;
+}
+
+.sports-record-view .recommendation-item {
+  margin-bottom: 15rpx;
+  padding: 20rpx;
+}
+
+.sports-record-view .add-to-plan-btn {
+  margin-top: 10rpx;
+}
+
+/* 提示窗口样式 */
+.toast-mask {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 9998;
+}
+
+.toast-container {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: #fff;
+  border-radius: 12rpx;
+  padding: 40rpx;
+  width: 500rpx;
+  text-align: center;
+  z-index: 9999;
+}
+
+.toast-text {
+  font-size: 28rpx;
+  color: #333;
+  margin-bottom: 30rpx;
+  display: block;
+}
+
+.toast-btn {
+  font-size: 28rpx;
+  color: #1AAD19;
+  padding: 10rpx 0;
+  border-top: 1rpx solid #eee;
 }

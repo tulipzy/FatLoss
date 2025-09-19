@@ -41,10 +41,10 @@
     "tabIndent": "insertSpaces",
     "tabSize": 2
   },
-  "libVersion": "3.10.0",
+  "libVersion": "3.7.12",
   "packOptions": {
     "ignore": [],
     "include": []
   },
-  "appid": "wxabf7bf0dcfffba77"
+  "appid": "wxdeac642d0d3af256"
 }
