@@ -31,18 +31,57 @@ Page({
     totalBadgesCount: 0
   },
 
+  /** 从本地存储加载真实用户数据 */
+  loadRealUserData() {
+    const fitnessData = wx.getStorageSync('fitnessUserData');
+    if (fitnessData && fitnessData.currentExp !== undefined) {
+      const { taskProgress } = this.data;
+      const expTaskIndex = taskProgress.findIndex(item => item.id === 3);
+      
+      if (expTaskIndex !== -1) {
+        const updatedTasks = [...taskProgress];
+        updatedTasks[expTaskIndex].current = fitnessData.currentExp;
+        
+        this.setData({ taskProgress: updatedTasks });
+        this.calculateProgressPercent();
+        this.checkNewBadges();
+      }
+    }
+  },
+  
+  // 修改onLoad方法
   onLoad() {
     this.initBadgeDemoData();
     this.calculateTotalBadgesCount();
     this.calculateProgressPercent();
+    this.loadRealUserData(); // 加载真实用户数据
   },
-
+  
+  // 修改onShow方法
   onShow() {
+    this.loadRealUserData(); // 每次显示页面都加载最新数据
     this.calculateProgressPercent();
     this.checkNewBadges();
   },
-
-  /** 初始化演示数据 */
+  
+  // 保留一个onAddExp方法，移除重复定义
+  onAddExp() {
+    // 优先使用真实数据获取方式
+    wx.showToast({
+      title: '请通过运动获取真实经验值',
+      icon: 'none',
+      duration: 1500
+    });
+    
+    // 可选：跳转到运动页面
+    setTimeout(() => {
+      wx.navigateTo({
+        url: '/pages/sport/sport'
+      });
+    }, 1500);
+  },
+  
+  // 修改initBadgeDemoData方法，移除模拟的运动新星勋章
   initBadgeDemoData() {
     const demoData: BadgesData = {
       ownedBadges: [
@@ -52,16 +91,16 @@ Page({
           desc: "连续7天记录饮食",
           imageUrl: "/images/zilv.jpg",
           isNew: false
-        },
+        }
+        // 移除模拟的运动新星勋章，让用户通过真实运动获取
+      ],
+      unlockedBadges: [
         {
           id: 3,
           name: "运动新星",
-          desc: "经验值超过100",
-          imageUrl: "/images/1.jpg",
-          isNew: true
-        }
-      ],
-      unlockedBadges: [
+          condition: "经验值超过100",
+          imageUrl: "/images/1.jpg"
+        },
         {
           id: 5,
           name: "饮食记录大师",
@@ -70,18 +109,16 @@ Page({
         },
         {
           id: 6,
-        name: "进阶达人",
-        condition: "经验值达到200",
-        imageUrl: "/images/3.jpg"
+          name: "进阶达人",
+          condition: "经验值达到200",
+          imageUrl: "/images/3.jpg"
         },
-        
         {
           id: 7,
           name: "耐力王者",
           condition: "经验值达到300",
           imageUrl: "/images/2.jpg"
         },
-       
         {
           id: 8,
           name: "力量健将",
@@ -108,7 +145,7 @@ Page({
         {
           id: 3,
           desc: "经验值",
-          current: 30,
+          current: 0, // 初始化为0，由真实数据同步
           target: 200,
           unit: "",
           badgeName: "力量健将",
@@ -282,36 +319,6 @@ Page({
       } else {
         wx.showToast({
           title: '已达到目标天数！',
-          icon: 'none',
-          duration: 1000
-        });
-      }
-    }
-  },
-
-  /** 模拟：增加20点经验值 */
-  onAddExp() {
-    const { taskProgress } = this.data;
-    const targetTaskIndex = taskProgress.findIndex(item => item.id === 3);
-    
-    if (targetTaskIndex !== -1) {
-      const updatedTasks = [...taskProgress];
-      const currentTask = updatedTasks[targetTaskIndex];
-      
-      if (currentTask.current < currentTask.target) {
-        currentTask.current = Math.min(currentTask.current + 20, currentTask.target);
-        this.setData({ taskProgress: updatedTasks });
-        this.calculateProgressPercent();
-        this.checkNewBadges();
-        
-        wx.showToast({
-          title: `经验值+20（当前${currentTask.current}）`,
-          icon: 'none',
-          duration: 1000
-        });
-      } else {
-        wx.showToast({
-          title: '已达到目标经验值！',
           icon: 'none',
           duration: 1000
         });

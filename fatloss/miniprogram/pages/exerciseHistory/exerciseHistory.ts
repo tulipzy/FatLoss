@@ -32,7 +32,8 @@ Page({
     exerciseHistoryList: [] as GroupedExercise[],
     searchKeyword: '',
     originalExerciseList: [] as GroupedExercise[],
-    isLoading: true
+    isLoading: true,
+    apiBaseUrl: 'http://60.205.245.221:5050' // 添加API基础地址，与sport.ts保持一致
   },
 
   onLoad() {
@@ -51,13 +52,12 @@ Page({
       // 如果缓存中没有用户ID，使用默认ID
       const currentUserId = userId || 'a631c63702a5453c86fce9a42008e54a';
 
-      // 发起GET请求到后端API - 使用与饮食记录相同的方式
-      // 注意：这里的API地址是推测的，实际应该使用正确的运动记录API
+      // 修改API地址，使用与sport.ts相同的接口
       wx.request({
-        url: `http://60.205.245.221:9090/Exercise/record?userId=${currentUserId}`,
+        url: `${this.data.apiBaseUrl}/api/recent_exercises?id=${currentUserId}`,
         method: 'GET',
         timeout: 10000,
-        success: (res: { data: ExerciseResponse }) => {
+        success: (res: { data: RecentExercisesResponse }) => {
           console.log('后端运动数据返回:', res.data);
 
           // 处理后端返回的数据
@@ -66,12 +66,12 @@ Page({
           // 如果请求成功且有数据，解析后端数据
           if (backendData.status === 'success' && backendData.data && backendData.data.length > 0) {
             // 解析后端数据为前端需要的格式
-            const allRecords: ExerciseRecord[] = backendData.data.map((exerciseItem: ExerciseItem) => {
+            const allRecords: ExerciseRecord[] = backendData.data.map((exerciseItem: any) => {
               return {
-                time: exerciseItem.exerciseTime,
-                exerciseName: exerciseItem.exerciseName,
+                time: exerciseItem.created_at,
+                exerciseName: exerciseItem.exercise_name,
                 calorie: Number(exerciseItem.calories) || 0,
-                type: exerciseItem.type
+                type: '有氧运动' // 根据实际情况可以从API获取运动类型
               };
             });
 
@@ -179,3 +179,10 @@ Page({
     this.setData({ exerciseHistoryList: filtered });
   }
 });
+
+// 添加需要的接口定义
+interface RecentExercisesResponse {
+  status: string;
+  data: any[];
+  message?: string;
+}

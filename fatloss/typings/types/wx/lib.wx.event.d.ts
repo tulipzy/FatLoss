@@ -40,6 +40,7 @@ declare namespace WechatMiniprogram {
         CurrentTargetDataset extends IAnyObject = IAnyObject,
         TargetDataset extends IAnyObject = CurrentTargetDataset
     > {
+        detail: any
         /** 事件类型 */
         type: string
         /** 页面打开到触发事件所经过的毫秒数 */

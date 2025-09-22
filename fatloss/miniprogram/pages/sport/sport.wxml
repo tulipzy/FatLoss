@@ -49,7 +49,7 @@
   <!-- 标题 -->
   <view class="card-header flex-between">
     <text class="card-title">今日训练计划</text>
-    <text class="edit-plan-btn" bindtap="openEditPanel">修改计划</text>
+    <text class="edit-plan-btn" bindtap="openEditPanel">确认/修改计划</text>
   </view>
   
   <!-- 训练项目列表 -->
