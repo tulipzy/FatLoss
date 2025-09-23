@@ -302,11 +302,52 @@ Page({
     });
   },
 
+  // 增强viewExerciseHistory方法，添加加载状态和错误处理
+  // 查看运动记录
   viewExerciseHistory() {
-    wx.navigateTo({
-      url: '/pages/exerciseHistory/exerciseHistory'
-    });
-  },
+    try {
+      wx.showLoading({ title: '加载中' });
+      // 检查用户是否登录（简化版，实际应检查token）
+      const userInfo = wx.getStorageSync(USER_STORAGE_KEY);
+      if (!userInfo || !userInfo.id) {
+        // 未登录用户先登录
+        wx.hideLoading();
+        wx.showModal({
+          title: '提示',
+          content: '请先登录',
+          showCancel: false,
+          success: () => {
+            wx.navigateTo({
+              url: '/pages/login/login'
+            });
+          }
+        });
+      } else {
+        // 已登录用户直接跳转
+        wx.navigateTo({
+          url: '/pages/exerciseHistory/exerciseHistory',
+          success: () => {
+            wx.hideLoading();
+          },
+          fail: (err) => {
+            console.error('跳转到运动记录页面失败:', err);
+            wx.hideLoading();
+            wx.showToast({
+              title: '跳转失败，请重试',
+              icon: 'none'
+            });
+          }
+        });
+      }
+    } catch (error) {
+      console.error('跳转异常:', error);
+      wx.hideLoading();
+      wx.showToast({
+        title: '操作异常，请重试',
+        icon: 'none'
+      });
+    }
+  }, // 这里缺少了逗号
 
   // 设置每日热量目标（核心修改：更新到userInfo并广播）
   setCalorieGoal() {
@@ -351,27 +392,42 @@ Page({
       content: '确定要退出登录吗？',
       success: (res) => {
         if (res.confirm) {
-          const currentUserInfo: UserInfo = wx.getStorageSync(USER_STORAGE_KEY) || {} as UserInfo;
-          
-          // 保留用户基本信息，清除登录状态和敏感数据
-          const preservedInfo: UserInfo = {
-            ...currentUserInfo,
-            id: '',
-            points: 0,
-            badges: 0,
-          };
-          
-          // 清除相关存储
-          wx.removeStorageSync('hasCompletedInfo');
-          wx.setStorageSync(USER_STORAGE_KEY, preservedInfo);
-          
-          this.setData({ 
-            userInfo: preservedInfo,
-            formattedInfo: this.formatUserInfo(preservedInfo)
+          // 清空用户数据
+          wx.removeStorageSync(USER_STORAGE_KEY);
+          // 重置页面数据
+          this.setData({
+            userInfo: {
+              nickname: '用户昵称',
+              avatarUrl: '',
+              gender: 1,
+              birth: '',
+              height: 0,
+              weight: 0,
+              target_weight: 0,
+              hand_length: 0,
+              activity_level: 1,
+              phone: '',
+              calorieGoal: 1800,
+              points: 0,
+              badges: 0
+            } as UserInfo,
+            formattedInfo: this.formatUserInfo({
+              nickname: '用户昵称',
+              avatarUrl: '',
+              gender: 1,
+              birth: '',
+              height: 0,
+              weight: 0,
+              target_weight: 0,
+              hand_length: 0,
+              activity_level: 1,
+              phone: '',
+              calorieGoal: 1800,
+              points: 0,
+              badges: 0
+            })
           });
-          
-          wx.reLaunch({ url: '/pages/index/index' });
-          wx.showToast({ title: '已退出登录', icon: 'none' });
+          wx.showToast({ title: '已退出登录', icon: 'success' });
         }
       }
     });

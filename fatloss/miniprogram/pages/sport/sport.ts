@@ -1588,19 +1588,33 @@ Page({
    */
   async recordCompletedPlan(plan: ExercisePlan): Promise<void> {
       try {
+          // 首先获取用户ID
+          const userId = wx.getStorageSync('userId') || 'a631c63702a5453c86fce9a42008e54a';
+          
           await this.requestAPI('/api/complete_plan', 'POST', {
-              id: this.data.userID,  // 使用从缓存获取的userID
+              id: userId,
               plan_id: plan.id,
               exercise_name: plan.name,
               duration: plan.duration,
-              calories: plan.calories
+              calories: plan.calories,
+              calorie: plan.calories // 额外添加calorie字段，确保后端能接收到热量数据
           });
+          
+          console.log('运动计划记录成功:', plan.name);
           
           // 更新训练数据
           this.updateTrainingData(plan.duration, plan.calories);
-          this.getRecentExercises();
+          
+          // 同步到本地存储，确保数据一致性
+          wx.setStorageSync('fitnessUserData', this.data);
+          
+          // 发送事件通知，确保其他页面能及时更新数据
+          const app = getApp();
+          if (app.globalData?.eventBus) {
+              app.globalData.eventBus.emit('exerciseDataChanged');
+          }
       } catch (error) {
-          console.error('记录完成计划失败:', error);
+          console.error('记录完成的训练计划失败:', error);
       }
   }
 });

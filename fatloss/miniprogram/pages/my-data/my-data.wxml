@@ -5,11 +5,11 @@
   <!-- 减重进度模块 -->
   <view class="weight-progress-module" wx:else>
     <!-- 淡蓝色渐变背景 -->
-    <view class="module-bg" style="height: 675rpx; display: flex; box-sizing: border-box; position: relative; left: -1rpx; top: 15rpx">
+    <view class="module-bg" style="height: 643rpx; display: flex; box-sizing: border-box; position: relative; left: -2rpx; top: 0rpx">
       <!-- 新增：目标计划标题 -->
       <view class="module-title">目标计划</view>
       <!-- 坚持天数和目标减重 -->
-      <view class="stat-container" style="position: relative; left: -10rpx; top: 175rpx">
+      <view class="stat-container" style="position: relative; left: 2rpx; top: 86rpx">
         <view class="stat-item">
           <view class="stat-label">已坚持</view>
           <view class="stat-value">{{weightGoal.daysInsisted}}</view>
@@ -22,20 +22,13 @@
         </view>
       </view>
 
-      <!-- 大圆环 -->
-      <view class="circle-container" style="position: relative; left: 1rpx; top: -43rpx">
-        <view class="circle-bg"></view>
-        <!-- 修改圆环进度条，支持动态颜色 -->
-        <view class="circle-progress" style="transform: rotate(45deg); border-top-color: {{progressColor}}; border-right-color: {{progressColor}}; position: absolute; left: 0rpx; top: 0rpx;"></view>
-        <view class="circle-content" style="position: absolute; left: 24rpx; top: 24rpx">
-          <view class="circle-title">累计减重</view>
-          <view class="circle-value">{{weightGoal.totalLost.toFixed(1)}}</view>
-          <view class="circle-unit">千克</view>
-        </view>
+      <!-- 替换大圆环为pb.jpg图片 -->
+      <view class="image-container" style="position: relative; left: 1rpx; top: -43rpx;">
+        <image src="/images/pb.jpg" mode="aspectFit" style="width: 245rpx; height: 229rpx; display: inline-block; box-sizing: border-box; position: relative; left: -1rpx; top: -64rpx"></image>
       </view>
 
       <!-- 体重数据卡片 -->
-      <view class="weight-cards">
+      <view class="weight-cards" style="position: relative; left: 0rpx; top: -75rpx">
         <view class="weight-card initial">
           <view class="card-label">初始(kg)</view>
           <view class="card-value">{{weightData.initial}}</view>

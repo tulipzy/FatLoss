@@ -74,6 +74,13 @@ interface FoodIntakeResponse {
   message?: string;
 }
 
+// 运动记录相关接口定义
+interface RecentExercisesResponse {
+  status: string;
+  data: any[];
+  message?: string;
+}
+
 Page({
   data: {
     isLoading: true,
@@ -100,7 +107,11 @@ Page({
     } as ExerciseRecords,
     progressPercent: 0,
     hasNoDietData: false,   // 饮食日记无数据标志
-    hasNoExerciseData: false // 运动记录无数据标志
+    hasNoExerciseData: false, // 运动记录无数据标志
+    // 添加API基础地址，与sport.ts保持一致
+    apiBaseUrl: 'http://60.205.245.221:5050',
+    // 添加错误提示信息
+    errorMessage: ''
   },
 
   onLoad() {
@@ -119,90 +130,206 @@ Page({
     const initialWeightData = {
       initial: userInfo.weight || 0,
       current: userInfo.weight || 0,
-      target: userInfo.targetWeight || 0
+      target: userInfo.target_weight || userInfo.targetWeight || 0 // 同时检查下划线和驼峰格式
     };
 
-    // 如果缓存中没有用户ID，使用默认ID（可以根据实际情况调整处理逻辑）
+    // 如果缓存中没有用户ID，使用默认ID
     const currentUserId = userId || 'a631c63702a5453c86fce9a42008e54a';
 
     // 先更新体重数据，避免页面显示空白
     this.setData({
-      weightData: initialWeightData
+      weightData: initialWeightData,
+      isLoading: false // 立即设置为非加载状态，避免页面一直显示加载
     });
 
-    // 发起GET请求到后端API - 使用动态构建的URL
-    wx.request({
-      url: `http://60.205.245.221:9090/FoodIntake/meal?userId=${currentUserId}`,
-      method: 'GET',
-      timeout: 10000, // 添加超时设置
-      success: (res: { data: FoodIntakeResponse }) => {
-        console.log('后端数据返回:', res.data);
+    // 并发请求饮食数据和运动数据
+    Promise.all([
+      this.fetchDietData(currentUserId),
+      this.fetchExerciseData(currentUserId)
+    ]).then(() => {
+      // 计算减重数据
+      this.calculateWeightProgress();
+    }).finally(() => {
+      wx.hideLoading();
+    });
+  },
 
-        // 如果缓存中没有用户ID，则存入storage
-        if (!userId) {
-          wx.setStorageSync('userID', currentUserId);
-        }
+  // 获取饮食数据
+  fetchDietData(userId: string): Promise<void> {
+    return new Promise((resolve) => {
+      // 发起GET请求到后端API - 使用动态构建的URL
+      wx.request({
+        // 使用正确的API基础地址
+        url: `${this.data.apiBaseUrl}/FoodIntake/meal?userId=${userId}`,
+        method: 'GET',
+        timeout: 10000, // 添加超时设置
+        success: (res: { data: FoodIntakeResponse }) => {
+          console.log('后端饮食数据返回:', res.data);
 
-        // 处理后端返回的数据
-        const backendData = res.data;
+          // 处理后端返回的数据
+          const backendData = res.data;
 
-        // 如果请求成功且有数据，解析后端数据
-        if (backendData.status === 'success' && backendData.data && backendData.data.length > 0) {
-          // 解析后端数据为前端需要的格式
-          const parsedDietRecords = this.parseFoodIntakeData(backendData.data);
-          
-          // 更新页面数据
+          // 如果请求成功且有数据，解析后端数据
+          if (backendData.status === 'success' && backendData.data && backendData.data.length > 0) {
+            // 解析后端数据为前端需要的格式
+            const parsedDietRecords = this.parseFoodIntakeData(backendData.data);
+            
+            // 更新页面数据
+            this.setData({
+              dietRecords: parsedDietRecords,
+              hasNoDietData: false,
+              errorMessage: ''
+            });
+          } else {
+            // 无饮食数据时的处理
+            this.setData({
+              dietRecords: [],
+              hasNoDietData: true,
+              errorMessage: ''
+            });
+          }
+        },
+        fail: (err) => {
+          console.error('获取饮食数据失败:', err);
+          // 请求失败时的处理，显示错误信息
           this.setData({
-            isLoading: false,
-            dietRecords: parsedDietRecords,
-            hasNoDietData: false,
-            hasNoExerciseData: true, // 暂时假设没有运动数据，实际应根据后端返回设置
-            // 确保使用用户存储的体重信息
-            weightData: initialWeightData
-          });
-          
-          // 计算减重数据
-          this.calculateWeightProgress();
-        } else {
-          // 无饮食数据时的处理
-          this.setData({
-            isLoading: false,
             dietRecords: [],
             hasNoDietData: true,
-            hasNoExerciseData: true,
-            // 确保使用用户存储的体重信息
-            weightData: initialWeightData,
-            // 确保exerciseRecords有正确的内部结构
+            errorMessage: '获取饮食数据失败，请检查网络连接'
+          });
+          // 显示错误提示
+          wx.showToast({
+            title: '获取饮食数据失败',
+            icon: 'none'
+          });
+        },
+        complete: () => {
+          resolve();
+        }
+      });
+    });
+  },
+
+  // 获取运动数据
+  fetchExerciseData(userId: string): Promise<void> {
+    return new Promise((resolve) => {
+      // 发起GET请求到后端API获取运动数据
+      wx.request({
+        // 使用正确的API基础地址和路径
+        url: `${this.data.apiBaseUrl}/api/recent_exercises?id=${userId}`,
+        method: 'GET',
+        timeout: 10000,
+        success: (res: { data: RecentExercisesResponse }) => {
+          console.log('后端运动数据返回:', res.data);
+
+          // 处理后端返回的数据
+          const backendData = res.data;
+
+          // 如果请求成功且有数据，解析后端数据
+          if (backendData.status === 'success' && backendData.data && backendData.data.length > 0) {
+            // 解析后端数据为前端需要的格式
+            const exerciseRecords = this.parseExerciseData(backendData.data);
+            
+            // 更新页面数据
+            this.setData({
+              exerciseRecords: exerciseRecords,
+              hasNoExerciseData: false,
+              errorMessage: ''
+            });
+          } else {
+            // 无运动数据时的处理
+            this.setData({
+              exerciseRecords: {
+                homeWorkout: [],
+                outdoorTraining: [],
+                gymWorkout: []
+              },
+              hasNoExerciseData: true,
+              errorMessage: ''
+            });
+          }
+        },
+        fail: (err) => {
+          console.error('获取运动数据失败:', err);
+          // 请求失败时的处理，显示错误信息
+          this.setData({
             exerciseRecords: {
               homeWorkout: [],
               outdoorTraining: [],
               gymWorkout: []
-            }
+            },
+            hasNoExerciseData: true,
+            errorMessage: '获取运动数据失败，请检查网络连接'
           });
+          // 显示错误提示
+          wx.showToast({
+            title: '获取运动数据失败',
+            icon: 'none'
+          });
+        },
+        complete: () => {
+          resolve();
         }
-      },
-      fail: (err) => {
-        console.error('获取数据失败:', err);
-        // 请求失败时的处理
-        this.setData({
-          isLoading: false,
-          dietRecords: [],
-          hasNoDietData: true,
-          hasNoExerciseData: true,
-          // 确保使用用户存储的体重信息
-          weightData: initialWeightData,
-          // 确保exerciseRecords有正确的内部结构
-          exerciseRecords: {
-            homeWorkout: [],
-            outdoorTraining: [],
-            gymWorkout: []
-          }
-        });
-      },
-      complete: () => {
-        wx.hideLoading();
+      });
+    });
+  },
+
+  // 解析后端运动数据为前端格式
+  parseExerciseData(exerciseItems: any[]): ExerciseRecords {
+    const homeWorkout: HomeWorkoutItem[] = [];
+    const outdoorTraining: OutdoorTrainingItem[] = [];
+    const gymWorkout: GymWorkoutItem[] = [];
+
+    exerciseItems.forEach(item => {
+      // 尝试从不同可能的字段获取卡路里数据
+      let calorieValue = 0;
+      if (typeof item.calories === 'number' && item.calories > 0) {
+        calorieValue = item.calories;
+      } else if (typeof item.calorie === 'number' && item.calorie > 0) {
+        calorieValue = item.calorie;
+      } else if (typeof item.spent_time === 'number') {
+        // 如果没有直接的卡路里数据，基于时间估算
+        calorieValue = Math.round(item.spent_time * 10);
+      }
+
+      // 格式化日期
+      let formattedDate = '未知日期';
+      if (item.created_at) {
+        const dateObj = new Date(item.created_at);
+        const year = dateObj.getFullYear();
+        const month = String(dateObj.getMonth() + 1).padStart(2, '0');
+        const day = String(dateObj.getDate()).padStart(2, '0');
+        formattedDate = `${year}-${month}-${day}`;
+      }
+
+      // 创建运动记录项
+      const record = {
+        name: item.exercise_name || '未知运动',
+        detail: item.detail || '30分钟', // 可以根据实际数据调整
+        calorie: calorieValue,
+        date: formattedDate
+      };
+
+      // 根据运动类型分类
+      const type = (item.type || '').toLowerCase();
+      if (type.includes('home') || type.includes('居家')) {
+        homeWorkout.push(record);
+      } else if (type.includes('outdoor') || type.includes('户外')) {
+        outdoorTraining.push(record);
+      } else if (type.includes('gym') || type.includes('健身房')) {
+        gymWorkout.push(record);
+      } else {
+        // 默认放入居家减脂
+        homeWorkout.push(record);
       }
     });
+
+    // 限制返回最近3条记录（如果有更多）
+    return {
+      homeWorkout: homeWorkout.slice(0, 3),
+      outdoorTraining: outdoorTraining.slice(0, 3),
+      gymWorkout: gymWorkout.slice(0, 3)
+    };
   },
 
   // 解析后端食品摄入数据为前端格式

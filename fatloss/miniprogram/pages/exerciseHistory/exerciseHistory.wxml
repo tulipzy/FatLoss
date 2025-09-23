@@ -22,7 +22,7 @@
         class="record-card" 
         wx:for="{{exerciseHistoryList}}" 
         wx:key="date"
-      >
+       style="position: relative; left: 0rpx; top: -700rpx">
         <!-- 日期和总热量 -->
         <view class="card-header">
           <text class="date">{{item.date}}</text>
