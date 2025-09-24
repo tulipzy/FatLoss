@@ -424,7 +424,8 @@ Page({
               phone: '',
               calorieGoal: 1800,
               points: 0,
-              badges: 0
+              badges: 0,
+              age: 0
             })
           });
           wx.showToast({ title: '已退出登录', icon: 'success' });

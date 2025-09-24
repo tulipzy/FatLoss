@@ -1,9 +1,10 @@
+<!-- 完整修复后的 exerciseHistory.wxml 文件 -->
 <view class="container">
   <!-- 搜索栏 -->
   <view class="search-bar">
     <input 
       class="search-input" 
-      placeholder="搜索日期/运动名称/类型" 
+      placeholder="搜索日期/运动名称" 
       bindinput="onSearch" 
       value="{{searchKeyword}}"
     />
@@ -21,8 +22,7 @@
       <view 
         class="record-card" 
         wx:for="{{exerciseHistoryList}}" 
-        wx:key="date"
-       style="position: relative; left: 0rpx; top: -700rpx">
+        wx:key="date">
         <!-- 日期和总热量 -->
         <view class="card-header">
           <text class="date">{{item.date}}</text>
@@ -30,19 +30,13 @@
         </view>
 
         <!-- 具体运动记录 -->
-        <view class="exercise-items">
-          <view 
-            class="exercise-item" 
-            wx:for="{{item.records}}" 
-            wx:key="time" 
-            wx:for-item="exercise"
-          >
+        <view class="diet-items">
+          <view class="diet-item" wx:for="{{item.records}}" wx:key="{{index}}" wx:for-item="exercise">
             <view class="item-left">
-              <text class="exercise-name">{{exercise.exerciseName}}</text>
+              <text class="dish-name">{{exercise.exerciseName}}</text>
               <text class="calorie">消耗：{{exercise.calorie}} 千卡</text>
               <text class="type">类型：{{exercise.type}}</text>
             </view>
-            <text class="time">{{exercise.time}}</text>
           </view>
         </view>
       </view>

@@ -56,7 +56,7 @@
           <view class="diary-main-title">饮食日记</view>
           <view class="diary-sub-title">最近三天饮食记录</view>
         </view>
-        <view class="view-all">查看全部</view>
+        <view class="view-all" bindtap="viewAllDietRecords">查看全部</view>
       </view>
   
       <!-- 日期导航 -->
@@ -99,7 +99,7 @@
           <view class="exercise-main-title">运动记录</view>
           <view class="exercise-sub-title">最近三天运动记录</view>
         </view>
-        <view class="view-all-exercise">查看全部</view>
+        <view class="view-all-exercise" bindtap="viewAllExerciseRecords">查看全部</view>
       </view>
   
       <!-- 三列运动类型布局 -->

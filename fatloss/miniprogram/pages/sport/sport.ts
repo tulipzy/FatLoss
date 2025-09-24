@@ -984,57 +984,66 @@ Page({
    * @param spentTime 运动时间（分钟）
    */
   async addExerciseTime(exerciseName: string, spentTime: number): Promise<void> {
-      if (!exerciseName || spentTime <= 0) {
-          wx.showToast({ title: '请输入有效的运动名称和时间', icon: 'none' });
-          return;
-      }
+    if (!this.data.userID) {
+      wx.showToast({ title: '请先登录', icon: 'none' });
+      return;
+    }
+
+    wx.showLoading({ title: '记录中...' });
+
+    try {
+      // 获取当前本地时间作为记录时间
+      const now = new Date();
       
-      wx.showLoading({ title: '记录中...' });
-      
-      try {
-          const response = await this.requestAPI<AddSpentTimeResponse>('/api/add_spentTime', 'POST', {
-              id: this.data.userID,  // 使用从缓存获取的userID
-              exercise_name: exerciseName,
-              spent_time: spentTime
-          });
-          
-          if (response.status === 'success') {
-              // 获取接口返回的总卡路里数据
-              const totalCalories = response.total_calories_burned_today || '0.00';
-              
-              wx.showToast({
-                  title: `记录成功，今日已消耗${totalCalories}千卡`,
-                  icon: 'success',
-                  duration: 2000
-              });
-              
-              // 更新最近运动记录和训练数据
-              this.getRecentExercises();
-              // 从返回的总卡路里中计算本次消耗的卡路里
-              const currentTotalCalories = parseFloat(totalCalories);
-              const previousCalories = this.data.caloriesBurned;
-              const caloriesBurned = Math.max(0, currentTotalCalories - previousCalories);
-              this.updateTrainingData(spentTime, caloriesBurned);
-              
-              // 同步运动消耗数据到首页使用的缓存
-              wx.setStorageSync('exerciseCalories', currentTotalCalories);
-              
-              // 可选：发送事件通知首页更新数据
-              const app = getApp();
-              if (app.globalData?.eventBus) {
-                  app.globalData.eventBus.emit('exerciseDataChanged');
-              }
-          }
-      } catch (error) {
-          console.error('记录运动时间失败:', error);
-          wx.showToast({
-              title: error instanceof Error? error.message : '记录失败',
-              icon: 'none',
-              duration: 2000
-          });
-      } finally {
-          wx.hideLoading();
+      const response = await this.requestAPI<AddSpentTimeResponse>('/api/add_spentTime', 'POST', {
+        id: this.data.userID,  // 使用从缓存获取的userID
+        exercise_name: exerciseName,
+        spent_time: spentTime,
+        // 添加当前本地时间作为记录时间
+        record_time: now.toISOString()
+      });
+
+      if (response.status === 'success') {
+        // 添加调试信息，检查API返回的数据
+        console.log('API返回的运动记录数据:', response);
+        // 获取接口返回的总卡路里数据
+        const totalCalories = response.total_calories_burned_today || '0.00';
+
+        wx.showToast({
+          title: `记录成功，今日已消耗${totalCalories}千卡`,
+          icon: 'success',
+          duration: 2000
+        });
+
+        // 更新最近运动记录和训练数据
+        this.getRecentExercises();
+        // 从返回的总卡路里中计算本次消耗的卡路里
+        const currentTotalCalories = parseFloat(totalCalories);
+        const previousCalories = this.data.caloriesBurned;
+        const caloriesBurned = Math.max(0, currentTotalCalories - previousCalories);
+        this.updateTrainingData(spentTime, caloriesBurned);
+
+        // 同步运动消耗数据到缓存，供其他页面使用
+        wx.setStorageSync('exerciseCalories', currentTotalCalories);
+
+        // 设置一个标志，表示我的页面需要更新
+        wx.setStorageSync('needUpdateMyPage', true);
+
+        // 发送事件通知其他页面更新数据
+        if ((wx as any).eventBus) {
+          (wx as any).eventBus.emit('exerciseDataChanged');
+        }
       }
+    } catch (error) {
+      console.error('记录运动时间失败:', error);
+      wx.showToast({
+        title: error instanceof Error? error.message : '记录失败',
+        icon: 'none',
+        duration: 2000
+      });
+    } finally {
+      wx.hideLoading();
+    }
   },
   
   /**
@@ -1044,29 +1053,96 @@ Page({
       this.setData({ isLoadingRecentExercises: true });
       
       try {
+          // 首先尝试从本地缓存获取数据（5分钟内有效）
+          const cachedData = wx.getStorageSync("lastExerciseHistory");
+          if (cachedData && Date.now() - cachedData.time < 300000) { // 300000ms = 5分钟
+              console.log('使用本地缓存的运动数据（sport页面）');
+              
+              // 从缓存数据中提取所有记录
+              const allRecords: any[] = [];
+              cachedData.data.forEach((group: any) => {
+                  allRecords.push(...group.records);
+              });
+              
+              // 处理缓存数据
+              const processedExercises = allRecords.map(item => {
+                  // 从原始数据中获取完整信息
+                  const original = item.original || item;
+                   
+                  // 格式化日期
+                  const dateObj = new Date(original.created_at || item.date.replace(/[年月]/g, "-").replace("日", ""));
+                  const year = dateObj.getFullYear();
+                  const month = String(dateObj.getMonth() + 1).padStart(2, '0');
+                  const day = String(dateObj.getDate()).padStart(2, '0');
+                  const formattedDate = `${year}-${month}-${day}`;
+                   
+                  // 打印所有可能的运动名字段，查看哪个字段实际包含运动名称
+                  console.log('缓存数据中的运动名字段:', { exercise_name: original.exercise_name, name: original.name, sport_name: original.sport_name });
+                   
+                  return {
+                      ...original,
+                      date: formattedDate,
+                      time: item.time || '',
+                      calories: item.calorie,
+                      animationData: wx.createAnimation({ duration: 300, timingFunction: 'ease' }),
+                      // 显式添加运动名称
+                      exercise_name: original.exercise_name || original.name || original.sport_name || '未知运动'
+                  };
+              });
+              
+              // 按日期分组
+              const grouped = this.groupExercisesByDate(processedExercises);
+              
+              this.setData({
+                  recentExercises: processedExercises,
+                  groupedExercises: grouped
+              });
+              
+              // 添加动画效果
+              this.animateRecords();
+              this.setData({ isLoadingRecentExercises: false });
+              return;
+          }
+          
+          // 缓存不存在或已过期，调用API获取数据
           const response = await this.requestAPI<RecentExercisesResponse>(
               `/api/recent_exercises?id=${this.data.userID}`,  // 使用从缓存获取的userID
               'GET'
           );
           
           if (response.status === 'success' && response.data) {
-              // 处理API返回的数据，转换日期格式并计算卡路里
+              // 打印原始响应数据，查看created_at的实际值
+              console.log('原始API响应数据:', response.data);
+              
+              // 在处理API数据前添加
+          console.log('API返回的单个记录数据结构:', response.data[0]);
+          console.log('运动名称字段是否存在:', 'exercise_name' in response.data[0]);
+          
+          // 处理API返回的数据，转换日期格式并计算卡路里
               const processedExercises = response.data.map(item => {
+                  // 打印每个item的created_at值
+                  console.log('原始created_at值:', item.created_at);
+                  
+                  // 打印所有可能的运动名字段，查看哪个字段实际包含运动名称
+                  console.log('检查运动名字段:', { exercise_name: item.exercise_name, name: item.name, sport_name: item.sport_name });
+                       
                   // 将created_at转换为YYYY-MM-DD格式
                   const dateObj = new Date(item.created_at);
                   const year = dateObj.getFullYear();
                   const month = String(dateObj.getMonth() + 1).padStart(2, '0');
                   const day = String(dateObj.getDate()).padStart(2, '0');
                   const formattedDate = `${year}-${month}-${day}`;
-                  
+                       
                   // 计算卡路里消耗（如果API没有返回）
                   const calories = item.calories || Math.round(item.spent_time * 10);
-                  
+                       
                   return {
-                     ...item,
+                      ...item, // 修复语法错误：删除...item前面的空格
                       date: formattedDate,
                       calories: calories,
-                      animationData: wx.createAnimation({ duration: 300, timingFunction: 'ease' })
+                      animationData: wx.createAnimation({ duration: 300, timingFunction: 'ease' }),
+                      // 改进运动名称提取逻辑，确保获取用户上传的实际运动名称
+                      exercise_name: item.exercise_name || item.name || item.sport_name || '未知运动'
                   };
               });
               
@@ -1618,3 +1694,5 @@ Page({
       }
   }
 });
+
+

@@ -75,18 +75,25 @@
 </view>
 
 <!-- 近三天运动记录模块 -->
-<view class="recent-exercises-section" style="position: relative; left: 37rpx; top: 112rpx; width: 639rpx; display: block; box-sizing: border-box">
-  <view class="card-header" style="position: relative; left: 0rpx; top: 149rpx">
-    <text class="card-title" style="position: relative; left: 22rpx; top: -133rpx">近三天运动记录</text>
+<view class="recent-exercises-section" style="position: relative; left: 27rpx; top: 83rpx; width: 639rpx; display: block; box-sizing: border-box">
+  <view class="card-header flex-between">
+    <text class="card-title">近三天运动记录</text>
   </view>
   
   <view class="recent-exercises-list" wx:if="{{!isLoadingRecentExercises}}">
     <block wx:if="{{recentExercises.length > 0}}">
       <block wx:for="{{recentExercises}}" wx:key="index" wx:for-item="item">
         <view class="recent-exercise-item">
-          <text class="exercise-name">{{item.exercise_name}}</text>
-          <text class="exercise-time">{{item.spent_time}} 分钟</text>
-          <text class="exercise-date">{{item.date}}</text>
+          <view class="exercise-info">
+            <text class="exercise-name">{{item.exercise_name}}</text>
+            <text class="exercise-calories">消耗 {{item.calories}} 千卡</text>
+          </view>
+          <view class="exercise-meta">
+            <text class="exercise-time">{{item.spent_time}} 分钟</text>
+            
+            <!-- 修改后 -->
+            <text class="exercise-date">{{item.date}}</text> <!-- 只显示日期 -->
+          </view>
         </view>
       </block>
     </block>

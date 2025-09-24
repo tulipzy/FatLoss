@@ -73,7 +73,7 @@
   /* 更改前: font-size: 28rpx; color: #333333; */
   font-size: 36rpx; /* 字体变大 */
   font-weight: bold; /* 字体加粗 */
-  color:rgb(13, 13, 14); /* 更改为翡翠色 */
+  color:rgb(11, 12, 12); /* 更改为翡翠色 */
   margin-bottom: 10rpx;
 }
 
@@ -81,13 +81,13 @@
   /* 更改前: font-size: 48rpx; font-weight: bold; color: #333333; */
   font-size: 50rpx; /* 字体变大 */
   font-weight: bold; /* 保持加粗 */
-  color:rgb(7, 7, 7); /* 更改为翡翠色 */
+  color:rgb(15, 15, 15); /* 更改为翡翠色 */
 }
 
 .stat-unit {
   /* 更改前: font-size: 28rpx; color: #666666; */
   font-size: 32rpx; /* 字体变大 */
-  color:rgb(8, 8, 8); /* 更改为翡翠色 */
+  color:rgb(14, 15, 15); /* 更改为翡翠色 */
   margin-top: 5rpx;
 }
 

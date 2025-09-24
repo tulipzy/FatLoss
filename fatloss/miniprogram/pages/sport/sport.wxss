@@ -1365,60 +1365,92 @@ page {
   background-color: #1976D2;
 }
 
-/* 近三天运动记录样式 */
+/* 近三天运动记录样式优化 */
 .recent-exercises-section {
-  margin: 20rpx;
+  margin: 20rpx 30rpx;
   background-color: #fff;
-  border-radius: 10rpx;
+  border-radius: 24rpx;
   overflow: hidden;
-  box-shadow: 0 2rpx 10rpx rgba(0, 0, 0, 0.1);
+  box-shadow: 0 8rpx 24rpx rgba(0, 0, 0, 0.1);
+}
+
+.recent-exercises-section .card-header {
+  padding: 32rpx 32rpx 20rpx;
+  border-bottom: none;
 }
 
 .recent-exercises-list {
-  padding: 20rpx;
+  padding: 0 32rpx 32rpx;
 }
 
 .recent-exercise-item {
-  padding: 20rpx;
-  margin-bottom: 15rpx;
+  padding: 24rpx;
+  margin-bottom: 16rpx;
   background-color: #f8f8f8;
-  border-radius: 8rpx;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
+  border-radius: 16rpx;
+  transition: all 0.3s ease;
+  border: 1rpx solid #e0e0e0;
+}
+
+.recent-exercise-item:hover {
+  background-color: #f0f0f0;
+  transform: translateY(-2rpx);
+  box-shadow: 0 4rpx 12rpx rgba(0, 0, 0, 0.08);
 }
 
 .recent-exercise-item:last-child {
   margin-bottom: 0;
 }
 
+.exercise-info {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 12rpx;
+}
+
+.exercise-meta {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
 .exercise-name {
-  font-size: 28rpx;
+  font-size: 32rpx;
   font-weight: bold;
   color: #333;
-  flex: 2;
+  flex: 1;
+}
+
+.exercise-calories {
+  font-size: 28rpx;
+  color: #FF6B6B;
+  font-weight: bold;
+  background-color: #FFF5F5;
+  padding: 6rpx 16rpx;
+  border-radius: 16rpx;
+  white-space: nowrap;
 }
 
 .exercise-time {
   font-size: 26rpx;
   color: #666;
   flex: 1;
-  text-align: center;
 }
 
 .exercise-date {
-  font-size: 24rpx;
+  font-size: 26rpx;
   color: #999;
-  flex: 2;
+  flex: 1;
   text-align: right;
 }
 
 .empty-state,
 .loading-state {
-  padding: 40rpx;
+  padding: 60rpx 32rpx;
   text-align: center;
   color: #999;
-  font-size: 26rpx;
+  font-size: 28rpx;
 }
 
 /* 记录运动时间样式 */
